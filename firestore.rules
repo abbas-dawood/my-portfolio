@@ -12,10 +12,11 @@ service cloud.firestore {
     
     // Contact Message Validation
     function isValidContactMessage(data) {
-      return data.keys().hasAll(['name', 'email', 'message', 'createdAt']) &&
-             data.keys().size() == 4 &&
+      return data.keys().hasAll(['name', 'email', 'phone', 'message', 'createdAt']) &&
+             data.keys().size() == 5 &&
              data.name is string && data.name.size() > 0 && data.name.size() <= 100 &&
              data.email is string && data.email.size() > 0 && data.email.size() <= 150 &&
+             (data.phone == null || (data.phone is string && data.phone.size() <= 50)) &&
              data.message is string && data.message.size() > 0 && data.message.size() <= 2000 &&
              data.createdAt == request.time;
     }
