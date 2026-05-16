@@ -43,7 +43,10 @@ export default function Contact() {
       });
 
       if (!res.ok) {
-        console.error('Failed to send email via API', await res.text());
+        const errorData = await res.json();
+        console.error('Failed to send email via API:', errorData);
+        alert(`Failed to send email: ${errorData.error || 'Server Error'}\nPlease verify your Vercel Environment Variables are set.`);
+        return; // Don't show success message if it failed
       }
       
       setShowSuccess(true);
