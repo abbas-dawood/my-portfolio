@@ -7,7 +7,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { name, email, message } = req.body;
+    const { name, email, phone, message } = req.body;
 
     if (!name || !email || !message) {
       return res.status(400).json({ error: 'Missing required fields' });
@@ -26,13 +26,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
     });
 
+    const phoneText = phone ? `\nPhone: ${phone}` : '';
+
     // 1. Send notification to Abbas
     await transporter.sendMail({
       from: `"${name}" <${process.env.GMAIL_USER}>`,
       replyTo: email,
       to: "abbassaifee43@gmail.com",
       subject: `New UI Contact Message from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      text: `Name: ${name}\nEmail: ${email}${phoneText}\n\nMessage:\n${message}`,
     });
 
     // 2. Send auto-reply to the visitor

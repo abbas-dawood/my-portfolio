@@ -24,6 +24,7 @@ export default function Contact() {
         await addDoc(collection(db, 'contact_messages'), {
           name: data.name,
           email: data.email,
+          phone: data.phone || null,
           message: data.message,
           createdAt: serverTimestamp()
         });
@@ -38,6 +39,7 @@ export default function Contact() {
         body: JSON.stringify({
           name: data.name,
           email: data.email,
+          phone: data.phone,
           message: data.message
         })
       });
@@ -139,6 +141,16 @@ export default function Contact() {
                   id="email" 
                   name="email" 
                   required
+                  className="bg-black/40 border-b border-cyan-900/50 text-white font-sans px-4 py-3 outline-none focus:border-cyan-500 focus:bg-cyan-950/20 transition-all rounded-sm"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label htmlFor="phone" className="font-mono text-[10px] text-cyan-500 tracking-widest uppercase">Your Phone (Optional)</label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
                   className="bg-black/40 border-b border-cyan-900/50 text-white font-sans px-4 py-3 outline-none focus:border-cyan-500 focus:bg-cyan-950/20 transition-all rounded-sm"
                 />
               </div>
