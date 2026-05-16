@@ -1,0 +1,31 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Phase 3: Primitives
+    function incoming() { return request.resource.data; }
+    
+    // Contact Message Validation
+    function isValidContactMessage(data) {
+      return data.keys().hasAll(['name', 'email', 'message', 'createdAt']) &&
+             data.keys().size() == 4 &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 100 &&
+             data.email is string && data.email.size() > 0 && data.email.size() <= 150 &&
+             data.message is string && data.message.size() > 0 && data.message.size() <= 2000 &&
+             data.createdAt == request.time;
+    }
+
+    // Match Collection
+    match /contact_messages/{messageId} {
+      // Anyone can submit a contact message
+      // No one can read/update/delete them from the client
+      allow read, update, delete: if false;
+      allow create: if isValidContactMessage(incoming());
+    }
+  }
+}
