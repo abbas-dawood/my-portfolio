@@ -31,7 +31,7 @@ export default function About() {
         <div className="mb-16">
           <h2 className="font-space text-3xl md:text-5xl font-bold mb-4">
             <span className="text-cyan-500">01. </span>
-            More Than Just A Portfolio
+            <span className="glitch-text" data-text="More Than Just A Portfolio">More Than Just A Portfolio</span>
           </h2>
           <p className="font-mono text-sm text-cyan-400 tracking-widest uppercase">
             // Identity • Motivation • Trajectory
@@ -55,10 +55,13 @@ export default function About() {
                <div className="absolute -inset-0.5 bg-gradient-to-br from-cyan-500/0 to-cyan-500/0 group-hover:from-cyan-500/20 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur" />
                
                {/* Card Content */}
-               <div className="relative h-full p-8 bg-black/20 border border-cyan-900/50 backdrop-blur-sm overflow-hidden flex flex-col">
+               <div className="relative h-full p-8 bg-black/40 border border-cyan-500/30 rounded-sm shadow-[inset_0_0_20px_rgba(6,182,212,0.05)] hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(6,182,212,0.15),inset_0_0_30px_rgba(6,182,212,0.1)] transition-all duration-500 backdrop-blur-md overflow-hidden flex flex-col">
                  <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-colors duration-500" />
                  
-                 <div className="mb-8 p-3 bg-cyan-950/20 inline-block w-fit border border-cyan-900/50 text-slate-300 group-hover:text-cyan-400 group-hover:border-cyan-400/30 transition-colors">
+                 {/* Top edge highlight */}
+                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                 
+                 <div className="mb-8 p-3 bg-cyan-950/40 rounded-sm inline-block w-fit border border-cyan-500/30 text-slate-300 group-hover:text-cyan-400 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all">
                    <card.icon className="w-6 h-6" />
                  </div>
                  

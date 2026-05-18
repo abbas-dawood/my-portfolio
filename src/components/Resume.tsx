@@ -61,7 +61,7 @@ export default function Resume() {
           <div>
             <h2 className="font-space text-3xl md:text-5xl font-bold mb-4">
               <span className="text-cyan-500">03. </span>
-              A Snapshot Of My Journey
+              <span className="glitch-text" data-text="A Snapshot Of My Journey">A Snapshot Of My Journey</span>
             </h2>
             <p className="font-mono text-sm text-cyan-400 tracking-widest uppercase">
               // Timeline • Milestones • Education
@@ -90,31 +90,42 @@ export default function Resume() {
             </h3>
             
             {experiences.map((exp, index) => (
-              <motion.div 
-                key={exp.id}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                onMouseEnter={playHoverSound}
-                onClick={playClickSound}
-                className="relative group hover:bg-cyan-950/10 p-4 -ml-4 rounded-sm transition-colors cursor-pointer"
-              >
-                <div className="absolute -left-6 md:-left-24 top-2 w-[10px] h-[2px] bg-cyan-800 group-hover:bg-cyan-400 transition-colors" />
-                
-                <p className="font-mono text-xs text-cyan-500 mb-2">{exp.date}</p>
-                <h4 className="font-space text-xl font-bold text-white mb-1">{exp.role}</h4>
-                <p className="font-sans text-sm text-gray-400 mb-4">{exp.org}</p>
-                
-                <ul className="space-y-2">
-                  {exp.points.map((point, i) => (
-                    <li key={i} className="font-sans text-sm text-gray-400/80 font-light flex items-start gap-2">
-                      <span className="text-cyan-900 mt-1">▸</span>
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
+              <div key={exp.id} className="relative">
+                {/* Timeline connector dot and line */}
+                <div className="absolute -left-8 md:-left-[8.5rem] top-10 w-2 h-2 rounded-full border border-cyan-500 bg-[#020617] z-10 group-hover:bg-cyan-400 transition-colors" />
+                <div className="absolute -left-6 md:-left-[8rem] top-10 w-6 md:w-[8rem] h-[1px] bg-cyan-900/50 group-hover:bg-cyan-500/50 transition-colors" />
+
+                <motion.div 
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  onMouseEnter={playHoverSound}
+                  onClick={playClickSound}
+                  className="relative group p-6 sm:p-8 mb-12 bg-[#0B1121] border border-cyan-500/30 rounded-sm shadow-[inset_0_0_20px_rgba(6,182,212,0.05)] hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(6,182,212,0.15),inset_0_0_30px_rgba(6,182,212,0.1)] transition-all duration-500 overflow-hidden cursor-pointer"
+                >
+                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                  
+                  <div className="relative z-20">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 border-b border-cyan-900/30 pb-4">
+                      <div>
+                        <h4 className="font-space text-lg sm:text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">{exp.role}</h4>
+                        <p className="font-sans text-xs sm:text-sm text-gray-500 tracking-wider uppercase mt-1">{exp.org}</p>
+                      </div>
+                      <p className="font-mono text-xs text-cyan-500 bg-cyan-950/30 px-3 py-1 rounded-sm border border-cyan-900/50 w-fit">{exp.date}</p>
+                    </div>
+                    
+                    <ul className="space-y-3">
+                      {exp.points.map((point, i) => (
+                        <li key={i} className="font-sans text-sm text-gray-400/80 font-light flex items-start gap-3">
+                          <span className="text-cyan-500/50 mt-1 text-[10px]">▹</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              </div>
             ))}
           </div>
 
@@ -126,31 +137,42 @@ export default function Resume() {
             </h3>
             
             {education.map((edu, index) => (
-              <motion.div 
-                key={edu.id}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                onMouseEnter={playHoverSound}
-                onClick={playClickSound}
-                className="relative group hover:bg-cyan-950/10 p-4 -ml-4 rounded-sm transition-colors cursor-pointer"
-              >
-                <div className="absolute -left-6 md:-left-12 top-2 w-[10px] h-[2px] bg-cyan-800 group-hover:bg-cyan-400 transition-colors hidden md:block" />
-                
-                <p className="font-mono text-xs text-cyan-500 mb-2">{edu.date}</p>
-                <h4 className="font-space text-xl font-bold text-white mb-1">{edu.role}</h4>
-                <p className="font-sans text-sm text-gray-400 mb-4">{edu.org}</p>
-                
-                <ul className="space-y-2">
-                  {edu.points.map((point, i) => (
-                    <li key={i} className="font-sans text-sm text-gray-400/80 font-light flex items-start gap-2">
-                      <span className="text-cyan-900 mt-1">▸</span>
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
+              <div key={edu.id} className="relative">
+                {/* Timeline connector dot and line */}
+                <div className="absolute -left-8 md:-left-[4.5rem] top-10 w-2 h-2 rounded-full border border-cyan-500 bg-[#020617] z-10 group-hover:bg-cyan-400 transition-colors hidden md:block" />
+                <div className="absolute -left-6 md:-left-[4rem] top-10 w-6 md:w-[4rem] h-[1px] bg-cyan-900/50 group-hover:bg-cyan-500/50 transition-colors hidden md:block" />
+
+                <motion.div 
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  onMouseEnter={playHoverSound}
+                  onClick={playClickSound}
+                  className="relative group p-6 sm:p-8 mb-12 bg-[#0B1121] border border-cyan-500/30 rounded-sm shadow-[inset_0_0_20px_rgba(6,182,212,0.05)] hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(6,182,212,0.15),inset_0_0_30px_rgba(6,182,212,0.1)] transition-all duration-500 overflow-hidden cursor-pointer"
+                >
+                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                  
+                  <div className="relative z-20">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 border-b border-cyan-900/30 pb-4">
+                      <div>
+                        <h4 className="font-space text-lg sm:text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">{edu.role}</h4>
+                        <p className="font-sans text-xs sm:text-sm text-gray-500 tracking-wider uppercase mt-1">{edu.org}</p>
+                      </div>
+                      <p className="font-mono text-xs text-cyan-500 bg-cyan-950/30 px-3 py-1 rounded-sm border border-cyan-900/50 w-fit">{edu.date}</p>
+                    </div>
+                    
+                    <ul className="space-y-3">
+                      {edu.points.map((point, i) => (
+                        <li key={i} className="font-sans text-sm text-gray-400/80 font-light flex items-start gap-3">
+                          <span className="text-cyan-500/50 mt-1 text-[10px]">▹</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              </div>
             ))}
           </div>
 

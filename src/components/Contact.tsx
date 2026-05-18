@@ -79,7 +79,7 @@ export default function Contact() {
           <div>
             <h2 className="font-space text-3xl md:text-5xl font-bold mb-4">
               <span className="text-cyan-500">04. </span>
-              Get In Touch
+              <span className="glitch-text" data-text="Get In Touch">Get In Touch</span>
             </h2>
             <p className="font-mono text-sm text-cyan-400 tracking-widest uppercase">
               // Secure Channel • Open For Opportunities
@@ -118,7 +118,8 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="absolute inset-0 bg-[#0B1121] border border-cyan-900/30 rounded-sm" />
+            <div className="absolute inset-0 bg-[#0B1121] border border-cyan-500/30 rounded-sm shadow-[0_0_15px_rgba(6,182,212,0.1),inset_0_0_20px_rgba(6,182,212,0.05)] transition-all duration-500" />
+            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"></div>
             
             <form onSubmit={handleSubmit} className="relative p-8 flex flex-col gap-6">
               <input type="text" name="hidden" className="hidden" /> {/* Honeypot for spam */}
@@ -193,10 +194,12 @@ export default function Contact() {
                 onClick={link.href ? playClickSound : undefined}
                 onMouseEnter={playHoverSound}
                 className={cn(
-                  "flex items-center gap-6 p-6 bg-[#0B1121] border border-cyan-900/30 rounded-sm group transition-all",
-                  link.href && "hover:border-amber-500/50 cursor-pointer"
+                  "flex items-center gap-6 p-6 bg-[#0B1121] border border-cyan-500/30 shadow-[inset_0_0_20px_rgba(6,182,212,0.05)] rounded-sm overflow-hidden relative group transition-all duration-500",
+                  link.href && "hover:border-amber-500/60 hover:shadow-[0_0_20px_rgba(245,158,11,0.2),inset_0_0_30px_rgba(245,158,11,0.1)] cursor-pointer"
                 )}
               >
+                {/* Top highlight */}
+                {link.href && <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-amber-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />}
                 <div className="w-14 h-14 rounded-full bg-amber-500 flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform">
                   {link.icon}
                 </div>

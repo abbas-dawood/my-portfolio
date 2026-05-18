@@ -34,7 +34,8 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="font-space text-5xl md:text-7xl font-bold leading-tight mb-6"
           >
-            Abbas <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500">Dawood</span>
+            <span className="glitch-text inline-block mr-4" data-text="Abbas">Abbas</span> 
+            <span className="glitch-text inline-block text-gray-300" data-text="Dawood">Dawood</span>
           </motion.h1>
 
           <motion.p 

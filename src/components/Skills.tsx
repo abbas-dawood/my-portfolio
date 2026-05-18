@@ -31,7 +31,7 @@ export default function Skills() {
           <div>
             <h2 className="font-space text-3xl md:text-5xl font-bold mb-4">
               <span className="text-cyan-500">02. </span>
-              Skills & Expertise
+              <span className="glitch-text" data-text="Skills & Expertise">Skills & Expertise</span>
             </h2>
             <p className="font-mono text-sm text-cyan-400 tracking-widest uppercase flex items-center gap-2">
               <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
@@ -63,8 +63,11 @@ export default function Skills() {
                whileHover={{ y: -5 }}
                onClick={playClickSound}
                onMouseEnter={playHoverSound}
-               className="group relative p-8 bg-[#0B1121] border border-cyan-900/30 hover:border-cyan-500/40 transition-all rounded-sm overflow-hidden"
+               className="group relative p-8 bg-[#0B1121] border border-cyan-500/30 rounded-sm shadow-[inset_0_0_20px_rgba(6,182,212,0.05)] hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(6,182,212,0.15),inset_0_0_30px_rgba(6,182,212,0.1)] transition-all duration-500 overflow-hidden"
              >
+               {/* Top edge highlight */}
+               <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+               
                {/* Internal scanning line */}
                <motion.div 
                  className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent z-0 blur-[1px]"
