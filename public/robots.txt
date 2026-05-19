@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://abbasdawood.com/sitemap.xml
+Sitemap: https://abbasdawood.vercel.app/sitemap.xml
