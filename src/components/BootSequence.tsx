@@ -1,15 +1,18 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { cn } from '../utils/cn';
+import { playBootSound, playClickSound } from '../utils/sound';
 
 interface BootSequenceProps {
   onComplete: () => void;
 }
 
 export default function BootSequence({ onComplete }: BootSequenceProps) {
+  const [hasStarted, setHasStarted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);
+  const hasPlayedSound = useRef(false);
   
   const bootLogs = [
     "INITIALIZING AVIONICS...",
@@ -21,7 +24,18 @@ export default function BootSequence({ onComplete }: BootSequenceProps) {
     "ALTITUDE SYSTEM READY."
   ];
 
+  const startBootProcess = () => {
+    setHasStarted(true);
+    if (!hasPlayedSound.current) {
+      playClickSound();
+      playBootSound();
+      hasPlayedSound.current = true;
+    }
+  };
+
   useEffect(() => {
+    if (!hasStarted) return;
+
     let currentProgress = 0;
     const interval = setInterval(() => {
       currentProgress += Math.random() * 8;
@@ -41,7 +55,7 @@ export default function BootSequence({ onComplete }: BootSequenceProps) {
     }, 120);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [hasStarted, onComplete]);
 
   return (
     <AnimatePresence>
@@ -51,16 +65,29 @@ export default function BootSequence({ onComplete }: BootSequenceProps) {
           exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
           transition={{ duration: 1.2, ease: "easeInOut" }}
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#020617] text-cyan-500 font-mono overflow-hidden"
+          onClick={!hasStarted ? startBootProcess : undefined}
         >
           {/* Subtle grid background */}
           <div className="absolute inset-0 bg-grid-cyan opacity-20" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-[#020617]" />
 
+          {!hasStarted && (
+            <div className="absolute inset-0 z-50 flex items-center justify-center cursor-pointer bg-black/40 backdrop-blur-sm">
+              <motion.div 
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="text-cyan-400 tracking-[0.3em] text-sm md:text-base border border-cyan-500/50 px-8 py-4 rounded-sm bg-[#020617]/80"
+              >
+                [ TAP ANYWHERE TO INITIALIZE SYSTEM ]
+              </motion.div>
+            </div>
+          )}
+
           <div className="relative z-10 w-full max-w-2xl px-6 flex flex-col items-center">
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-2xl md:text-4xl font-bold tracking-[0.2em] mb-12 text-center"
+              className="text-2xl md:text-4xl font-bold tracking-[0.2em] mb-12 text-center mt-20"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             >
               ABBAS ALTITUDE SYSTEM BOOT
