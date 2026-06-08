@@ -6,13 +6,12 @@ import { LayoutDashboard, Users, BarChart2, FileText, Briefcase, FileBadge, Sett
 import { motion } from 'motion/react';
 
 const NAV_ITEMS = [
-  { icon: LayoutDashboard, label: 'COMMAND CENTER', path: '/admin' },
-  { icon: Users, label: 'CONTACTS', path: '/admin/contacts' },
-  { icon: BarChart2, label: 'ANALYTICS', path: '/admin/analytics' },
-  { icon: FileText, label: 'CONTENT', path: '/admin/content' },
-  { icon: Briefcase, label: 'PROJECTS', path: '/admin/projects' },
-  { icon: FileBadge, label: 'RESUME', path: '/admin/resume' },
-  { icon: Settings, label: 'SETTINGS', path: '/admin/settings' },
+  { icon: LayoutDashboard, label: 'Dashboard', path: '/admin' },
+  { icon: Users, label: 'Messages', path: '/admin/contacts' },
+  { icon: FileText, label: 'Content', path: '/admin/content' },
+  { icon: Briefcase, label: 'Projects', path: '/admin/projects' },
+  { icon: FileBadge, label: 'Resume', path: '/admin/resume' },
+  { icon: Settings, label: 'Settings', path: '/admin/settings' },
 ];
 
 export default function AdminLayout() {
@@ -28,21 +27,12 @@ export default function AdminLayout() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#020617] text-slate-300 font-mono flex flex-col md:flex-row overflow-hidden relative selection:bg-cyan-500/30 selection:text-cyan-200">
-      {/* Background Ambience */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03]" 
-        style={{ backgroundImage: 'repeating-linear-gradient(0deg, #06b6d4 0px, transparent 1px, transparent 2px)', backgroundSize: '100% 3px' }}
-      />
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(6,182,212,0.1),rgba(2,6,23,0))] pointer-events-none" />
-
+    <div className="min-h-screen w-full bg-slate-50 text-slate-900 font-sans flex flex-col md:flex-row overflow-hidden relative">
       {/* Sidebar Navigation */}
-      <nav className="w-full md:w-64 border-b md:border-r border-slate-800 bg-slate-900/50 backdrop-blur-xl shrink-0 flex flex-col pt-6 z-10">
-        <div className="px-6 pb-6 border-b border-slate-800">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
-            <span className="text-xs tracking-widest text-cyan-500 font-bold">SYSTEM ONLINE</span>
-          </div>
-          <h1 className="text-xl font-bold tracking-tight text-white uppercase">NEXUS ADMIN</h1>
+      <nav className="w-full md:w-64 border-b md:border-r border-slate-200 bg-white shrink-0 flex flex-col pt-6 z-10">
+        <div className="px-6 pb-6 border-b border-slate-200">
+          <h1 className="text-xl font-bold tracking-tight text-slate-800">Admin Portal</h1>
+          <p className="text-xs text-slate-500 mt-1">Manage your portfolio</p>
         </div>
         
         <div className="flex-1 py-4 overflow-y-auto px-3 space-y-1">
@@ -52,10 +42,10 @@ export default function AdminLayout() {
               to={item.path}
               end={item.path === '/admin'}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-lg text-sm tracking-widest border border-transparent transition-all duration-300 ${
+                `flex items-center gap-3 px-4 py-2.5 rounded-md text-sm font-medium transition-colors ${
                   isActive 
-                    ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30 shadow-[inset_0_0_12px_rgba(6,182,212,0.1)]' 
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    ? 'bg-blue-50 text-blue-700' 
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`
               }
             >
@@ -65,29 +55,23 @@ export default function AdminLayout() {
           ))}
         </div>
 
-        <div className="p-4 border-t border-slate-800">
+        <div className="p-4 border-t border-slate-200">
           <button 
             onClick={handleLogout}
-            className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm tracking-widest text-rose-400 hover:text-white hover:bg-rose-500/10 hover:border-rose-500/30 border border-transparent transition-all duration-300"
+            className="flex items-center gap-3 w-full px-4 py-2.5 rounded-md text-sm font-medium text-rose-600 hover:bg-rose-50 transition-colors"
           >
             <LogOut className="w-4 h-4" />
-            DISCONNECT
+            Sign Out
           </button>
         </div>
       </nav>
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-x-hidden overflow-y-auto relative z-10 bg-slate-900/20 backdrop-blur-3xl">
-        <div className="p-4 md:p-8 max-w-7xl mx-auto min-h-full">
+      <main className="flex-1 overflow-x-hidden overflow-y-auto relative z-10 bg-slate-50">
+        <div className="p-6 md:p-10 max-w-7xl mx-auto min-h-full">
             <Outlet />
         </div>
       </main>
-
-      {/* Corner Accents */}
-      <div className="fixed top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-cyan-500/30 m-4 md:m-6 pointer-events-none z-[100]" />
-      <div className="fixed top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-cyan-500/30 m-4 md:m-6 pointer-events-none z-[100]" />
-      <div className="fixed bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-cyan-500/30 m-4 md:m-6 pointer-events-none z-[100]" />
-      <div className="fixed bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-cyan-500/30 m-4 md:m-6 pointer-events-none z-[100]" />
     </div>
   );
 }

@@ -8,13 +8,23 @@ import { db } from '../firebase';
 
 export default function About() {
   const [aboutMeText, setAboutMeText] = useState("I am a motivated student pursuing senior secondary education in Science (PCM) with a profound interest in technology, innovation, and aviation. I thrive on self-learning, experimentation, and research.");
+  const [myDirection, setMyDirection] = useState("While actively exploring web technologies (HTML, CSS, JavaScript, React) and Python, I am simultaneously pursuing my dream of becoming a Commercial Pilot. I believe in blending technical acumen with strict discipline.");
+  const [futureVision, setFutureVision] = useState("I am passionate about emerging systems, startup ecosystems, and 'Make-in-India' innovation. Through leadership in MUN and hands-on projects, I am building the analytical foundation needed to create meaningful impact.");
 
   useEffect(() => {
     const fetchAbout = async () => {
       try {
         const docAbout = await getDoc(doc(db, 'settings', 'ABOUT_ME'));
+        const docDirection = await getDoc(doc(db, 'settings', 'MY_DIRECTION'));
+        const docVision = await getDoc(doc(db, 'settings', 'FUTURE_VISION'));
         if (docAbout.exists() && docAbout.data().value) {
           setAboutMeText(docAbout.data().value);
+        }
+        if (docDirection.exists() && docDirection.data().value) {
+          setMyDirection(docDirection.data().value);
+        }
+        if (docVision.exists() && docVision.data().value) {
+          setFutureVision(docVision.data().value);
         }
       } catch (e) {
         console.error(e);
@@ -32,12 +42,12 @@ export default function About() {
     {
       title: "My Direction",
       icon: Compass,
-      content: "While actively exploring web technologies (HTML, CSS, JavaScript, React) and Python, I am simultaneously pursuing my dream of becoming a Commercial Pilot. I believe in blending technical acumen with strict discipline."
+      content: myDirection
     },
     {
       title: "Future Vision",
       icon: Eye,
-      content: "I am passionate about emerging systems, startup ecosystems, and 'Make-in-India' innovation. Through leadership in MUN and hands-on projects, I am building the analytical foundation needed to create meaningful impact."
+      content: futureVision
     }
   ];
 
@@ -68,7 +78,7 @@ export default function About() {
                whileHover={{ y: -5 }}
                onMouseEnter={playHoverSound}
                onClick={playClickSound}
-               className="group relative cursor-pointer"
+               className="group relative cursor-pointer block h-full"
              >
                {/* Hover Glow Background */}
                <div className="absolute -inset-0.5 bg-gradient-to-br from-cyan-500/0 to-cyan-500/0 group-hover:from-cyan-500/20 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur" />
@@ -80,18 +90,18 @@ export default function About() {
                  {/* Top edge highlight */}
                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                  
-                 <div className="mb-8 p-3 bg-cyan-950/40 rounded-sm inline-block w-fit border border-cyan-500/30 text-slate-300 group-hover:text-cyan-400 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all">
+                 <div className="mb-8 p-3 bg-cyan-950/40 rounded-sm inline-block w-fit border border-cyan-500/30 text-slate-300 group-hover:text-cyan-400 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all flex-shrink-0">
                    <card.icon className="w-6 h-6" />
                  </div>
                  
-                 <h3 className="font-space text-xl font-medium mb-4 text-white">{card.title}</h3>
+                 <h3 className="font-space text-xl font-medium mb-4 text-white flex-shrink-0">{card.title}</h3>
                  
-                 <p className="font-sans text-sm text-gray-400 leading-relaxed font-light grow whitespace-pre-wrap">
+                 <p className="font-sans text-sm text-gray-400 leading-relaxed font-light grow whitespace-pre-wrap h-full flex-grow">
                    {card.content}
                  </p>
                  
                  {/* Decorative HUD element at bottom */}
-                 <div className="w-full h-[1px] bg-cyan-900/50 mt-8 relative overflow-hidden">
+                 <div className="w-full h-[1px] bg-cyan-900/50 mt-8 relative overflow-hidden flex-shrink-0">
                    <motion.div 
                      className="absolute top-0 left-0 h-full bg-cyan-500 w-1/3"
                      initial={{ x: '-100%' }}

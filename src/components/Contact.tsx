@@ -21,15 +21,18 @@ export default function Contact() {
     try {
       // 1. Save to Firestore
       try {
-        await addDoc(collection(db, 'contacts'), {
+        const contactData: any = {
           name: data.name,
           email: data.email,
-          phone: data.phone || null,
           subject: 'Form Submission',
           body: data.message,
           read: false,
           createdAt: serverTimestamp()
-        });
+        };
+        if (data.phone) {
+          contactData.phone = data.phone;
+        }
+        await addDoc(collection(db, 'contacts'), contactData);
       } catch (err: any) {
         handleFirestoreError(err, OperationType.CREATE, 'contacts');
       }

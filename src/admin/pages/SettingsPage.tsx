@@ -53,7 +53,7 @@ export default function SettingsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm("DELETE ROOT SETTING? THIS MAY CAUSE SYSTEM INSTABILITY.")) {
+    if (window.confirm("Are you sure you want to delete this setting?")) {
       try {
         await deleteDoc(doc(db, 'settings', id));
       } catch (e) {
@@ -65,29 +65,26 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <header className="mb-8">
-        <h1 className="text-2xl font-bold tracking-widest text-white uppercase flex items-center gap-3">
-          <Settings className="w-6 h-6 text-cyan-500" />
-          System Configuration
-        </h1>
-        <p className="text-sm text-slate-400 font-mono tracking-wider mt-2">GLOBAL KEY-VALUE PAIR REGISTRY.</p>
+        <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
+        <p className="text-sm text-slate-500 mt-1">Manage global environment variables.</p>
       </header>
 
       {loading ? (
-         <div className="p-12 flex justify-center items-center text-cyan-500">
+         <div className="p-12 flex justify-center items-center text-blue-500">
            <Loader2 className="w-8 h-8 animate-spin" />
          </div>
       ) : (
         <div className="space-y-8">
-          <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-6">
-            <h2 className="text-sm tracking-widest text-slate-400 uppercase mb-6">Current Variables</h2>
+          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+            <h2 className="text-sm font-semibold text-slate-900 mb-6">Current Variables</h2>
             {settings.length === 0 ? (
-              <p className="text-xs text-slate-500 font-mono tracking-widest uppercase">No configuration variables defined.</p>
+              <p className="text-sm text-slate-500">No configuration variables defined.</p>
             ) : (
               <div className="space-y-4">
                 {settings.map(setting => (
-                  <div key={setting.id} className="flex flex-col md:flex-row md:items-center gap-4 p-4 bg-slate-950/50 border border-slate-800 rounded-lg group">
+                  <div key={setting.id} className="flex flex-col md:flex-row md:items-center gap-4 p-4 border border-slate-200 rounded-lg group">
                     <div className="md:w-1/3">
-                      <span className="text-sm font-mono text-cyan-400">{setting.id}</span>
+                      <span className="text-sm font-mono text-slate-700">{setting.id}</span>
                     </div>
                     <div className="flex-1 flex gap-2">
                       <input 
@@ -102,50 +99,50 @@ export default function SettingsPage() {
                           }
                         }}
                         onBlur={() => handleUpdate(setting.id, setting.value)}
-                        className="flex-1 bg-slate-900/40 border border-slate-700 focus:border-cyan-500 rounded px-3 py-2 text-sm text-white outline-none transition-colors"
+                        className="flex-1 bg-white border border-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-md px-3 py-2 text-sm text-slate-900 outline-none transition-colors"
                       />
-                      <button onClick={() => handleDelete(setting.id)} className="p-2 text-slate-500 hover:text-red-400 transition-colors">
+                      <button onClick={() => handleDelete(setting.id)} className="p-2 text-slate-400 hover:text-rose-600 transition-colors">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
                 ))}
-                <p className="text-[10px] text-slate-500 tracking-widest mt-4">CHANGES AUTOSAVE ON BLUR</p>
+                <p className="text-xs text-slate-500 mt-4">Changes save automatically when you click outside the input field.</p>
               </div>
             )}
           </div>
 
-          <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-6">
-             <h2 className="text-sm tracking-widest text-cyan-500 uppercase mb-6">Inject New Variable</h2>
+          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+             <h2 className="text-sm font-semibold text-slate-900 mb-6">Add New Variable</h2>
              <form onSubmit={handleAdd} className="flex flex-col md:flex-row gap-4 items-start md:items-end">
                <div className="flex-1 w-full">
-                 <label className="block text-xs uppercase tracking-widest text-slate-500 mb-2">Key</label>
+                 <label className="block text-xs font-semibold text-slate-700 mb-2">Key</label>
                  <input 
                     required 
                     type="text" 
                     value={newKey}
                     onChange={(e) => setNewKey(e.target.value)}
                     placeholder="e.g. PORTFOLIO_THEME"
-                    className="w-full bg-slate-950/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-500" 
+                    className="w-full bg-white border border-slate-300 rounded-md px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500" 
                  />
                </div>
                <div className="flex-1 w-full">
-                 <label className="block text-xs uppercase tracking-widest text-slate-500 mb-2">Value</label>
+                 <label className="block text-xs font-semibold text-slate-700 mb-2">Value</label>
                  <input 
                     required 
                     type="text" 
                     value={newValue}
                     onChange={(e) => setNewValue(e.target.value)}
                     placeholder="e.g. dark"
-                    className="w-full bg-slate-950/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-500" 
+                    className="w-full bg-white border border-slate-300 rounded-md px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500" 
                  />
                </div>
                <button 
                   type="submit" 
                   disabled={saving}
-                  className="w-full md:w-auto px-6 py-2 bg-cyan-500 text-slate-950 font-bold tracking-widest text-sm rounded-lg hover:bg-cyan-400 transition-colors disabled:opacity-50"
+                  className="w-full md:w-auto px-6 py-2.5 bg-blue-600 text-white font-medium text-sm rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
                >
-                 {saving ? 'INJECTING...' : 'INJECT'}
+                 {saving ? 'Adding...' : 'Add Variable'}
                </button>
              </form>
           </div>

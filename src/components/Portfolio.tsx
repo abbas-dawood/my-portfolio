@@ -7,7 +7,6 @@ import HUDOverlay from './HUDOverlay';
 import Hero from './Hero';
 import About from './About';
 import Skills from './Skills';
-import Projects from './Projects';
 import Resume from './Resume';
 import Contact from './Contact';
 import Footer from './Footer';
@@ -18,7 +17,7 @@ export default function Portfolio() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'projects', 'resume', 'contact'];
+      const sections = ['home', 'about', 'skills', 'resume', 'contact'];
       const scrollPosition = window.scrollY + window.innerHeight / 3;
 
       for (const section of sections) {
@@ -52,7 +51,6 @@ export default function Portfolio() {
           <main className="relative z-10 w-full overflow-hidden">
             <Hero />
             <About />
-            <Projects />
             <Skills />
             <Resume />
             <Contact />

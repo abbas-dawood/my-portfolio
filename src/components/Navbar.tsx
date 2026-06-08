@@ -10,7 +10,7 @@ interface NavbarProps {
 
 export default function Navbar({ activeSection }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navItems = ['Home', 'About', 'Projects', 'Skills', 'Resume', 'Contact'];
+  const navItems = ['Home', 'About', 'Skills', 'Resume', 'Contact'];
 
   const handleScroll = (id: string) => {
     playClickSound();
