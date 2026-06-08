@@ -1,32 +1,81 @@
 rules_version = '2';
-
 service cloud.firestore {
   match /databases/{database}/documents {
-    // 0. Global Safety Net
-    match /{document=**} {
-      allow read, write: if false;
+    match /{document=**} { 
+      allow read, write: if false; 
     }
 
-    // Phase 3: Primitives
+    function isSignedIn() { return request.auth != null; }
+
+    function isValidId(id) { 
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); 
+    }
+
     function incoming() { return request.resource.data; }
-    
-    // Contact Message Validation
-    function isValidContactMessage(data) {
-      return data.keys().hasAll(['name', 'email', 'phone', 'message', 'createdAt']) &&
-             data.keys().size() == 5 &&
-             data.name is string && data.name.size() > 0 && data.name.size() <= 100 &&
-             data.email is string && data.email.size() > 0 && data.email.size() <= 150 &&
-             (data.phone == null || (data.phone is string && data.phone.size() <= 50)) &&
-             data.message is string && data.message.size() > 0 && data.message.size() <= 2000 &&
-             data.createdAt == request.time;
+    function existing() { return resource.data; }
+
+    function isValidContact(data) {
+      return data.keys().hasAll(['name', 'email', 'body', 'createdAt']) && 
+             data.name is string && data.name.size() <= 100 &&
+             data.email is string && data.email.size() <= 100 &&
+             data.body is string && data.body.size() <= 2000 &&
+             data.createdAt is timestamp &&
+             (data.keys().hasAny(['subject']) ? data.subject is string && data.subject.size() <= 200 : true) &&
+             (data.keys().hasAny(['read']) ? data.read is bool : true);
     }
 
-    // Match Collection
-    match /contact_messages/{messageId} {
-      // Anyone can submit a contact message
-      // No one can read/update/delete them from the client
-      allow read, update, delete: if false;
-      allow create: if isValidContactMessage(incoming());
+    match /contacts/{contactId} {
+      allow read: if isSignedIn();
+      allow create: if isValidId(contactId) && isValidContact(incoming()) && incoming().createdAt == request.time;
+      allow update: if isSignedIn() && isValidContact(incoming()) && incoming().createdAt == existing().createdAt &&
+        incoming().diff(existing()).affectedKeys().hasOnly(['read']);
+      allow delete: if isSignedIn();
+    }
+
+    function isValidProject(data) {
+      return data.keys().hasAll(['title', 'description']) && 
+             data.title is string && data.title.size() <= 100 &&
+             data.description is string && data.description.size() <= 5000 &&
+             (data.keys().hasAny(['imageUrl']) ? data.imageUrl is string && data.imageUrl.size() <= 1000 : true) &&
+             (data.keys().hasAny(['liveUrl']) ? data.liveUrl is string && data.liveUrl.size() <= 1000 : true) &&
+             (data.keys().hasAny(['githubUrl']) ? data.githubUrl is string && data.githubUrl.size() <= 1000 : true) &&
+             (data.keys().hasAny(['techStack']) ? data.techStack is list && data.techStack.size() <= 50 && (data.techStack.size() == 0 || data.techStack[0] is string) : true) &&
+             (data.keys().hasAny(['order']) ? data.order is number : true) &&
+             (data.keys().hasAny(['createdAt']) ? data.createdAt is timestamp : true);
+    }
+
+    match /projects/{projectId} {
+      allow read: if true;
+      allow create: if isSignedIn() && isValidId(projectId) && isValidProject(incoming());
+      allow update: if isSignedIn() && isValidProject(incoming());
+      allow delete: if isSignedIn();
+    }
+
+    function isValidSetting(data) {
+       return data.keys().hasAll(['key', 'value']) &&
+              data.key is string && data.key.size() <= 100 &&
+              data.value is string && data.value.size() <= 2000;
+    }
+
+    match /settings/{settingId} {
+      allow read: if true;
+      allow create: if isSignedIn() && isValidId(settingId) && isValidSetting(incoming());
+      allow update: if isSignedIn() && isValidSetting(incoming());
+      allow delete: if isSignedIn();
+    }
+
+    function isValidAnalytic(data) {
+      return data.keys().hasAll(['type', 'timestamp']) &&
+             data.type is string && data.type.size() <= 50 &&
+             data.timestamp is timestamp &&
+             (data.keys().hasAny(['userAgent']) ? data.userAgent is string && data.userAgent.size() <= 500 : true) &&
+             (data.keys().hasAny(['country']) ? data.country is string && data.country.size() <= 100 : true);
+    }
+
+    match /analytics/{analyticId} {
+      allow read: if isSignedIn();
+      allow create: if isValidId(analyticId) && isValidAnalytic(incoming()) && incoming().timestamp == request.time;
+      allow delete: if isSignedIn();
     }
   }
 }

@@ -1,23 +1,74 @@
 {
   "entities": {
-    "ContactMessage": {
+    "Contact": {
       "title": "Contact Message",
-      "description": "A message submitted through the contact form.",
+      "description": "Represents a message sent via the contact form",
       "type": "object",
       "properties": {
-        "name": { "type": "string", "maxLength": 100 },
-        "email": { "type": "string", "maxLength": 150 },
-        "phone": { "type": "string", "maxLength": 50, "nullable": true },
-        "message": { "type": "string", "maxLength": 2000 },
-        "createdAt": { "type": "timestamp" }
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "subject": { "type": "string" },
+        "body": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
       },
-      "required": ["name", "email", "message", "createdAt"]
+      "required": ["name", "email", "body", "createdAt"]
+    },
+    "Project": {
+      "title": "Portfolio Project",
+      "description": "Represents a project in the portfolio",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "techStack": { "type": "array", "items": { "type": "string" } },
+        "liveUrl": { "type": "string" },
+        "githubUrl": { "type": "string" },
+        "order": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "description"]
+    },
+    "Setting": {
+      "title": "Global Setting",
+      "description": "Global Settings for the portfolio",
+      "type": "object",
+      "properties": {
+        "key": { "type": "string" },
+        "value": { "type": "string" }
+      },
+      "required": ["key", "value"]
+    },
+    "Analytic": {
+      "title": "Analytics Event",
+      "description": "Records site analytics and views",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["page_view", "resume_download", "contact_submit"] },
+        "userAgent": { "type": "string" },
+        "country": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "timestamp"]
     }
   },
   "firestore": {
-    "contact_messages/{messageId}": {
-      "schema": { "$ref": "#/entities/ContactMessage" },
-      "description": "Messages from the contact form."
+    "/contacts/{contactId}": {
+      "schema": { "$ref": "#/entities/Contact" },
+      "description": "Stores contact form submissions"
+    },
+    "/projects/{projectId}": {
+      "schema": { "$ref": "#/entities/Project" },
+      "description": "Stores portfolio projects"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/Setting" },
+      "description": "Stores system settings"
+    },
+    "/analytics/{analyticId}": {
+      "schema": { "$ref": "#/entities/Analytic" },
+      "description": "Stores analytics events"
     }
   }
 }
