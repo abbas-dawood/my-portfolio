@@ -34,8 +34,8 @@ function AdminApp() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+        <Route path="login" element={<AdminLogin />} />
+        <Route path="/" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route index element={<DashboardHome />} />
           <Route path="contacts" element={<ContactManagement />} />
           <Route path="analytics" element={<AnalyticsPage />} />
