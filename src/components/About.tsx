@@ -1,14 +1,33 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { User, Compass, Eye } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { playHoverSound, playClickSound } from '../utils/sound';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function About() {
+  const [aboutMeText, setAboutMeText] = useState("I am a motivated student pursuing senior secondary education in Science (PCM) with a profound interest in technology, innovation, and aviation. I thrive on self-learning, experimentation, and research.");
+
+  useEffect(() => {
+    const fetchAbout = async () => {
+      try {
+        const docAbout = await getDoc(doc(db, 'settings', 'ABOUT_ME'));
+        if (docAbout.exists() && docAbout.data().value) {
+          setAboutMeText(docAbout.data().value);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchAbout();
+  }, []);
+
   const cards = [
     {
       title: "Who I Am",
       icon: User,
-      content: "I am a motivated student pursuing senior secondary education in Science (PCM) with a profound interest in technology, innovation, and aviation. I thrive on self-learning, experimentation, and research."
+      content: aboutMeText
     },
     {
       title: "My Direction",
@@ -67,7 +86,7 @@ export default function About() {
                  
                  <h3 className="font-space text-xl font-medium mb-4 text-white">{card.title}</h3>
                  
-                 <p className="font-sans text-sm text-gray-400 leading-relaxed font-light grow">
+                 <p className="font-sans text-sm text-gray-400 leading-relaxed font-light grow whitespace-pre-wrap">
                    {card.content}
                  </p>
                  

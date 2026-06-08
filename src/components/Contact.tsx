@@ -21,15 +21,17 @@ export default function Contact() {
     try {
       // 1. Save to Firestore
       try {
-        await addDoc(collection(db, 'contact_messages'), {
+        await addDoc(collection(db, 'contacts'), {
           name: data.name,
           email: data.email,
           phone: data.phone || null,
-          message: data.message,
+          subject: 'Form Submission',
+          body: data.message,
+          read: false,
           createdAt: serverTimestamp()
         });
       } catch (err: any) {
-        handleFirestoreError(err, OperationType.CREATE, 'contact_messages');
+        handleFirestoreError(err, OperationType.CREATE, 'contacts');
       }
 
       // 2. Send Email via our Express API

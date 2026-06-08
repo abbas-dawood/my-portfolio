@@ -1,9 +1,33 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Crosshair, Target, Navigation } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { playClickSound } from '../utils/sound';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function Hero() {
+  const [headline, setHeadline] = useState('');
+  const [resumeUrl, setResumeUrl] = useState('/Abbas_Dawood_Resume.pdf');
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const docHead = await getDoc(doc(db, 'settings', 'HOME_HEADLINE'));
+        const docRes = await getDoc(doc(db, 'settings', 'RESUME_URL'));
+        if (docHead.exists() && docHead.data().value) {
+          setHeadline(docHead.data().value);
+        }
+        if (docRes.exists() && docRes.data().value) {
+           setResumeUrl(docRes.data().value);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchSettings();
+  }, []);
+
   const handleScroll = (id: string) => {
     playClickSound();
     const element = document.getElementById(id.toLowerCase());
@@ -42,9 +66,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="font-sans text-xl md:text-2xl text-gray-300 mb-6 font-light"
+            className="font-sans text-xl md:text-2xl text-gray-300 mb-6 font-light h-8"
           >
-            Building a future between <span className="text-white font-medium">technology</span>, <span className="text-white font-medium">creativity</span>, and <span className="text-cyan-400">aviation</span>.
+            {headline || "Building a future between technology, creativity, and aviation."}
           </motion.p>
 
           <motion.p 
@@ -73,7 +97,7 @@ export default function Hero() {
             </button>
             
             <a 
-              href="/Abbas_Dawood_Resume.pdf" 
+              href={resumeUrl} 
               target="_blank"
               rel="noopener noreferrer"
               onClick={playClickSound}
