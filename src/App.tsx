@@ -3,51 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Portfolio from './components/Portfolio';
-import AdminLayout from './admin/AdminLayout';
-import AdminLogin from './admin/pages/AdminLogin';
-import DashboardHome from './admin/pages/DashboardHome';
-import ContactManagement from './admin/pages/ContactManagement';
-import AnalyticsPage from './admin/pages/AnalyticsPage';
-import ContentManagement from './admin/pages/ContentManagement';
-import ProjectManagement from './admin/pages/ProjectManagement';
-import ResumeManagement from './admin/pages/ResumeManagement';
-import SettingsPage from './admin/pages/SettingsPage';
-import { AuthProvider, useAuth } from './admin/context/AuthContext';
-
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
-  
-  if (loading) {
-    return <div className="h-screen w-full bg-[#020617] flex items-center justify-center text-cyan-500 font-mono">INITIALIZING TERMINAL...</div>;
-  }
-  
-  if (!user) {
-    return <Navigate to="/admin/login" replace />;
-  }
-  
-  return <>{children}</>;
-}
-
-function AdminApp() {
-  return (
-    <AuthProvider>
-      <Routes>
-        <Route path="login" element={<AdminLogin />} />
-        <Route path="/" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
-          <Route index element={<DashboardHome />} />
-          <Route path="contacts" element={<ContactManagement />} />
-          <Route path="analytics" element={<AnalyticsPage />} />
-          <Route path="content" element={<ContentManagement />} />
-          <Route path="projects" element={<ProjectManagement />} />
-          <Route path="resume" element={<ResumeManagement />} />
-          <Route path="settings" element={<SettingsPage />} />
-        </Route>
-      </Routes>
-    </AuthProvider>
-  );
-}
 
 function AppWrapper() {
   return (
@@ -70,7 +27,6 @@ function AppWrapper() {
             <Portfolio />
           </div>
         } />
-        <Route path="/admin/*" element={<AdminApp />} />
       </Routes>
     </BrowserRouter>
   );
