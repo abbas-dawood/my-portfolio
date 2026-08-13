@@ -155,8 +155,8 @@ export default function Hero() {
             
             <div className="absolute top-[15%] right-[20%] text-right bg-black/40 backdrop-blur-md px-3 py-1 border border-cyan-900/50 rounded-sm">
               <p className="font-mono text-[9px] text-cyan-400 mb-1">ROLE [01]</p>
-              <p className="font-space text-sm font-bold tracking-widest text-white whitespace-nowrap">DIGITAL</p>
-              <p className="font-space text-sm font-bold tracking-widest text-white whitespace-nowrap">CREATOR</p>
+              <p className="font-space text-sm font-bold tracking-widest text-white whitespace-nowrap">TECH</p>
+              <p className="font-space text-sm font-bold tracking-widest text-white whitespace-nowrap">ENTHUSIAST</p>
             </div>
             
             <div className="absolute bottom-[20%] left-[10%] text-left bg-black/40 backdrop-blur-md px-3 py-1 border border-cyan-900/50 rounded-sm">

@@ -40,6 +40,7 @@ export default function Footer() {
             target="_blank" 
             rel="noopener noreferrer"
             onClick={playClickSound}
+            aria-label="GitHub"
             className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer"
           >
             <Github className="w-5 h-5" />
@@ -49,6 +50,7 @@ export default function Footer() {
             target="_blank" 
             rel="noopener noreferrer"
             onClick={playClickSound}
+            aria-label="LinkedIn"
             className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer"
           >
             <Linkedin className="w-5 h-5" />
@@ -58,6 +60,7 @@ export default function Footer() {
             target="_blank" 
             rel="noopener noreferrer"
             onClick={playClickSound}
+            aria-label="Instagram"
             className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer"
           >
             <Instagram className="w-5 h-5" />

@@ -5,19 +5,24 @@ import { playClickSound, playHoverSound } from '../utils/sound';
 export default function Skills() {
   const skillCategories = [
     {
-      title: "Programming",
-      icon: <Code className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors" />,
-      skills: ["HTML", "CSS", "JavaScript (Basic)", "Python (Basic)"]
-    },
-    {
-      title: "Design",
-      icon: <PenTool className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors" />,
-      skills: ["Figma", "Canva", "Video Editing"]
-    },
-    {
       title: "Core Abilities",
       icon: <Users className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors" />,
-      skills: ["Problem Solving", "Analytical Thinking", "Decision Making", "Communication Skills"]
+      skills: ["Critical Thinking", "Decision-Making", "Problem-Solving", "Analytical Mindset", "Situational Awareness"]
+    },
+    {
+      title: "Leadership & Comm.",
+      icon: <Users className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors" />,
+      skills: ["Public Speaking", "International Diplomacy", "Team Collaboration", "Adaptability"]
+    },
+    {
+      title: "Digital Tools",
+      icon: <PenTool className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors" />,
+      skills: ["Figma", "Canva", "Video Editing", "Basic Coding", "Web Development"]
+    },
+    {
+      title: "Interests & Hobbies",
+      icon: <Code className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors" />,
+      skills: ["Aviation Tracking", "Flight Mechanics", "Strategic Gaming", "Traveling", "Debates"]
     }
   ];
 
@@ -52,7 +57,7 @@ export default function Skills() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {skillCategories.map((category, index) => (
              <motion.div
                key={category.title}

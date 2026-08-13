@@ -70,11 +70,11 @@ export default function Contact() {
   };
 
   const socialLinks = [
-    { icon: <Mail className="w-6 h-6" />, label: "TERMINAL [EMAIL]", value: "abbassaifee43\n@gmail.com", href: "mailto:abbassaifee43@gmail.com" },
-    { icon: <Linkedin className="w-6 h-6" />, label: "TERMINAL [NETWORK]", value: "@abbas-dawood", href: "https://www.linkedin.com/in/abbas-dawood/" },
-    { icon: <Github className="w-6 h-6" />, label: "TERMINAL [NETWORK]", value: "@abbasdawood", href: "https://github.com/abbas-dawood" },
-    { icon: <Instagram className="w-6 h-6" />, label: "TERMINAL [NETWORK]", value: "@abbasdawood_07", href: "https://www.instagram.com/abbasdawood_07/" },
-    { icon: <MapPin className="w-6 h-6" />, label: "TERMINAL [LOCATION]", value: "Udaipur,\nRajasthan", href: undefined },
+    { icon: <Mail className="w-6 h-6" />, name: "Email", label: "TERMINAL [EMAIL]", value: "abbassaifee43\n@gmail.com", href: "mailto:abbassaifee43@gmail.com" },
+    { icon: <Linkedin className="w-6 h-6" />, name: "LinkedIn", label: "TERMINAL [NETWORK]", value: "@abbas-dawood", href: "https://www.linkedin.com/in/abbas-dawood/" },
+    { icon: <Github className="w-6 h-6" />, name: "GitHub", label: "TERMINAL [NETWORK]", value: "@abbasdawood", href: "https://github.com/abbas-dawood" },
+    { icon: <Instagram className="w-6 h-6" />, name: "Instagram", label: "TERMINAL [NETWORK]", value: "@abbasdawood_07", href: "https://www.instagram.com/abbasdawood_07/" },
+    { icon: <MapPin className="w-6 h-6" />, name: "Location", label: "TERMINAL [LOCATION]", value: "Udaipur,\nRajasthan", href: undefined },
   ];
 
   return (
@@ -224,6 +224,7 @@ export default function Contact() {
                   href={link.href}
                   target={link.href.startsWith('http') ? '_blank' : undefined}
                   rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  aria-label={link.name}
                 >
                   <Content />
                 </a>

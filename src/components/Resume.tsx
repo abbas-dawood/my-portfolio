@@ -6,25 +6,26 @@ export default function Resume() {
   const experiences = [
     {
       id: "EXP_01",
-      role: "Tech Research & Self-Learning",
-      org: "Independent",
-      date: "April 2021 – Present",
-      points: [
-        "Conducted independent research on emerging technologies, digital tools, and innovation trends.",
-        "Built small projects and experimented with ideas to strengthen practical knowledge.",
-        "Learned programming fundamentals including HTML, CSS, JavaScript, and Python.",
-        "Explored concepts related to startups and 'Make-in-India' innovation."
-      ]
-    },
-    {
-      id: "EXP_02",
       role: "Participant & Debater",
       org: "Model United Nations",
       date: "November 2022 – Present",
       points: [
-        "Participated in Model United Nations conferences representing different countries.",
-        "Developed communication, negotiation, and public speaking skills.",
-        "Engaged in structured debates on global issues and diplomacy."
+        "Represented assigned nations in structured multilateral debates on global diplomacy and policy issues, sharpening critical thinking under time pressure.",
+        "Cultivated advanced public speaking, negotiation, and persuasive communication skills across multiple conference settings.",
+        "Practiced composed, rational decision-making while navigating high-pressure debate scenarios and shifting positions.",
+        "Strengthened leadership presence and cross-cultural collaboration by engaging respectfully with diverse viewpoints."
+      ]
+    },
+    {
+      id: "EXP_02",
+      role: "Independent Tech & Innovation Initiative",
+      org: "Self-Directed",
+      date: "April 2021 – Present",
+      points: [
+        "Spearheaded independent research into emerging technologies, digital tools, and innovation trends to build practical, real-world knowledge.",
+        "Managed self-directed learning projects end-to-end, applying structured problem-solving to translate concepts into working outcomes.",
+        "Analyzed startup ecosystems and “Make-in-India” innovation themes, developing a foundational understanding of entrepreneurial thinking.",
+        "Applied design tools (Figma, Canva) and video editing to independently plan and produce creative digital projects."
       ]
     }
   ];
@@ -32,22 +33,35 @@ export default function Resume() {
   const education = [
     {
       id: "EDU_01",
-      role: "Senior Secondary (Class 12 - PCM)",
+      role: "Senior Secondary (PCM)",
       org: "National Institute of Open Schooling (NIOS)",
       date: "Expected May 2027",
       points: [
-        "Building strong analytical and problem-solving skills.",
-        "Actively exploring technology and innovation alongside academics."
+        "Pursuing a rigorous PCM curriculum, building strong analytical and quantitative reasoning skills essential for flight training and technical decision-making.",
+        "Balances demanding academics with active extracurricular leadership through MUN participation.",
+        "Cultivates disciplined, self-directed study habits reflective of the structure required in aviation training environments."
       ]
     },
     {
       id: "EDU_02",
-      role: "Secondary Education",
+      role: "Secondary Education (PCM)",
       org: "Delhi Public School (DPS)",
       date: "March 2020 – March 2026",
       points: [
-        "Completed schooling from Class 6 to 11.",
-        "Studied core subjects including Physics, Chemistry, Mathematics, and Computer Science."
+        "Completed foundational schooling (Class 6–11) across Physics, Chemistry, Mathematics, and Computer Science.",
+        "Developed core analytical thinking and teamwork skills through collaborative academic projects.",
+        "Engaged consistently in extracurricular activities, including Model United Nations, alongside core studies."
+      ]
+    },
+    {
+      id: "CERT_01",
+      role: "Eureka! Junior 2025 - Entrepreneurship",
+      org: "E-Cell, IIT Bombay",
+      date: "December 2025",
+      points: [
+        "Selected as a participant in a national-level entrepreneurship program among a competitive applicant pool.",
+        "Cultivated problem-solving, idea validation, and entrepreneurial thinking through exposure to real startup ecosystems.",
+        "Analyzed business fundamentals and innovation frameworks, strengthening structured decision-making abilities."
       ]
     }
   ];
