@@ -60,6 +60,7 @@ export default function Hero() {
           >
             <span className="glitch-text inline-block mr-4" data-text="Abbas">Abbas</span> 
             <span className="glitch-text inline-block text-gray-300" data-text="Dawood">Dawood</span>
+            <span className="sr-only"> — Pilot &amp; Software Developer</span>
           </motion.h1>
 
           <motion.p 
