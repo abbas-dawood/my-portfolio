@@ -58,7 +58,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="font-space text-5xl md:text-7xl font-bold leading-tight mb-6"
           >
-            <span className="glitch-text inline-block mr-4" data-text="Abbas">Abbas</span> 
+            <span className="glitch-text inline-block mr-4" data-text="Abbas">Abbas</span>{' '}
             <span className="glitch-text inline-block text-gray-300" data-text="Dawood">Dawood</span>
             <span className="sr-only"> — Pilot &amp; Software Developer</span>
           </motion.h1>

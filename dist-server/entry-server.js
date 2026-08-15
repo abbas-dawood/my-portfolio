@@ -1066,6 +1066,7 @@ function Hero() {
               lineNumber: 61,
               columnNumber: 13
             }, this),
+            " ",
             /* @__PURE__ */ jsxDEV("span", { className: "glitch-text inline-block text-gray-300", "data-text": "Dawood", children: "Dawood" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
               lineNumber: 62,
