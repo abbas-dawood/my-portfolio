@@ -42,23 +42,21 @@ export default function Portfolio() {
         <BootSequence onComplete={() => setBootComplete(true)} />
       )}
 
-      {bootComplete && (
-        <div className="relative text-white selection:bg-cyan-500/30 font-sans">
-          <Background />
-          <HUDOverlay />
-          <Navbar activeSection={activeSection} />
-          
-          <main className="relative z-10 w-full overflow-hidden">
-            <Hero />
-            <About />
-            <Skills />
-            <Resume />
-            <Contact />
-          </main>
-          
-          <Footer />
-        </div>
-      )}
+      <div className={`relative text-white selection:bg-cyan-500/30 font-sans transition-opacity duration-1000 ${bootComplete ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden pointer-events-none'}`}>
+        <Background />
+        <HUDOverlay />
+        <Navbar activeSection={activeSection} />
+        
+        <main className="relative z-10 w-full overflow-hidden">
+          <Hero />
+          <About />
+          <Skills />
+          <Resume />
+          <Contact />
+        </main>
+        
+        <Footer />
+      </div>
     </>
   );
 }
