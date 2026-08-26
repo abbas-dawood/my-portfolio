@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
-import { Github, Linkedin, Instagram, ArrowUp } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { playClickSound } from '../utils/sound';
+import SocialLinks from './SocialLinks';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -9,64 +10,23 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#020617] border-t border-cyan-900/30 py-8 lg:py-12 mt-12">
+    <footer className="relative py-12 bg-[#020617] border-t border-cyan-900/30">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
         
-        {/* Back to top button */}
-        <div className="order-2 md:order-1 flex-shrink-0">
+        <div className="flex items-center gap-4">
           <button 
             onClick={scrollToTop}
-            className="w-12 h-12 rounded-full bg-amber-500 hover:bg-amber-400 flex items-center justify-center text-white cursor-pointer transition-colors"
-            aria-label="Back to top"
+            className="w-10 h-10 border border-cyan-900/50 flex items-center justify-center text-cyan-500 hover:bg-cyan-500 hover:text-black transition-colors rounded-sm"
           >
-            <ArrowUp className="w-6 h-6" />
+            <ArrowUp className="w-4 h-4" />
           </button>
-        </div>
-
-        {/* Text content */}
-        <div className="order-3 md:order-2 flex flex-col items-center text-center space-y-2">
-          <p className="text-gray-400 font-sans text-sm">
-            © 2026 Abbas Dawood. Built with passion for innovation.
-          </p>
-          <p className="text-gray-500 font-serif italic text-sm">
-            "The best way to predict the future is to create it."
-          </p>
-        </div>
-
-        {/* Social Icons */}
-        <div className="order-1 md:order-3 flex items-center gap-4 flex-shrink-0">
-          <a 
-            href="https://github.com/abbas-dawood" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            onClick={playClickSound}
-            aria-label="GitHub"
-            className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer"
-          >
-            <Github className="w-5 h-5" />
-          </a>
-          <a 
-            href="https://www.linkedin.com/in/abbas-dawood/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            onClick={playClickSound}
-            aria-label="LinkedIn"
-            className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer"
-          >
-            <Linkedin className="w-5 h-5" />
-          </a>
-          <a 
-            href="https://www.instagram.com/abbasdawood_07/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            onClick={playClickSound}
-            aria-label="Instagram"
-            className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors cursor-pointer"
-          >
-            <Instagram className="w-5 h-5" />
-          </a>
+          <div>
+            <p className="font-space font-bold text-white uppercase">Abbas Dawood</p>
+            <p className="font-mono text-[10px] text-gray-500 tracking-widest uppercase">© {new Date().getFullYear()} All Rights Reserved</p>
+          </div>
         </div>
         
+        <SocialLinks showLabels={false} />
       </div>
     </footer>
   );

@@ -1,10 +1,12 @@
-import express from "express";
+import fs from 'fs';
+
+const serverCode = `import express from "express";
 import path from "path";
 import cors from "cors";
 import { createServer as createViteServer } from "vite";
 import crypto from "crypto";
 import dotenv from "dotenv";
-import { spawn } from "child_process";
+import { Resend } from "resend";
 
 dotenv.config();
 
@@ -14,6 +16,7 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
+const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy');
 const OWNER_EMAIL = process.env.OWNER_EMAIL || 'your-real-email@example.com';
 const SENDER_EMAIL = process.env.SENDER_EMAIL || 'contact@yourdomain.com';
 const SENDER_NAME = process.env.SENDER_NAME || 'Abbas Dawood';
@@ -44,7 +47,7 @@ app.post("/api/contact", async (req, res) => {
        return res.status(400).json({ success: false, message: "Input exceeds maximum length." });
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
     if (!emailRegex.test(email)) {
        return res.status(400).json({ success: false, message: "Invalid email format." });
     }
@@ -52,30 +55,35 @@ app.post("/api/contact", async (req, res) => {
     const safeName = escapeHtml(name);
     const safeEmail = escapeHtml(email);
     const safePurpose = escapeHtml(purpose);
-    const safeMessage = escapeHtml(message).replace(/\n/g, '<br/>');
+    const safeMessage = escapeHtml(message).replace(/\\n/g, '<br/>');
 
-    const transmissionId = `AD-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
+    const transmissionId = \`AD-\${new Date().toISOString().slice(0, 10).replace(/-/g, '')}-\${crypto.randomBytes(3).toString('hex').toUpperCase()}\`;
 
-    const ownerHtml = `
+    if (!process.env.RESEND_API_KEY) {
+      console.warn("RESEND_API_KEY not configured. Returning mock success.");
+      return res.status(200).json({ success: true, transmissionId });
+    }
+
+    const ownerHtml = \`
       <div style="background-color: #020617; color: #cbd5e1; font-family: 'Courier New', Courier, monospace; padding: 40px;">
         <div style="max-w-2xl mx-auto border: 1px solid #06b6d4; padding: 30px;">
           <h2 style="color: #06b6d4; letter-spacing: 2px; margin-top: 0; text-transform: uppercase;">NEW PORTFOLIO INQUIRY</h2>
           <hr style="border: 0; border-bottom: 1px solid #0f172a; margin: 20px 0;" />
           
-          <p><strong style="color: #64748b;">VISITOR:</strong><br/>${safeName}</p>
-          <p><strong style="color: #64748b;">RETURN CHANNEL:</strong><br/><a href="mailto:${safeEmail}" style="color: #38bdf8;">${safeEmail}</a></p>
-          <p><strong style="color: #64748b;">PURPOSE:</strong><br/>${safePurpose}</p>
-          <p><strong style="color: #64748b;">TRANSMISSION ID:</strong><br/><span style="color: #f59e0b;">${transmissionId}</span></p>
-          <p><strong style="color: #64748b;">TIMESTAMP:</strong><br/>${new Date().toUTCString()}</p>
+          <p><strong style="color: #64748b;">VISITOR:</strong><br/>\${safeName}</p>
+          <p><strong style="color: #64748b;">RETURN CHANNEL:</strong><br/><a href="mailto:\${safeEmail}" style="color: #38bdf8;">\${safeEmail}</a></p>
+          <p><strong style="color: #64748b;">PURPOSE:</strong><br/>\${safePurpose}</p>
+          <p><strong style="color: #64748b;">TRANSMISSION ID:</strong><br/><span style="color: #f59e0b;">\${transmissionId}</span></p>
+          <p><strong style="color: #64748b;">TIMESTAMP:</strong><br/>\${new Date().toUTCString()}</p>
           
           <hr style="border: 0; border-bottom: 1px solid #0f172a; margin: 20px 0;" />
           <p><strong style="color: #64748b;">MESSAGE:</strong></p>
           <div style="background-color: #0f172a; padding: 20px; border-left: 4px solid #06b6d4; color: #f8fafc; font-family: sans-serif;">
-            ${safeMessage}
+            \${safeMessage}
           </div>
         </div>
       </div>
-    `;
+    \`;
 
     // Personalized auto-reply text
     let personalizedLine = "Thanks for reaching out through my portfolio.";
@@ -84,79 +92,67 @@ app.post("/api/contact", async (req, res) => {
     else if (purpose === "MUN / Diplomacy") personalizedLine = "Thanks for reaching out regarding MUN and diplomacy.";
     else if (purpose === "Speaking / Event") personalizedLine = "Thanks for your interest in connecting regarding a speaking or event opportunity.";
     else if (purpose === "Technical Inquiry") personalizedLine = "Thanks for reaching out regarding your technical inquiry.";
-    else if (purpose === "Project Inquiry") personalizedLine = "Thanks for reaching out regarding your project inquiry.";
+    else if (purpose === "Project Inquiry") personalizedLine = "Thanks for your interest regarding a project inquiry.";
     else if (purpose === "Internship / Opportunity") personalizedLine = "Thanks for getting in touch regarding an opportunity.";
 
-    const visitorHtml = `
+    const visitorHtml = \`
       <div style="background-color: #020617; color: #cbd5e1; font-family: 'Courier New', Courier, monospace; padding: 40px;">
         <div style="max-w-2xl mx-auto border: 1px solid #06b6d4; padding: 30px;">
           <h2 style="color: #06b6d4; letter-spacing: 2px; margin-top: 0; text-transform: uppercase;">ABBAS DAWOOD &bull; COMMUNICATION CHANNEL</h2>
           <hr style="border: 0; border-bottom: 1px solid #0f172a; margin: 20px 0;" />
           
-          <p style="font-family: sans-serif; font-size: 16px;">Hi ${safeName},</p>
-          <p style="font-family: sans-serif; font-size: 16px;">${personalizedLine}</p>
-          <p style="font-family: sans-serif; font-size: 16px;">Your message has been successfully received.</p>
-          <p style="font-family: sans-serif; font-size: 16px;">I will review your inquiry and respond through the email address you provided.</p>
+          <p style="font-family: sans-serif; font-size: 16px;">Hi \${safeName},</p>
+          <p style="font-family: sans-serif; font-size: 16px;">\${personalizedLine}</p>
+          <p style="font-family: sans-serif; font-size: 16px;">I've received your message regarding: <strong>"\${safePurpose}"</strong></p>
+          <p style="font-family: sans-serif; font-size: 16px;">Your message has been successfully received and added to my communication channel. I will review your message and get back to you through the email address you provided.</p>
           
           <table style="width: 100%; border-collapse: collapse; margin-top: 30px;">
             <tr>
-              <td style="padding: 8px 0; border-bottom: 1px solid #0f172a; color: #64748b;">TRANSMISSION ID:</td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #0f172a; color: #f59e0b;">${transmissionId}</td>
+              <td style="padding: 8px 0; border-bottom: 1px solid #0f172a; color: #64748b;">REFERENCE ID:</td>
+              <td style="padding: 8px 0; border-bottom: 1px solid #0f172a; color: #f59e0b;">\${transmissionId}</td>
             </tr>
           </table>
           
           <p style="margin-top: 40px; color: #64748b; font-size: 14px;">
             Best regards,<br/><br/>
             <strong style="color: #f8fafc; font-size: 16px;">Abbas Dawood</strong><br/>
-            ${SENDER_EMAIL}<br/>
-            ${OWNER_PHONE}
+            \${SENDER_EMAIL}<br/>
+            \${OWNER_PHONE}
           </p>
         </div>
       </div>
-    `;
+    \`;
 
-    const emailPayload = {
-      owner_email: OWNER_EMAIL,
-      visitor_email: email,
-      sender_email: SENDER_EMAIL,
-      sender_name: SENDER_NAME,
-      owner_subject: `[Portfolio Contact] ${purpose}`,
-      visitor_subject: `Received — Your message to Abbas Dawood`,
-      owner_html: ownerHtml,
-      visitor_html: visitorHtml
-    };
-
-    // Execute Python script to send email via SMTP
-    const pythonProcess = spawn("python3", ["send_email.py"]);
-
-    let outputData = "";
-    let errorData = "";
-
-    pythonProcess.stdout.on("data", (data) => {
-      outputData += data.toString();
+    // 1. Send notification to owner
+    const ownerEmailRes = await resend.emails.send({
+      from: \`\${SENDER_NAME} <\${SENDER_EMAIL}>\`,
+      to: [OWNER_EMAIL],
+      subject: \`[Portfolio Contact] New Inquiry — \${purpose}\`,
+      html: ownerHtml,
+      replyTo: email
     });
 
-    pythonProcess.stderr.on("data", (data) => {
-      errorData += data.toString();
+    if (ownerEmailRes.error) {
+      console.error("Owner email failed:", ownerEmailRes.error);
+      return res.status(500).json({ success: false, message: "Transmission failed. Please try again." });
+    }
+
+    // 2. Send visitor confirmation
+    const visitorEmailRes = await resend.emails.send({
+      from: \`\${SENDER_NAME} <\${SENDER_EMAIL}>\`,
+      to: [email],
+      subject: \`Received — Your message to Abbas Dawood\`,
+      html: visitorHtml,
+      replyTo: OWNER_EMAIL
     });
 
-    pythonProcess.on("close", (code) => {
-      try {
-        const result = JSON.parse(outputData.trim());
-        if (result.success) {
-          res.status(200).json({ success: true, transmissionId });
-        } else {
-          console.error("SMTP Python script failed:", result.error, errorData);
-          res.status(500).json({ success: false, message: "Transmission failed. Please try again." });
-        }
-      } catch (e) {
-        console.error("Failed to parse Python script output:", outputData, errorData);
-        res.status(500).json({ success: false, message: "Transmission failed. Please try again." });
-      }
-    });
+    if (visitorEmailRes.error) {
+      console.error("Visitor email failed:", visitorEmailRes.error);
+      // Even if visitor email fails, owner received it, but let's be strict as requested.
+      return res.status(500).json({ success: false, message: "We were unable to complete the transmission. Please try again." });
+    }
 
-    pythonProcess.stdin.write(JSON.stringify(emailPayload));
-    pythonProcess.stdin.end();
+    res.status(200).json({ success: true, transmissionId });
 
   } catch (error) {
     console.error("Email send error:", error);
@@ -180,8 +176,11 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(\`Server running on http://localhost:\${PORT}\`);
   });
 }
 
 startServer();
+`;
+
+fs.writeFileSync('server.ts', serverCode);

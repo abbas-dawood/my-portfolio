@@ -1,119 +1,97 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { User, Compass, Eye } from 'lucide-react';
-import { cn } from '../utils/cn';
-import { playHoverSound, playClickSound } from '../utils/sound';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { Target, Compass, Globe, Plane, Award, Terminal } from 'lucide-react';
+
+const storyStages = [
+  {
+    id: "ORIGIN",
+    icon: <Compass className="w-5 h-5" />,
+    title: "THE ORIGIN",
+    content: "I am a disciplined Senior Secondary student based in Udaipur, Rajasthan, currently pursuing a rigorous Physics, Chemistry, and Mathematics (PCM) curriculum. My foundation is built on analytical thinking, quantitative reasoning, and self-directed study habits."
+  },
+  {
+    id: "CURIOSITY",
+    icon: <Plane className="w-5 h-5" />,
+    title: "THE ASPIRATION",
+    content: "My clear aspiration is toward a career as a Commercial Pilot. Aviation requires strong situational awareness, composure under pressure, and precise decision-making—qualities I actively cultivate in every aspect of my life."
+  },
+  {
+    id: "TECHNOLOGY",
+    icon: <Terminal className="w-5 h-5" />,
+    title: "THE TECHNOLOGY",
+    content: "Beyond the cockpit, I am a technology enthusiast. I spearhead independent research into emerging technologies, digital tools, and innovation trends. From analyzing startup ecosystems to applying design tools like Figma and Canva, I build practical, real-world knowledge."
+  },
+  {
+    id: "DIPLOMACY",
+    icon: <Globe className="w-5 h-5" />,
+    title: "THE DIPLOMAT",
+    content: "Through extensive participation in Model United Nations (MUN) conferences, I have sharpened my critical thinking and public speaking. Representing assigned nations in multilateral debates has strengthened my cross-cultural collaboration and persuasive communication."
+  },
+  {
+    id: "LEADERSHIP",
+    icon: <Award className="w-5 h-5" />,
+    title: "THE LEADER",
+    content: "Whether as an Executive Board Member, an Organizer, or a participant, I practice rational decision-making while navigating high-pressure scenarios. I believe in translating concepts into working outcomes through structured problem-solving."
+  }
+];
 
 export default function About() {
-  const [aboutMeText, setAboutMeText] = useState("I am a motivated student pursuing senior secondary education in Science (PCM) with a profound interest in technology, innovation, and aviation. I thrive on self-learning, experimentation, and research.");
-  const [myDirection, setMyDirection] = useState("While actively exploring web technologies (HTML, CSS, JavaScript, React) and Python, I am simultaneously pursuing my dream of becoming a Commercial Pilot. I believe in blending technical acumen with strict discipline.");
-  const [futureVision, setFutureVision] = useState("I am passionate about emerging systems, startup ecosystems, and 'Make-in-India' innovation. Through leadership in MUN and hands-on projects, I am building the analytical foundation needed to create meaningful impact.");
-
-  useEffect(() => {
-    const fetchAbout = async () => {
-      try {
-        const docAbout = await getDoc(doc(db, 'settings', 'ABOUT_ME'));
-        const docDirection = await getDoc(doc(db, 'settings', 'MY_DIRECTION'));
-        const docVision = await getDoc(doc(db, 'settings', 'FUTURE_VISION'));
-        if (docAbout.exists() && docAbout.data().value) {
-          setAboutMeText(docAbout.data().value);
-        }
-        if (docDirection.exists() && docDirection.data().value) {
-          setMyDirection(docDirection.data().value);
-        }
-        if (docVision.exists() && docVision.data().value) {
-          setFutureVision(docVision.data().value);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchAbout();
-  }, []);
-
-  const cards = [
-    {
-      title: "Who I Am",
-      icon: User,
-      content: aboutMeText
-    },
-    {
-      title: "My Direction",
-      icon: Compass,
-      content: myDirection
-    },
-    {
-      title: "Future Vision",
-      icon: Eye,
-      content: futureVision
-    }
-  ];
-
   return (
-    <section id="about" className="relative min-h-[80vh] py-24 flex flex-col justify-center border-t border-cyan-900/30">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
-      
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full z-10">
-        
-        <div className="mb-16">
-          <h2 className="font-space text-3xl md:text-5xl font-bold mb-4">
-            <span className="text-cyan-500">01. </span>
-            <span className="glitch-text" data-text="More Than Just A Portfolio">More Than Just A Portfolio</span>
+    <section id="about" className="relative py-32 bg-[#020617]">
+      <div className="max-w-4xl mx-auto px-6 lg:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="mb-20 text-center"
+        >
+          <span className="font-mono text-xs tracking-[0.2em] text-amber-500 mb-4 block">DOCUMENTARY LOG</span>
+          <h2 className="font-space text-4xl md:text-5xl font-bold text-white mb-6 uppercase tracking-wider">
+            The Person Behind The Journey
           </h2>
-          <p className="font-mono text-sm text-cyan-400 tracking-widest uppercase">
-            // Identity • Motivation • Trajectory
-          </p>
-        </div>
+          <div className="w-24 h-[1px] bg-cyan-900/50 mx-auto" />
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {cards.map((card, index) => (
-             <motion.div
-               key={index}
-               initial={{ opacity: 0, y: 30 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               viewport={{ once: true, margin: "-100px" }}
-               transition={{ duration: 0.6, delay: index * 0.2 }}
-               whileHover={{ y: -5 }}
-               onMouseEnter={playHoverSound}
-               onClick={playClickSound}
-               className="group relative cursor-pointer block h-full"
-             >
-               {/* Hover Glow Background */}
-               <div className="absolute -inset-0.5 bg-gradient-to-br from-cyan-500/0 to-cyan-500/0 group-hover:from-cyan-500/20 group-hover:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur" />
-               
-               {/* Card Content */}
-               <div className="relative h-full p-8 bg-black/40 border border-cyan-500/30 rounded-sm shadow-[inset_0_0_20px_rgba(6,182,212,0.05)] hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(6,182,212,0.15),inset_0_0_30px_rgba(6,182,212,0.1)] transition-all duration-500 backdrop-blur-md overflow-hidden flex flex-col">
-                 <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-colors duration-500" />
-                 
-                 {/* Top edge highlight */}
-                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                 
-                 <div className="mb-8 p-3 bg-cyan-950/40 rounded-sm inline-block w-fit border border-cyan-500/30 text-slate-300 group-hover:text-cyan-400 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all flex-shrink-0">
-                   <card.icon className="w-6 h-6" />
-                 </div>
-                 
-                 <h3 className="font-space text-xl font-medium mb-4 text-white flex-shrink-0">{card.title}</h3>
-                 
-                 <p className="font-sans text-sm text-gray-400 leading-relaxed font-light grow whitespace-pre-wrap h-full flex-grow">
-                   {card.content}
-                 </p>
-                 
-                 {/* Decorative HUD element at bottom */}
-                 <div className="w-full h-[1px] bg-cyan-900/50 mt-8 relative overflow-hidden flex-shrink-0">
-                   <motion.div 
-                     className="absolute top-0 left-0 h-full bg-cyan-500 w-1/3"
-                     initial={{ x: '-100%' }}
-                     whileHover={{ x: '300%' }}
-                     transition={{ duration: 1, ease: 'easeInOut' }}
-                   />
-                 </div>
-               </div>
-             </motion.div>
-          ))}
-        </div>
+        <div className="relative">
+          {/* Vertical Flight Path Line */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-cyan-900/30 to-transparent -translate-x-1/2 hidden md:block" />
+          <div className="absolute left-6 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-cyan-900/30 to-transparent block md:hidden" />
 
+          {storyStages.map((stage, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <motion.div 
+                key={stage.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+                className={`relative flex flex-col md:flex-row items-center gap-8 mb-24 last:mb-0 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+              >
+                {/* Visual Marker */}
+                <div className="absolute left-6 md:left-1/2 w-4 h-4 bg-[#020617] border-2 border-cyan-500 rounded-full -translate-x-1/2 z-10 flex items-center justify-center">
+                  <div className="w-1 h-1 bg-amber-400 rounded-full" />
+                </div>
+
+                {/* Content Panel */}
+                <div className={`w-full pl-16 md:pl-0 md:w-1/2 ${isEven ? 'md:pr-16 text-left md:text-right' : 'md:pl-16 text-left'}`}>
+                  <div className="inline-flex items-center gap-3 mb-3 text-cyan-400">
+                    {!isEven && <span className="hidden md:block">{stage.icon}</span>}
+                    <span className="font-mono text-xs tracking-widest">{stage.id}</span>
+                    {isEven && <span className="hidden md:block">{stage.icon}</span>}
+                    <span className="md:hidden block">{stage.icon}</span>
+                  </div>
+                  <h3 className="font-space text-2xl font-bold text-white mb-4">{stage.title}</h3>
+                  <p className="font-sans text-gray-400 leading-relaxed font-light">
+                    {stage.content}
+                  </p>
+                </div>
+                
+                {/* Empty Space for layout */}
+                <div className="hidden md:block md:w-1/2" />
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

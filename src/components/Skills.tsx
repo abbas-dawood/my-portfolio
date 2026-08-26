@@ -1,116 +1,177 @@
-import { motion } from 'motion/react';
-import { Code, PenTool, Users } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Target, Lightbulb, Users, Monitor, Compass } from 'lucide-react';
+import { cn } from '../utils/cn';
 import { playClickSound, playHoverSound } from '../utils/sound';
 
+const skillCategories = [
+  {
+    id: 'CORE',
+    label: 'CORE COMPETENCIES',
+    icon: <Target className="w-5 h-5" />,
+    color: 'text-amber-400',
+    borderColor: 'border-amber-500/50',
+    bgColor: 'bg-amber-950/20',
+    skills: [
+      { name: 'Critical Thinking', status: 'ACTIVE' },
+      { name: 'Decision-Making Under Pressure', status: 'ACTIVE' },
+      { name: 'Structured Problem-Solving', status: 'ACTIVE' },
+      { name: 'Analytical Mindset', status: 'ACTIVE' },
+      { name: 'Situational Awareness', status: 'ACTIVE' }
+    ]
+  },
+  {
+    id: 'LEADERSHIP',
+    label: 'LEADERSHIP & COMMUNICATION',
+    icon: <Users className="w-5 h-5" />,
+    color: 'text-cyan-400',
+    borderColor: 'border-cyan-500/50',
+    bgColor: 'bg-cyan-950/20',
+    skills: [
+      { name: 'Public Speaking', status: 'ACTIVE' },
+      { name: 'International Diplomacy', status: 'ACTIVE' },
+      { name: 'Team Collaboration', status: 'ACTIVE' },
+      { name: 'Adaptability', status: 'ACTIVE' }
+    ]
+  },
+  {
+    id: 'DIGITAL',
+    label: 'DIGITAL & DESIGN TOOLS',
+    icon: <Monitor className="w-5 h-5" />,
+    color: 'text-emerald-400',
+    borderColor: 'border-emerald-500/50',
+    bgColor: 'bg-emerald-950/20',
+    skills: [
+      { name: 'Figma', status: 'WORKING' },
+      { name: 'Canva', status: 'WORKING' },
+      { name: 'Video Editing', status: 'WORKING' },
+      { name: 'Basic Coding & Web Dev', status: 'EXPLORING' }
+    ]
+  }
+];
+
 export default function Skills() {
-  const skillCategories = [
-    {
-      title: "Core Abilities",
-      icon: <Users className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors" />,
-      skills: ["Critical Thinking", "Decision-Making", "Problem-Solving", "Analytical Mindset", "Situational Awareness"]
-    },
-    {
-      title: "Leadership & Comm.",
-      icon: <Users className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors" />,
-      skills: ["Public Speaking", "International Diplomacy", "Team Collaboration", "Adaptability"]
-    },
-    {
-      title: "Digital Tools",
-      icon: <PenTool className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors" />,
-      skills: ["Figma", "Canva", "Video Editing", "Basic Coding", "Web Development"]
-    },
-    {
-      title: "Interests & Hobbies",
-      icon: <Code className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors" />,
-      skills: ["Aviation Tracking", "Flight Mechanics", "Strategic Gaming", "Traveling", "Debates"]
-    }
-  ];
+  const [activeCategory, setActiveCategory] = useState(skillCategories[0].id);
+
+  const activeData = skillCategories.find(c => c.id === activeCategory);
 
   return (
-    <section id="skills" className="relative min-h-screen py-24 border-t border-cyan-900/30">
-      {/* Background decoration */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 h-2/3 bg-cyan-900/5 blur-[100px] pointer-events-none rounded-full" />
-
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full z-10 relative">
-        <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <div>
-            <h2 className="font-space text-3xl md:text-5xl font-bold mb-4">
-              <span className="text-cyan-500">02. </span>
-              <span className="glitch-text" data-text="Skills & Expertise">Skills & Expertise</span>
+    <section id="skills" className="relative py-24 bg-[#0B1121] border-y border-cyan-900/20 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <div className="flex items-center gap-4 mb-4">
+            <Compass className="text-cyan-500 w-6 h-6" />
+            <h2 className="font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider">
+              Command Center
             </h2>
-            <p className="font-mono text-sm text-cyan-400 tracking-widest uppercase flex items-center gap-2">
-              <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-              Active Modules
-            </p>
           </div>
+          <p className="font-mono text-xs text-gray-400 max-w-2xl uppercase tracking-widest border-l-2 border-amber-500 pl-4 py-1">
+            System Capabilities & Core Loadout
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 min-h-[400px]">
           
-          <div className="hidden md:flex gap-4">
-            {/* Decal */}
-            <div className="font-mono text-[10px] text-gray-500 text-right">
-              <p>SYS.CAPABILITIES</p>
-              <p>VER: 2.0.4</p>
-            </div>
-            <svg width="40" height="40" className="opacity-30">
-              <rect x="0" y="0" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 4" />
-              <rect x="10" y="10" width="20" height="20" fill="currentColor" opacity="0.5" />
-            </svg>
+          {/* Navigation / Categories */}
+          <div className="lg:col-span-4 flex flex-col gap-4">
+            {skillCategories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => {
+                  playClickSound();
+                  setActiveCategory(cat.id);
+                }}
+                onMouseEnter={playHoverSound}
+                className={cn(
+                  "relative flex items-center gap-4 p-5 text-left border rounded-sm transition-all duration-300 group",
+                  activeCategory === cat.id 
+                    ? `bg-[#020617] ${cat.borderColor} shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]` 
+                    : "bg-[#020617]/50 border-cyan-900/30 hover:border-cyan-500/50"
+                )}
+              >
+                <div className={cn(
+                  "p-2 rounded-sm transition-colors",
+                  activeCategory === cat.id ? cat.bgColor + " " + cat.color : "bg-cyan-950/20 text-cyan-700 group-hover:text-cyan-400"
+                )}>
+                  {cat.icon}
+                </div>
+                <div className="flex-1">
+                  <h3 className={cn(
+                    "font-mono text-sm tracking-widest uppercase transition-colors",
+                    activeCategory === cat.id ? "text-white" : "text-gray-500 group-hover:text-gray-300"
+                  )}>
+                    {cat.label}
+                  </h3>
+                </div>
+                
+                {/* Active Indicator Line */}
+                {activeCategory === cat.id && (
+                  <motion.div 
+                    layoutId="active-indicator"
+                    className={cn("absolute right-0 top-0 bottom-0 w-1", cat.bgColor)}
+                  />
+                )}
+              </button>
+            ))}
           </div>
+
+          {/* Details / Skills Display */}
+          <div className="lg:col-span-8 bg-[#020617] border border-cyan-900/30 p-8 rounded-sm relative overflow-hidden flex flex-col">
+            
+            {/* Grid Background Effect */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
+            
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+                className="relative z-10 flex-1 flex flex-col"
+              >
+                <div className="flex items-center gap-4 mb-8 pb-6 border-b border-cyan-900/30">
+                  <div className={cn("p-3 rounded-sm", activeData?.bgColor, activeData?.color)}>
+                    {activeData?.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-space text-2xl font-bold text-white uppercase tracking-wider">{activeData?.label}</h3>
+                    <p className="font-mono text-xs text-gray-500 uppercase tracking-widest mt-1">STATUS: OPERATIONAL</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 auto-rows-max flex-1">
+                  {activeData?.skills.map((skill, index) => (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      key={skill.name}
+                      className="flex items-center justify-between p-4 bg-black/40 border border-cyan-900/30 rounded-sm hover:border-cyan-500/30 transition-colors"
+                    >
+                      <span className="font-sans text-gray-200 font-medium">{skill.name}</span>
+                      <span className={cn(
+                        "font-mono text-[10px] px-2 py-1 rounded-sm uppercase tracking-widest",
+                        skill.status === 'ACTIVE' ? "bg-amber-950/30 text-amber-500 border border-amber-900/50" : 
+                        skill.status === 'WORKING' ? "bg-cyan-950/30 text-cyan-400 border border-cyan-900/50" :
+                        "bg-gray-900/50 text-gray-400 border border-gray-700"
+                      )}>
+                        {skill.status}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {skillCategories.map((category, index) => (
-             <motion.div
-               key={category.title}
-               initial={{ opacity: 0, y: 30 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               viewport={{ once: true, margin: "-50px" }}
-               transition={{ duration: 0.5, delay: index * 0.1 }}
-               whileHover={{ y: -5 }}
-               onClick={playClickSound}
-               onMouseEnter={playHoverSound}
-               className="group relative p-8 bg-[#0B1121] border border-cyan-500/30 rounded-sm shadow-[inset_0_0_20px_rgba(6,182,212,0.05)] hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(6,182,212,0.15),inset_0_0_30px_rgba(6,182,212,0.1)] transition-all duration-500 overflow-hidden"
-             >
-               {/* Top edge highlight */}
-               <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-               
-               {/* Internal scanning line */}
-               <motion.div 
-                 className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent z-0 blur-[1px]"
-                 animate={{ top: ['-10%', '110%'] }}
-                 transition={{ duration: 3 + Math.random(), repeat: Infinity, ease: 'linear' }}
-               />
-
-               <div className="relative z-10">
-                 {/* Header matches the screenshot layout */}
-                 <div className="flex items-center gap-4 mb-8">
-                   <div className="w-12 h-12 rounded-sm bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center font-bold">
-                     {category.icon}
-                   </div>
-                   <h3 className="font-space text-2xl font-bold text-gray-200 group-hover:text-white transition-colors">
-                     {category.title}
-                   </h3>
-                 </div>
-                 
-                 {/* Flex container for the pills */}
-                 <div className="flex flex-wrap gap-3">
-                   {category.skills.map((skill, skillIndex) => (
-                     <span 
-                       key={skillIndex} 
-                       className="font-mono text-sm px-4 py-2 bg-cyan-950/20 border border-cyan-900/50 text-cyan-300 rounded-full group-hover:border-cyan-500/50 hover:bg-cyan-900/40 transition-all cursor-default"
-                     >
-                       {skill}
-                     </span>
-                   ))}
-                 </div>
-               </div>
-
-               {/* Accent corners */}
-               <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-cyan-500/30 group-hover:border-cyan-400 transition-colors" />
-               <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-cyan-500/30 group-hover:border-cyan-400 transition-colors" />
-             </motion.div>
-          ))}
-        </div>
-
       </div>
     </section>
   );

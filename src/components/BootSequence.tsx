@@ -1,14 +1,14 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useState, useRef } from 'react';
-import { cn } from '../utils/cn';
-import { playBootSound, playClickSound } from '../utils/sound';
+import { cn } from '../utils/cn.ts';
+import { playBootSound, playClickSound } from '../utils/sound.ts';
 
 interface BootSequenceProps {
   onComplete: () => void;
 }
 
 export default function BootSequence({ onComplete }: BootSequenceProps) {
-  const [hasStarted, setHasStarted] = useState(false);
+  const [hasStarted, setHasStarted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);
@@ -34,11 +34,20 @@ export default function BootSequence({ onComplete }: BootSequenceProps) {
   };
 
   useEffect(() => {
+    if (!hasPlayedSound.current) {
+      // Audio might be blocked by browser policy until interaction,
+      // but we try to play it anyway for the boot effect.
+      playBootSound();
+      hasPlayedSound.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
     if (!hasStarted) return;
 
     let currentProgress = 0;
     const interval = setInterval(() => {
-      currentProgress += Math.random() * 8;
+      currentProgress += Math.random() * 15;
       if (currentProgress > 100) currentProgress = 100;
       setProgress(currentProgress);
       
@@ -49,10 +58,10 @@ export default function BootSequence({ onComplete }: BootSequenceProps) {
         clearInterval(interval);
         setTimeout(() => {
           setIsExiting(true);
-          setTimeout(onComplete, 1500); // Wait for exit animation
-        }, 800);
+          setTimeout(onComplete, 800); // Wait for exit animation
+        }, 500);
       }
-    }, 120);
+    }, 60);
 
     return () => clearInterval(interval);
   }, [hasStarted, onComplete]);

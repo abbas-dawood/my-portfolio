@@ -1,4 +1,6 @@
-import express from "express";
+const fs = require('fs');
+
+const newServerCode = `import express from "express";
 import path from "path";
 import cors from "cors";
 import { createServer as createViteServer } from "vite";
@@ -44,7 +46,7 @@ app.post("/api/contact", async (req, res) => {
        return res.status(400).json({ success: false, message: "Input exceeds maximum length." });
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
     if (!emailRegex.test(email)) {
        return res.status(400).json({ success: false, message: "Invalid email format." });
     }
@@ -52,30 +54,30 @@ app.post("/api/contact", async (req, res) => {
     const safeName = escapeHtml(name);
     const safeEmail = escapeHtml(email);
     const safePurpose = escapeHtml(purpose);
-    const safeMessage = escapeHtml(message).replace(/\n/g, '<br/>');
+    const safeMessage = escapeHtml(message).replace(/\\n/g, '<br/>');
 
-    const transmissionId = `AD-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
+    const transmissionId = \`AD-\${new Date().toISOString().slice(0, 10).replace(/-/g, '')}-\${crypto.randomBytes(3).toString('hex').toUpperCase()}\`;
 
-    const ownerHtml = `
+    const ownerHtml = \`
       <div style="background-color: #020617; color: #cbd5e1; font-family: 'Courier New', Courier, monospace; padding: 40px;">
         <div style="max-w-2xl mx-auto border: 1px solid #06b6d4; padding: 30px;">
           <h2 style="color: #06b6d4; letter-spacing: 2px; margin-top: 0; text-transform: uppercase;">NEW PORTFOLIO INQUIRY</h2>
           <hr style="border: 0; border-bottom: 1px solid #0f172a; margin: 20px 0;" />
           
-          <p><strong style="color: #64748b;">VISITOR:</strong><br/>${safeName}</p>
-          <p><strong style="color: #64748b;">RETURN CHANNEL:</strong><br/><a href="mailto:${safeEmail}" style="color: #38bdf8;">${safeEmail}</a></p>
-          <p><strong style="color: #64748b;">PURPOSE:</strong><br/>${safePurpose}</p>
-          <p><strong style="color: #64748b;">TRANSMISSION ID:</strong><br/><span style="color: #f59e0b;">${transmissionId}</span></p>
-          <p><strong style="color: #64748b;">TIMESTAMP:</strong><br/>${new Date().toUTCString()}</p>
+          <p><strong style="color: #64748b;">VISITOR:</strong><br/>\${safeName}</p>
+          <p><strong style="color: #64748b;">RETURN CHANNEL:</strong><br/><a href="mailto:\${safeEmail}" style="color: #38bdf8;">\${safeEmail}</a></p>
+          <p><strong style="color: #64748b;">PURPOSE:</strong><br/>\${safePurpose}</p>
+          <p><strong style="color: #64748b;">TRANSMISSION ID:</strong><br/><span style="color: #f59e0b;">\${transmissionId}</span></p>
+          <p><strong style="color: #64748b;">TIMESTAMP:</strong><br/>\${new Date().toUTCString()}</p>
           
           <hr style="border: 0; border-bottom: 1px solid #0f172a; margin: 20px 0;" />
           <p><strong style="color: #64748b;">MESSAGE:</strong></p>
           <div style="background-color: #0f172a; padding: 20px; border-left: 4px solid #06b6d4; color: #f8fafc; font-family: sans-serif;">
-            ${safeMessage}
+            \${safeMessage}
           </div>
         </div>
       </div>
-    `;
+    \`;
 
     // Personalized auto-reply text
     let personalizedLine = "Thanks for reaching out through my portfolio.";
@@ -87,41 +89,41 @@ app.post("/api/contact", async (req, res) => {
     else if (purpose === "Project Inquiry") personalizedLine = "Thanks for reaching out regarding your project inquiry.";
     else if (purpose === "Internship / Opportunity") personalizedLine = "Thanks for getting in touch regarding an opportunity.";
 
-    const visitorHtml = `
+    const visitorHtml = \`
       <div style="background-color: #020617; color: #cbd5e1; font-family: 'Courier New', Courier, monospace; padding: 40px;">
         <div style="max-w-2xl mx-auto border: 1px solid #06b6d4; padding: 30px;">
           <h2 style="color: #06b6d4; letter-spacing: 2px; margin-top: 0; text-transform: uppercase;">ABBAS DAWOOD &bull; COMMUNICATION CHANNEL</h2>
           <hr style="border: 0; border-bottom: 1px solid #0f172a; margin: 20px 0;" />
           
-          <p style="font-family: sans-serif; font-size: 16px;">Hi ${safeName},</p>
-          <p style="font-family: sans-serif; font-size: 16px;">${personalizedLine}</p>
+          <p style="font-family: sans-serif; font-size: 16px;">Hi \${safeName},</p>
+          <p style="font-family: sans-serif; font-size: 16px;">\${personalizedLine}</p>
           <p style="font-family: sans-serif; font-size: 16px;">Your message has been successfully received.</p>
           <p style="font-family: sans-serif; font-size: 16px;">I will review your inquiry and respond through the email address you provided.</p>
           
           <table style="width: 100%; border-collapse: collapse; margin-top: 30px;">
             <tr>
               <td style="padding: 8px 0; border-bottom: 1px solid #0f172a; color: #64748b;">TRANSMISSION ID:</td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #0f172a; color: #f59e0b;">${transmissionId}</td>
+              <td style="padding: 8px 0; border-bottom: 1px solid #0f172a; color: #f59e0b;">\${transmissionId}</td>
             </tr>
           </table>
           
           <p style="margin-top: 40px; color: #64748b; font-size: 14px;">
             Best regards,<br/><br/>
             <strong style="color: #f8fafc; font-size: 16px;">Abbas Dawood</strong><br/>
-            ${SENDER_EMAIL}<br/>
-            ${OWNER_PHONE}
+            \${SENDER_EMAIL}<br/>
+            \${OWNER_PHONE}
           </p>
         </div>
       </div>
-    `;
+    \`;
 
     const emailPayload = {
       owner_email: OWNER_EMAIL,
       visitor_email: email,
       sender_email: SENDER_EMAIL,
       sender_name: SENDER_NAME,
-      owner_subject: `[Portfolio Contact] ${purpose}`,
-      visitor_subject: `Received — Your message to Abbas Dawood`,
+      owner_subject: \`[Portfolio Contact] \${purpose}\`,
+      visitor_subject: \`Received — Your message to Abbas Dawood\`,
       owner_html: ownerHtml,
       visitor_html: visitorHtml
     };
@@ -180,8 +182,11 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(\`Server running on http://localhost:\${PORT}\`);
   });
 }
 
 startServer();
+`;
+
+fs.writeFileSync('server.ts', newServerCode);
