@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://abbasdawood.vercel.app/sitemap.xml

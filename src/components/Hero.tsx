@@ -36,6 +36,7 @@ export default function Hero() {
           >
             <span className="text-white">Abbas</span>{' '}
             <span className="text-gray-300">Dawood</span>
+            <span className="sr-only">, Future Commercial Pilot, MUN Leader &amp; Technologist</span>
           </motion.h1>
 
           <motion.div

@@ -643,6 +643,11 @@ function Hero() {
               fileName: "/app/applet/src/components/Hero.tsx",
               lineNumber: 38,
               columnNumber: 13
+            }, this),
+            /* @__PURE__ */ jsxDEV("span", { className: "sr-only", children: ", Future Commercial Pilot, MUN Leader & Technologist" }, void 0, false, {
+              fileName: "/app/applet/src/components/Hero.tsx",
+              lineNumber: 39,
+              columnNumber: 13
             }, this)
           ]
         },
@@ -665,17 +670,17 @@ function Hero() {
           children: [
             /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] md:text-xs text-amber-500 border border-amber-900/50 bg-amber-950/20 px-3 py-1 rounded-sm uppercase tracking-widest", children: "Aspiring Commercial Pilot" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 47,
+              lineNumber: 48,
               columnNumber: 13
             }, this),
             /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] md:text-xs text-cyan-500 border border-cyan-900/50 bg-cyan-950/20 px-3 py-1 rounded-sm uppercase tracking-widest", children: "Student Leader" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 48,
+              lineNumber: 49,
               columnNumber: 13
             }, this),
             /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] md:text-xs text-cyan-500 border border-cyan-900/50 bg-cyan-950/20 px-3 py-1 rounded-sm uppercase tracking-widest", children: "Technology Enthusiast" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 49,
+              lineNumber: 50,
               columnNumber: 13
             }, this)
           ]
@@ -684,7 +689,7 @@ function Hero() {
         true,
         {
           fileName: "/app/applet/src/components/Hero.tsx",
-          lineNumber: 41,
+          lineNumber: 42,
           columnNumber: 11
         },
         this
@@ -702,7 +707,7 @@ function Hero() {
         false,
         {
           fileName: "/app/applet/src/components/Hero.tsx",
-          lineNumber: 52,
+          lineNumber: 53,
           columnNumber: 11
         },
         this
@@ -724,7 +729,7 @@ function Hero() {
                   "Explore My Journey",
                   /* @__PURE__ */ jsxDEV(Compass, { className: "w-4 h-4 group-hover:rotate-45 transition-transform duration-300" }, void 0, false, {
                     fileName: "/app/applet/src/components/Hero.tsx",
-                    lineNumber: 72,
+                    lineNumber: 73,
                     columnNumber: 15
                   }, this)
                 ]
@@ -733,7 +738,7 @@ function Hero() {
               true,
               {
                 fileName: "/app/applet/src/components/Hero.tsx",
-                lineNumber: 67,
+                lineNumber: 68,
                 columnNumber: 13
               },
               this
@@ -747,7 +752,7 @@ function Hero() {
                   "Contact Me",
                   /* @__PURE__ */ jsxDEV(Target, { className: "w-4 h-4" }, void 0, false, {
                     fileName: "/app/applet/src/components/Hero.tsx",
-                    lineNumber: 80,
+                    lineNumber: 81,
                     columnNumber: 15
                   }, this)
                 ]
@@ -756,7 +761,7 @@ function Hero() {
               true,
               {
                 fileName: "/app/applet/src/components/Hero.tsx",
-                lineNumber: 75,
+                lineNumber: 76,
                 columnNumber: 13
               },
               this
@@ -771,7 +776,7 @@ function Hero() {
                 children: [
                   /* @__PURE__ */ jsxDEV(Download, { className: "w-4 h-4 group-hover:-translate-y-1 transition-transform" }, void 0, false, {
                     fileName: "/app/applet/src/components/Hero.tsx",
-                    lineNumber: 89,
+                    lineNumber: 90,
                     columnNumber: 15
                   }, this),
                   "Download CV"
@@ -781,7 +786,7 @@ function Hero() {
               true,
               {
                 fileName: "/app/applet/src/components/Hero.tsx",
-                lineNumber: 83,
+                lineNumber: 84,
                 columnNumber: 13
               },
               this
@@ -792,7 +797,7 @@ function Hero() {
         true,
         {
           fileName: "/app/applet/src/components/Hero.tsx",
-          lineNumber: 61,
+          lineNumber: 62,
           columnNumber: 11
         },
         this
@@ -818,7 +823,7 @@ function Hero() {
               transition: { duration: 40, repeat: Infinity, ease: "linear" },
               children: /* @__PURE__ */ jsxDEV("circle", { cx: "50%", cy: "50%", r: "45%", fill: "none", stroke: "rgba(6,182,212,0.2)", strokeWidth: "1", strokeDasharray: "4 8" }, void 0, false, {
                 fileName: "/app/applet/src/components/Hero.tsx",
-                lineNumber: 111,
+                lineNumber: 112,
                 columnNumber: 16
               }, this)
             },
@@ -826,7 +831,7 @@ function Hero() {
             false,
             {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 106,
+              lineNumber: 107,
               columnNumber: 13
             },
             this
@@ -839,7 +844,7 @@ function Hero() {
               transition: { duration: 25, repeat: Infinity, ease: "linear" },
               children: /* @__PURE__ */ jsxDEV("circle", { cx: "50%", cy: "50%", r: "48%", fill: "none", stroke: "rgba(245,158,11,0.2)", strokeWidth: "0.5", strokeDasharray: "20 40 10 40" }, void 0, false, {
                 fileName: "/app/applet/src/components/Hero.tsx",
-                lineNumber: 120,
+                lineNumber: 121,
                 columnNumber: 16
               }, this)
             },
@@ -847,7 +852,7 @@ function Hero() {
             false,
             {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 115,
+              lineNumber: 116,
               columnNumber: 14
             },
             this
@@ -860,7 +865,7 @@ function Hero() {
               transition: { duration: 4, repeat: Infinity, ease: "linear" },
               children: /* @__PURE__ */ jsxDEV("div", { className: "absolute top-0 right-0 w-24 h-24 bg-[conic-gradient(from_0deg,transparent_0deg,rgba(6,182,212,0.2)_90deg,transparent_90deg)] opacity-50 origin-bottom-left -translate-y-full -translate-x-full rotate-90" }, void 0, false, {
                 fileName: "/app/applet/src/components/Hero.tsx",
-                lineNumber: 129,
+                lineNumber: 130,
                 columnNumber: 16
               }, this)
             },
@@ -868,7 +873,7 @@ function Hero() {
             false,
             {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 124,
+              lineNumber: 125,
               columnNumber: 13
             },
             this
@@ -876,54 +881,54 @@ function Hero() {
           /* @__PURE__ */ jsxDEV("div", { className: "absolute top-[15%] left-[15%] text-left", children: [
             /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[9px] text-cyan-600 tracking-widest", children: "TRAJECTORY" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 134,
+              lineNumber: 135,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-white", children: "SET" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 135,
+              lineNumber: 136,
               columnNumber: 15
             }, this)
           ] }, void 0, true, {
             fileName: "/app/applet/src/components/Hero.tsx",
-            lineNumber: 133,
+            lineNumber: 134,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ jsxDEV("div", { className: "absolute top-[15%] right-[15%] text-right bg-black/40 backdrop-blur-md px-3 py-1 border border-cyan-900/50 rounded-sm", children: [
             /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[9px] text-amber-400 mb-1 tracking-widest", children: "PHASE" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 139,
+              lineNumber: 140,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV("p", { className: "font-space text-sm font-bold tracking-widest text-white whitespace-nowrap", children: "ASCENT" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 140,
+              lineNumber: 141,
               columnNumber: 15
             }, this)
           ] }, void 0, true, {
             fileName: "/app/applet/src/components/Hero.tsx",
-            lineNumber: 138,
+            lineNumber: 139,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ jsxDEV("div", { className: "absolute bottom-[20%] left-[10%] text-left bg-black/40 backdrop-blur-md px-3 py-1 border border-cyan-900/50 rounded-sm", children: [
             /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[9px] text-cyan-400 mb-1 tracking-widest", children: "SYSTEM" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 144,
+              lineNumber: 145,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV("p", { className: "font-space text-sm font-bold tracking-widest text-white whitespace-nowrap", children: "NOMINAL" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 145,
+              lineNumber: 146,
               columnNumber: 15
             }, this)
           ] }, void 0, true, {
             fileName: "/app/applet/src/components/Hero.tsx",
-            lineNumber: 143,
+            lineNumber: 144,
             columnNumber: 13
           }, this)
         ] }, void 0, true, {
           fileName: "/app/applet/src/components/Hero.tsx",
-          lineNumber: 103,
+          lineNumber: 104,
           columnNumber: 11
         }, this)
       },
@@ -931,7 +936,7 @@ function Hero() {
       false,
       {
         fileName: "/app/applet/src/components/Hero.tsx",
-        lineNumber: 96,
+        lineNumber: 97,
         columnNumber: 9
       },
       this
@@ -3542,7 +3547,7 @@ function BootSequence({ onComplete }) {
         }, this),
         /* @__PURE__ */ jsxDEV("div", { className: "relative z-10 w-full max-w-2xl px-6 flex flex-col items-center", children: [
           /* @__PURE__ */ jsxDEV(
-            motion.h2,
+            motion.div,
             {
               initial: { opacity: 0, y: 20 },
               animate: { opacity: 1, y: 0 },
@@ -3756,129 +3761,137 @@ function Portfolio() {
     damping: 30,
     restDelta: 1e-3
   });
-  return /* @__PURE__ */ jsxDEV("div", { className: "min-h-screen bg-[#020617] text-slate-300 font-sans selection:bg-cyan-500/30 overflow-x-hidden", children: !bootComplete ? /* @__PURE__ */ jsxDEV(BootSequence, { onComplete: () => setBootComplete(true) }, void 0, false, {
-    fileName: "/app/applet/src/components/Portfolio.tsx",
-    lineNumber: 33,
-    columnNumber: 9
-  }, this) : /* @__PURE__ */ jsxDEV(
-    motion.div,
-    {
-      initial: { opacity: 0 },
-      animate: { opacity: 1 },
-      transition: { duration: 1 },
-      children: [
-        /* @__PURE__ */ jsxDEV(CustomCursor, {}, void 0, false, {
-          fileName: "/app/applet/src/components/Portfolio.tsx",
-          lineNumber: 40,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ jsxDEV(Background, {}, void 0, false, {
-          fileName: "/app/applet/src/components/Portfolio.tsx",
-          lineNumber: 41,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ jsxDEV(HUDOverlay, {}, void 0, false, {
-          fileName: "/app/applet/src/components/Portfolio.tsx",
-          lineNumber: 42,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ jsxDEV(
-          motion.div,
-          {
-            className: "fixed top-0 left-0 right-0 h-[2px] bg-cyan-500 origin-left z-50 shadow-[0_0_10px_rgba(6,182,212,0.5)]",
-            style: { scaleX }
-          },
-          void 0,
-          false,
-          {
+  return /* @__PURE__ */ jsxDEV("div", { className: "min-h-screen bg-[#020617] text-slate-300 font-sans selection:bg-cyan-500/30 overflow-x-hidden", children: [
+    /* @__PURE__ */ jsxDEV(AnimatePresence, { children: !bootComplete && /* @__PURE__ */ jsxDEV(BootSequence, { onComplete: () => setBootComplete(true) }, void 0, false, {
+      fileName: "/app/applet/src/components/Portfolio.tsx",
+      lineNumber: 33,
+      columnNumber: 27
+    }, this) }, void 0, false, {
+      fileName: "/app/applet/src/components/Portfolio.tsx",
+      lineNumber: 32,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV(
+      motion.div,
+      {
+        initial: { opacity: 0 },
+        animate: { opacity: bootComplete ? 1 : 0 },
+        transition: { duration: 1 },
+        style: { pointerEvents: bootComplete ? "auto" : "none", height: bootComplete ? "auto" : "100vh", overflow: bootComplete ? "visible" : "hidden" },
+        children: [
+          /* @__PURE__ */ jsxDEV(CustomCursor, {}, void 0, false, {
             fileName: "/app/applet/src/components/Portfolio.tsx",
-            lineNumber: 45,
-            columnNumber: 11
-          },
-          this
-        ),
-        /* @__PURE__ */ jsxDEV(Navbar, {}, void 0, false, {
-          fileName: "/app/applet/src/components/Portfolio.tsx",
-          lineNumber: 50,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ jsxDEV("main", { children: [
-          /* @__PURE__ */ jsxDEV(Hero, {}, void 0, false, {
+            lineNumber: 42,
+            columnNumber: 9
+          }, this),
+          /* @__PURE__ */ jsxDEV(Background, {}, void 0, false, {
+            fileName: "/app/applet/src/components/Portfolio.tsx",
+            lineNumber: 43,
+            columnNumber: 9
+          }, this),
+          /* @__PURE__ */ jsxDEV(HUDOverlay, {}, void 0, false, {
+            fileName: "/app/applet/src/components/Portfolio.tsx",
+            lineNumber: 44,
+            columnNumber: 9
+          }, this),
+          /* @__PURE__ */ jsxDEV(
+            motion.div,
+            {
+              className: "fixed top-0 left-0 right-0 h-[2px] bg-cyan-500 origin-left z-50 shadow-[0_0_10px_rgba(6,182,212,0.5)]",
+              style: { scaleX }
+            },
+            void 0,
+            false,
+            {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 47,
+              columnNumber: 9
+            },
+            this
+          ),
+          /* @__PURE__ */ jsxDEV(Navbar, {}, void 0, false, {
             fileName: "/app/applet/src/components/Portfolio.tsx",
             lineNumber: 52,
-            columnNumber: 13
+            columnNumber: 9
           }, this),
-          /* @__PURE__ */ jsxDEV(About, {}, void 0, false, {
+          /* @__PURE__ */ jsxDEV("main", { children: [
+            /* @__PURE__ */ jsxDEV(Hero, {}, void 0, false, {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 54,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV(About, {}, void 0, false, {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 55,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV(Skills, {}, void 0, false, {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 56,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV(Experience, {}, void 0, false, {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 57,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV(Education, {}, void 0, false, {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 58,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV(MunDiplomacy, {}, void 0, false, {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 59,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV(Leadership, {}, void 0, false, {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 60,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV(Hobbies, {}, void 0, false, {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 61,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV(Certifications, {}, void 0, false, {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 62,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV(ResumeSection, {}, void 0, false, {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 63,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV(Contact, {}, void 0, false, {
+              fileName: "/app/applet/src/components/Portfolio.tsx",
+              lineNumber: 64,
+              columnNumber: 11
+            }, this)
+          ] }, void 0, true, {
             fileName: "/app/applet/src/components/Portfolio.tsx",
             lineNumber: 53,
-            columnNumber: 13
+            columnNumber: 9
           }, this),
-          /* @__PURE__ */ jsxDEV(Skills, {}, void 0, false, {
+          /* @__PURE__ */ jsxDEV(Footer, {}, void 0, false, {
             fileName: "/app/applet/src/components/Portfolio.tsx",
-            lineNumber: 54,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV(Experience, {}, void 0, false, {
-            fileName: "/app/applet/src/components/Portfolio.tsx",
-            lineNumber: 55,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV(Education, {}, void 0, false, {
-            fileName: "/app/applet/src/components/Portfolio.tsx",
-            lineNumber: 56,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV(MunDiplomacy, {}, void 0, false, {
-            fileName: "/app/applet/src/components/Portfolio.tsx",
-            lineNumber: 57,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV(Leadership, {}, void 0, false, {
-            fileName: "/app/applet/src/components/Portfolio.tsx",
-            lineNumber: 58,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV(Hobbies, {}, void 0, false, {
-            fileName: "/app/applet/src/components/Portfolio.tsx",
-            lineNumber: 59,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV(Certifications, {}, void 0, false, {
-            fileName: "/app/applet/src/components/Portfolio.tsx",
-            lineNumber: 60,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV(ResumeSection, {}, void 0, false, {
-            fileName: "/app/applet/src/components/Portfolio.tsx",
-            lineNumber: 61,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV(Contact, {}, void 0, false, {
-            fileName: "/app/applet/src/components/Portfolio.tsx",
-            lineNumber: 62,
-            columnNumber: 13
+            lineNumber: 66,
+            columnNumber: 9
           }, this)
-        ] }, void 0, true, {
-          fileName: "/app/applet/src/components/Portfolio.tsx",
-          lineNumber: 51,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ jsxDEV(Footer, {}, void 0, false, {
-          fileName: "/app/applet/src/components/Portfolio.tsx",
-          lineNumber: 64,
-          columnNumber: 11
-        }, this)
-      ]
-    },
-    void 0,
-    true,
-    {
-      fileName: "/app/applet/src/components/Portfolio.tsx",
-      lineNumber: 35,
-      columnNumber: 9
-    },
-    this
-  ) }, void 0, false, {
+        ]
+      },
+      void 0,
+      true,
+      {
+        fileName: "/app/applet/src/components/Portfolio.tsx",
+        lineNumber: 36,
+        columnNumber: 7
+      },
+      this
+    )
+  ] }, void 0, true, {
     fileName: "/app/applet/src/components/Portfolio.tsx",
     lineNumber: 31,
     columnNumber: 5

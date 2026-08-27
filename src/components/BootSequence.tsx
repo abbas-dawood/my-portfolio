@@ -93,14 +93,14 @@ export default function BootSequence({ onComplete }: BootSequenceProps) {
           )}
 
           <div className="relative z-10 w-full max-w-2xl px-6 flex flex-col items-center">
-            <motion.h2 
+            <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-2xl md:text-4xl font-bold tracking-[0.2em] mb-12 text-center mt-20"
               style={{ fontFamily: 'Space Grotesk, sans-serif' }}
             >
               ABBAS ALTITUDE SYSTEM BOOT
-            </motion.h2>
+            </motion.div>
 
             {/* Progress Circle & Text */}
             <div className="relative w-48 h-48 flex items-center justify-center mb-12">

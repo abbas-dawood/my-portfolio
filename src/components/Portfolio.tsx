@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring } from 'motion/react';
+import { motion, useScroll, useSpring, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 import Navbar from './Navbar';
 import HUDOverlay from './HUDOverlay';
@@ -29,41 +29,42 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-[#020617] text-slate-300 font-sans selection:bg-cyan-500/30 overflow-x-hidden">
-      {!bootComplete ? (
-        <BootSequence onComplete={() => setBootComplete(true)} />
-      ) : (
+      <AnimatePresence>
+        {!bootComplete && <BootSequence onComplete={() => setBootComplete(true)} />}
+      </AnimatePresence>
+      
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: bootComplete ? 1 : 0 }}
+        transition={{ duration: 1 }}
+        style={{ pointerEvents: bootComplete ? 'auto' : 'none', height: bootComplete ? 'auto' : '100vh', overflow: bootComplete ? 'visible' : 'hidden' }}
+      >
+        <CustomCursor />
+        <Background />
+        <HUDOverlay />
+        
+        {/* Top Progress Bar */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <CustomCursor />
-          <Background />
-          <HUDOverlay />
-          
-          {/* Top Progress Bar */}
-          <motion.div
-            className="fixed top-0 left-0 right-0 h-[2px] bg-cyan-500 origin-left z-50 shadow-[0_0_10px_rgba(6,182,212,0.5)]"
-            style={{ scaleX }}
-          />
-          
-          <Navbar />
-          <main>
-            <Hero />
-            <About />
-            <Skills />
-            <Experience />
-            <Education />
-            <MunDiplomacy />
-            <Leadership />
-            <Hobbies />
-            <Certifications />
-            <ResumeSection />
-            <Contact />
-          </main>
-          <Footer />
-        </motion.div>
-      )}
+          className="fixed top-0 left-0 right-0 h-[2px] bg-cyan-500 origin-left z-50 shadow-[0_0_10px_rgba(6,182,212,0.5)]"
+          style={{ scaleX }}
+        />
+        
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Experience />
+          <Education />
+          <MunDiplomacy />
+          <Leadership />
+          <Hobbies />
+          <Certifications />
+          <ResumeSection />
+          <Contact />
+        </main>
+        <Footer />
+      </motion.div>
     </div>
   );
 }
