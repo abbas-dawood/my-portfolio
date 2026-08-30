@@ -8,18 +8,18 @@ import Hero from './Hero';
 import About from './About';
 import Skills from './Skills';
 import Experience from './Experience';
-import Education from './Education';
 import MunDiplomacy from './MunDiplomacy';
 import Leadership from './Leadership';
+import Education from './Education';
 import Hobbies from './Hobbies';
 import Certifications from './Certifications';
-import ResumeSection from './ResumeSection';
 import Contact from './Contact';
 import Footer from './Footer';
 import BootSequence from './BootSequence';
 
 export default function Portfolio() {
   const [bootComplete, setBootComplete] = useState(false);
+  
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -55,12 +55,11 @@ export default function Portfolio() {
           <About />
           <Skills />
           <Experience />
-          <Education />
           <MunDiplomacy />
           <Leadership />
-          <Hobbies />
+          <Education />
           <Certifications />
-          <ResumeSection />
+          <Hobbies />
           <Contact />
         </main>
         <Footer />

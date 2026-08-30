@@ -56,7 +56,7 @@ export default function Skills() {
   const activeData = skillCategories.find(c => c.id === activeCategory);
 
   return (
-    <section id="skills" className="relative py-24 bg-[#0B1121] border-y border-cyan-900/20 overflow-hidden">
+    <section id="skills" className="relative py-16 md:py-24 bg-[#0B1121] border-y border-cyan-900/20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         
         <motion.div

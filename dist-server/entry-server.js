@@ -1,10 +1,10 @@
 import { jsxDEV, Fragment } from "react/jsx-dev-runtime";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router";
 import { Routes, Route } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
-import { Plane, X, Menu, Compass, Target, Download, Terminal, Globe, Award, Users, Monitor, Briefcase, Activity, Share2, GraduationCap, PlaneTakeoff, Navigation, Flag, Calendar, Languages, Gamepad2, Mic, Map, ShieldCheck, FileText, Linkedin, Github, Instagram, Mail, Cpu, ShieldAlert, CheckCircle, ArrowUp } from "lucide-react";
+import { Plane, X, Menu, Compass, Target, Download, User, Navigation, Crosshair, Users, Monitor, Briefcase, Globe, Filter, Play, Shield, Flag, Mic2, FileText, LayoutDashboard, Share2, BookOpen, Globe2, Code, Gamepad2, Map, Award, Linkedin, Github, Instagram, Mail, Cpu, ShieldAlert, CheckCircle, ArrowUp } from "lucide-react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 const playHoverSound = () => {
@@ -95,10 +95,10 @@ const navLinks = [
   { name: "ABOUT", href: "#about" },
   { name: "SKILLS", href: "#skills" },
   { name: "EXPERIENCE", href: "#experience" },
+  { name: "MUN & DIPLOMACY", href: "#mun" },
   { name: "EDUCATION", href: "#education" },
-  { name: "MUN", href: "#mun" },
-  { name: "LEADERSHIP", href: "#leadership" },
-  { name: "CV", href: "#resume" },
+  { name: "CERTIFICATION", href: "#certifications" },
+  { name: "INTERESTS", href: "#interests" },
   { name: "CONTACT", href: "#contact" }
 ];
 function Navbar() {
@@ -160,16 +160,16 @@ function Navbar() {
               children: [
                 /* @__PURE__ */ jsxDEV("div", { className: "w-8 h-8 flex items-center justify-center border border-cyan-500/50 text-cyan-400 group-hover:bg-cyan-500 group-hover:text-black transition-colors rounded-sm", children: /* @__PURE__ */ jsxDEV(Plane, { className: "w-4 h-4" }, void 0, false, {
                   fileName: "/app/applet/src/components/Navbar.tsx",
-                  lineNumber: 84,
+                  lineNumber: 82,
                   columnNumber: 13
                 }, this) }, void 0, false, {
                   fileName: "/app/applet/src/components/Navbar.tsx",
-                  lineNumber: 83,
+                  lineNumber: 81,
                   columnNumber: 11
                 }, this),
                 /* @__PURE__ */ jsxDEV("span", { className: "font-space font-bold tracking-widest text-white uppercase text-sm", children: "A. Dawood" }, void 0, false, {
                   fileName: "/app/applet/src/components/Navbar.tsx",
-                  lineNumber: 86,
+                  lineNumber: 84,
                   columnNumber: 11
                 }, this)
               ]
@@ -178,31 +178,72 @@ function Navbar() {
             true,
             {
               fileName: "/app/applet/src/components/Navbar.tsx",
-              lineNumber: 77,
+              lineNumber: 75,
               columnNumber: 9
             },
             this
           ),
-          /* @__PURE__ */ jsxDEV("div", { className: "hidden lg:flex items-center gap-6", children: navLinks.map((link) => /* @__PURE__ */ jsxDEV(
-            "a",
-            {
-              href: link.href,
-              onClick: (e) => handleNavClick(e, link.href),
-              onMouseEnter: playHoverSound,
-              className: `font-mono text-[10px] uppercase tracking-[0.2em] transition-all relative pb-1 ${activeSection === link.href ? "text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] border-b-2 border-cyan-400" : "text-gray-400 hover:text-cyan-400"}`,
-              children: link.name
-            },
-            link.name,
-            false,
-            {
-              fileName: "/app/applet/src/components/Navbar.tsx",
-              lineNumber: 94,
-              columnNumber: 13
-            },
-            this
-          )) }, void 0, false, {
+          /* @__PURE__ */ jsxDEV("div", { className: "hidden lg:flex items-center gap-6", children: [
+            navLinks.map((link) => /* @__PURE__ */ jsxDEV(
+              "a",
+              {
+                href: link.href,
+                onClick: (e) => handleNavClick(e, link.href),
+                onMouseEnter: playHoverSound,
+                className: `font-mono text-[10px] uppercase tracking-[0.2em] transition-all relative pb-1 ${activeSection === link.href ? "text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] border-b-2 border-cyan-400" : "text-gray-400 hover:text-cyan-400"}`,
+                children: link.name
+              },
+              link.name,
+              false,
+              {
+                fileName: "/app/applet/src/components/Navbar.tsx",
+                lineNumber: 92,
+                columnNumber: 13
+              },
+              this
+            )),
+            /* @__PURE__ */ jsxDEV(
+              "a",
+              {
+                href: "/Abbas_Dawood_Resume.pdf",
+                target: "_blank",
+                rel: "noopener noreferrer",
+                onClick: playClickSound,
+                onMouseEnter: playHoverSound,
+                className: "font-mono text-[10px] uppercase tracking-[0.2em] text-black bg-cyan-500 hover:bg-white px-4 py-2 rounded-sm transition-colors ml-2",
+                children: "VIEW CV"
+              },
+              void 0,
+              false,
+              {
+                fileName: "/app/applet/src/components/Navbar.tsx",
+                lineNumber: 107,
+                columnNumber: 11
+              },
+              this
+            ),
+            /* @__PURE__ */ jsxDEV(
+              "a",
+              {
+                href: "/Abbas_Dawood_Resume.pdf",
+                download: true,
+                onClick: playClickSound,
+                onMouseEnter: playHoverSound,
+                className: "font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-500 border border-cyan-500 hover:bg-cyan-500/10 px-4 py-2 rounded-sm transition-colors ml-2",
+                children: "DOWNLOAD"
+              },
+              void 0,
+              false,
+              {
+                fileName: "/app/applet/src/components/Navbar.tsx",
+                lineNumber: 117,
+                columnNumber: 11
+              },
+              this
+            )
+          ] }, void 0, true, {
             fileName: "/app/applet/src/components/Navbar.tsx",
-            lineNumber: 92,
+            lineNumber: 90,
             columnNumber: 9
           }, this),
           /* @__PURE__ */ jsxDEV(
@@ -213,13 +254,14 @@ function Navbar() {
                 setMobileMenuOpen(!mobileMenuOpen);
               },
               className: "lg:hidden text-cyan-500",
+              "aria-label": "Toggle navigation menu",
               children: mobileMenuOpen ? /* @__PURE__ */ jsxDEV(X, {}, void 0, false, {
                 fileName: "/app/applet/src/components/Navbar.tsx",
-                lineNumber: 115,
+                lineNumber: 134,
                 columnNumber: 29
               }, this) : /* @__PURE__ */ jsxDEV(Menu, {}, void 0, false, {
                 fileName: "/app/applet/src/components/Navbar.tsx",
-                lineNumber: 115,
+                lineNumber: 134,
                 columnNumber: 37
               }, this)
             },
@@ -227,14 +269,14 @@ function Navbar() {
             false,
             {
               fileName: "/app/applet/src/components/Navbar.tsx",
-              lineNumber: 111,
+              lineNumber: 129,
               columnNumber: 9
             },
             this
           )
         ] }, void 0, true, {
           fileName: "/app/applet/src/components/Navbar.tsx",
-          lineNumber: 74,
+          lineNumber: 72,
           columnNumber: 7
         }, this),
         /* @__PURE__ */ jsxDEV(AnimatePresence, { children: mobileMenuOpen && /* @__PURE__ */ jsxDEV(
@@ -244,25 +286,70 @@ function Navbar() {
             animate: { opacity: 1, height: "auto" },
             exit: { opacity: 0, height: 0 },
             className: "lg:hidden bg-[#020617] border-b border-cyan-900/30 overflow-hidden",
-            children: /* @__PURE__ */ jsxDEV("div", { className: "px-6 py-4 flex flex-col gap-4", children: navLinks.map((link) => /* @__PURE__ */ jsxDEV(
-              "a",
-              {
-                href: link.href,
-                onClick: (e) => handleNavClick(e, link.href),
-                className: `font-mono text-xs uppercase tracking-[0.2em] transition-colors block py-2 border-b ${activeSection === link.href ? "text-cyan-400 border-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]" : "text-gray-400 hover:text-cyan-400 border-cyan-900/20"}`,
-                children: link.name
-              },
-              link.name,
-              false,
-              {
-                fileName: "/app/applet/src/components/Navbar.tsx",
-                lineNumber: 130,
-                columnNumber: 17
-              },
-              this
-            )) }, void 0, false, {
+            children: /* @__PURE__ */ jsxDEV("div", { className: "px-6 py-4 flex flex-col gap-4", children: [
+              navLinks.map((link) => /* @__PURE__ */ jsxDEV(
+                "a",
+                {
+                  href: link.href,
+                  onClick: (e) => handleNavClick(e, link.href),
+                  className: `font-mono text-xs uppercase tracking-[0.2em] transition-colors block py-2 border-b ${activeSection === link.href ? "text-cyan-400 border-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]" : "text-gray-400 hover:text-cyan-400 border-cyan-900/20"}`,
+                  children: link.name
+                },
+                link.name,
+                false,
+                {
+                  fileName: "/app/applet/src/components/Navbar.tsx",
+                  lineNumber: 149,
+                  columnNumber: 17
+                },
+                this
+              )),
+              /* @__PURE__ */ jsxDEV(
+                "a",
+                {
+                  href: "/Abbas_Dawood_Resume.pdf",
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  onClick: () => {
+                    playClickSound();
+                    setMobileMenuOpen(false);
+                  },
+                  className: "font-mono text-xs uppercase tracking-[0.2em] text-black bg-cyan-500 hover:bg-white text-center py-3 rounded-sm transition-colors mt-2",
+                  children: "VIEW CV"
+                },
+                void 0,
+                false,
+                {
+                  fileName: "/app/applet/src/components/Navbar.tsx",
+                  lineNumber: 162,
+                  columnNumber: 15
+                },
+                this
+              ),
+              /* @__PURE__ */ jsxDEV(
+                "a",
+                {
+                  href: "/Abbas_Dawood_Resume.pdf",
+                  download: true,
+                  onClick: () => {
+                    playClickSound();
+                    setMobileMenuOpen(false);
+                  },
+                  className: "font-mono text-xs uppercase tracking-[0.2em] text-cyan-500 border border-cyan-500 hover:bg-cyan-500/10 text-center py-3 rounded-sm transition-colors mt-2",
+                  children: "DOWNLOAD CV"
+                },
+                void 0,
+                false,
+                {
+                  fileName: "/app/applet/src/components/Navbar.tsx",
+                  lineNumber: 171,
+                  columnNumber: 15
+                },
+                this
+              )
+            ] }, void 0, true, {
               fileName: "/app/applet/src/components/Navbar.tsx",
-              lineNumber: 128,
+              lineNumber: 147,
               columnNumber: 13
             }, this)
           },
@@ -270,13 +357,13 @@ function Navbar() {
           false,
           {
             fileName: "/app/applet/src/components/Navbar.tsx",
-            lineNumber: 122,
+            lineNumber: 141,
             columnNumber: 11
           },
           this
         ) }, void 0, false, {
           fileName: "/app/applet/src/components/Navbar.tsx",
-          lineNumber: 120,
+          lineNumber: 139,
           columnNumber: 7
         }, this)
       ]
@@ -285,7 +372,7 @@ function Navbar() {
     true,
     {
       fileName: "/app/applet/src/components/Navbar.tsx",
-      lineNumber: 66,
+      lineNumber: 64,
       columnNumber: 5
     },
     this
@@ -721,15 +808,18 @@ function Hero() {
           className: "flex flex-wrap items-center gap-4 md:gap-6",
           children: [
             /* @__PURE__ */ jsxDEV(
-              "button",
+              "a",
               {
-                onClick: () => handleScroll("about"),
+                href: "/Abbas_Dawood_Resume.pdf",
+                target: "_blank",
+                rel: "noopener noreferrer",
+                onClick: playClickSound,
                 className: "group relative px-6 py-3 bg-cyan-500 text-black font-bold tracking-widest uppercase text-xs hover:bg-white transition-all rounded-sm flex items-center gap-2",
                 children: [
-                  "Explore My Journey",
+                  "View CV",
                   /* @__PURE__ */ jsxDEV(Compass, { className: "w-4 h-4 group-hover:rotate-45 transition-transform duration-300" }, void 0, false, {
                     fileName: "/app/applet/src/components/Hero.tsx",
-                    lineNumber: 73,
+                    lineNumber: 75,
                     columnNumber: 15
                   }, this)
                 ]
@@ -752,7 +842,7 @@ function Hero() {
                   "Contact Me",
                   /* @__PURE__ */ jsxDEV(Target, { className: "w-4 h-4" }, void 0, false, {
                     fileName: "/app/applet/src/components/Hero.tsx",
-                    lineNumber: 81,
+                    lineNumber: 83,
                     columnNumber: 15
                   }, this)
                 ]
@@ -761,7 +851,7 @@ function Hero() {
               true,
               {
                 fileName: "/app/applet/src/components/Hero.tsx",
-                lineNumber: 76,
+                lineNumber: 78,
                 columnNumber: 13
               },
               this
@@ -776,7 +866,7 @@ function Hero() {
                 children: [
                   /* @__PURE__ */ jsxDEV(Download, { className: "w-4 h-4 group-hover:-translate-y-1 transition-transform" }, void 0, false, {
                     fileName: "/app/applet/src/components/Hero.tsx",
-                    lineNumber: 90,
+                    lineNumber: 92,
                     columnNumber: 15
                   }, this),
                   "Download CV"
@@ -786,7 +876,7 @@ function Hero() {
               true,
               {
                 fileName: "/app/applet/src/components/Hero.tsx",
-                lineNumber: 84,
+                lineNumber: 86,
                 columnNumber: 13
               },
               this
@@ -823,7 +913,7 @@ function Hero() {
               transition: { duration: 40, repeat: Infinity, ease: "linear" },
               children: /* @__PURE__ */ jsxDEV("circle", { cx: "50%", cy: "50%", r: "45%", fill: "none", stroke: "rgba(6,182,212,0.2)", strokeWidth: "1", strokeDasharray: "4 8" }, void 0, false, {
                 fileName: "/app/applet/src/components/Hero.tsx",
-                lineNumber: 112,
+                lineNumber: 114,
                 columnNumber: 16
               }, this)
             },
@@ -831,7 +921,7 @@ function Hero() {
             false,
             {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 107,
+              lineNumber: 109,
               columnNumber: 13
             },
             this
@@ -844,7 +934,7 @@ function Hero() {
               transition: { duration: 25, repeat: Infinity, ease: "linear" },
               children: /* @__PURE__ */ jsxDEV("circle", { cx: "50%", cy: "50%", r: "48%", fill: "none", stroke: "rgba(245,158,11,0.2)", strokeWidth: "0.5", strokeDasharray: "20 40 10 40" }, void 0, false, {
                 fileName: "/app/applet/src/components/Hero.tsx",
-                lineNumber: 121,
+                lineNumber: 123,
                 columnNumber: 16
               }, this)
             },
@@ -852,7 +942,7 @@ function Hero() {
             false,
             {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 116,
+              lineNumber: 118,
               columnNumber: 14
             },
             this
@@ -865,7 +955,7 @@ function Hero() {
               transition: { duration: 4, repeat: Infinity, ease: "linear" },
               children: /* @__PURE__ */ jsxDEV("div", { className: "absolute top-0 right-0 w-24 h-24 bg-[conic-gradient(from_0deg,transparent_0deg,rgba(6,182,212,0.2)_90deg,transparent_90deg)] opacity-50 origin-bottom-left -translate-y-full -translate-x-full rotate-90" }, void 0, false, {
                 fileName: "/app/applet/src/components/Hero.tsx",
-                lineNumber: 130,
+                lineNumber: 132,
                 columnNumber: 16
               }, this)
             },
@@ -873,7 +963,7 @@ function Hero() {
             false,
             {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 125,
+              lineNumber: 127,
               columnNumber: 13
             },
             this
@@ -881,54 +971,54 @@ function Hero() {
           /* @__PURE__ */ jsxDEV("div", { className: "absolute top-[15%] left-[15%] text-left", children: [
             /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[9px] text-cyan-600 tracking-widest", children: "TRAJECTORY" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 135,
+              lineNumber: 137,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-white", children: "SET" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 136,
+              lineNumber: 138,
               columnNumber: 15
             }, this)
           ] }, void 0, true, {
             fileName: "/app/applet/src/components/Hero.tsx",
-            lineNumber: 134,
+            lineNumber: 136,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ jsxDEV("div", { className: "absolute top-[15%] right-[15%] text-right bg-black/40 backdrop-blur-md px-3 py-1 border border-cyan-900/50 rounded-sm", children: [
             /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[9px] text-amber-400 mb-1 tracking-widest", children: "PHASE" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 140,
+              lineNumber: 142,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV("p", { className: "font-space text-sm font-bold tracking-widest text-white whitespace-nowrap", children: "ASCENT" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 141,
+              lineNumber: 143,
               columnNumber: 15
             }, this)
           ] }, void 0, true, {
             fileName: "/app/applet/src/components/Hero.tsx",
-            lineNumber: 139,
+            lineNumber: 141,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ jsxDEV("div", { className: "absolute bottom-[20%] left-[10%] text-left bg-black/40 backdrop-blur-md px-3 py-1 border border-cyan-900/50 rounded-sm", children: [
             /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[9px] text-cyan-400 mb-1 tracking-widest", children: "SYSTEM" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 145,
+              lineNumber: 147,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ jsxDEV("p", { className: "font-space text-sm font-bold tracking-widest text-white whitespace-nowrap", children: "NOMINAL" }, void 0, false, {
               fileName: "/app/applet/src/components/Hero.tsx",
-              lineNumber: 146,
+              lineNumber: 148,
               columnNumber: 15
             }, this)
           ] }, void 0, true, {
             fileName: "/app/applet/src/components/Hero.tsx",
-            lineNumber: 144,
+            lineNumber: 146,
             columnNumber: 13
           }, this)
         ] }, void 0, true, {
           fileName: "/app/applet/src/components/Hero.tsx",
-          lineNumber: 104,
+          lineNumber: 106,
           columnNumber: 11
         }, this)
       },
@@ -936,7 +1026,7 @@ function Hero() {
       false,
       {
         fileName: "/app/applet/src/components/Hero.tsx",
-        lineNumber: 97,
+        lineNumber: 99,
         columnNumber: 9
       },
       this
@@ -951,81 +1041,35 @@ function Hero() {
     columnNumber: 5
   }, this);
 }
-const storyStages = [
-  {
-    id: "ORIGIN",
-    icon: /* @__PURE__ */ jsxDEV(Compass, { className: "w-5 h-5" }, void 0, false, {
-      fileName: "/app/applet/src/components/About.tsx",
-      lineNumber: 7,
-      columnNumber: 11
-    }, void 0),
-    title: "THE ORIGIN",
-    content: "I am a disciplined Senior Secondary student based in Udaipur, Rajasthan, currently pursuing a rigorous Physics, Chemistry, and Mathematics (PCM) curriculum. My foundation is built on analytical thinking, quantitative reasoning, and self-directed study habits."
-  },
-  {
-    id: "CURIOSITY",
-    icon: /* @__PURE__ */ jsxDEV(Plane, { className: "w-5 h-5" }, void 0, false, {
-      fileName: "/app/applet/src/components/About.tsx",
-      lineNumber: 13,
-      columnNumber: 11
-    }, void 0),
-    title: "THE ASPIRATION",
-    content: "My clear aspiration is toward a career as a Commercial Pilot. Aviation requires strong situational awareness, composure under pressure, and precise decision-making—qualities I actively cultivate in every aspect of my life."
-  },
-  {
-    id: "TECHNOLOGY",
-    icon: /* @__PURE__ */ jsxDEV(Terminal, { className: "w-5 h-5" }, void 0, false, {
-      fileName: "/app/applet/src/components/About.tsx",
-      lineNumber: 19,
-      columnNumber: 11
-    }, void 0),
-    title: "THE TECHNOLOGY",
-    content: "Beyond the cockpit, I am a technology enthusiast. I spearhead independent research into emerging technologies, digital tools, and innovation trends. From analyzing startup ecosystems to applying design tools like Figma and Canva, I build practical, real-world knowledge."
-  },
-  {
-    id: "DIPLOMACY",
-    icon: /* @__PURE__ */ jsxDEV(Globe, { className: "w-5 h-5" }, void 0, false, {
-      fileName: "/app/applet/src/components/About.tsx",
-      lineNumber: 25,
-      columnNumber: 11
-    }, void 0),
-    title: "THE DIPLOMAT",
-    content: "Through extensive participation in Model United Nations (MUN) conferences, I have sharpened my critical thinking and public speaking. Representing assigned nations in multilateral debates has strengthened my cross-cultural collaboration and persuasive communication."
-  },
-  {
-    id: "LEADERSHIP",
-    icon: /* @__PURE__ */ jsxDEV(Award, { className: "w-5 h-5" }, void 0, false, {
-      fileName: "/app/applet/src/components/About.tsx",
-      lineNumber: 31,
-      columnNumber: 11
-    }, void 0),
-    title: "THE LEADER",
-    content: "Whether as an Executive Board Member, an Organizer, or a participant, I practice rational decision-making while navigating high-pressure scenarios. I believe in translating concepts into working outcomes through structured problem-solving."
-  }
-];
 function About() {
-  return /* @__PURE__ */ jsxDEV("section", { id: "about", className: "relative py-32 bg-[#020617]", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-4xl mx-auto px-6 lg:px-12", children: [
+  return /* @__PURE__ */ jsxDEV("section", { id: "about", className: "relative py-16 md:py-24 bg-[#0B1121] border-y border-cyan-900/20 overflow-hidden", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-7xl mx-auto px-6 lg:px-12 relative z-10", children: [
     /* @__PURE__ */ jsxDEV(
       motion.div,
       {
         initial: { opacity: 0, y: 20 },
         whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "-100px" },
-        className: "mb-20 text-center",
+        viewport: { once: true },
+        className: "mb-12",
         children: [
-          /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs tracking-[0.2em] text-amber-500 mb-4 block", children: "DOCUMENTARY LOG" }, void 0, false, {
+          /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-4 mb-4", children: [
+            /* @__PURE__ */ jsxDEV(User, { className: "text-cyan-500 w-6 h-6" }, void 0, false, {
+              fileName: "/app/applet/src/components/About.tsx",
+              lineNumber: 16,
+              columnNumber: 13
+            }, this),
+            /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider", children: "Professional Summary" }, void 0, false, {
+              fileName: "/app/applet/src/components/About.tsx",
+              lineNumber: 17,
+              columnNumber: 13
+            }, this)
+          ] }, void 0, true, {
             fileName: "/app/applet/src/components/About.tsx",
-            lineNumber: 47,
+            lineNumber: 15,
             columnNumber: 11
           }, this),
-          /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-4xl md:text-5xl font-bold text-white mb-6 uppercase tracking-wider", children: "The Person Behind The Journey" }, void 0, false, {
+          /* @__PURE__ */ jsxDEV("div", { className: "w-12 h-1 bg-cyan-500 mb-8" }, void 0, false, {
             fileName: "/app/applet/src/components/About.tsx",
-            lineNumber: 48,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ jsxDEV("div", { className: "w-24 h-[1px] bg-cyan-900/50 mx-auto" }, void 0, false, {
-            fileName: "/app/applet/src/components/About.tsx",
-            lineNumber: 51,
+            lineNumber: 21,
             columnNumber: 11
           }, this)
         ]
@@ -1034,113 +1078,133 @@ function About() {
       true,
       {
         fileName: "/app/applet/src/components/About.tsx",
-        lineNumber: 41,
+        lineNumber: 9,
         columnNumber: 9
       },
       this
     ),
-    /* @__PURE__ */ jsxDEV("div", { className: "relative", children: [
-      /* @__PURE__ */ jsxDEV("div", { className: "absolute left-8 md:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-cyan-900/30 to-transparent -translate-x-1/2 hidden md:block" }, void 0, false, {
-        fileName: "/app/applet/src/components/About.tsx",
-        lineNumber: 56,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ jsxDEV("div", { className: "absolute left-6 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-cyan-900/30 to-transparent block md:hidden" }, void 0, false, {
-        fileName: "/app/applet/src/components/About.tsx",
-        lineNumber: 57,
-        columnNumber: 11
-      }, this),
-      storyStages.map((stage, index) => {
-        const isEven = index % 2 === 0;
-        return /* @__PURE__ */ jsxDEV(
-          motion.div,
-          {
-            initial: { opacity: 0, y: 30 },
-            whileInView: { opacity: 1, y: 0 },
-            viewport: { once: true, margin: "-100px" },
-            transition: { duration: 0.6 },
-            className: `relative flex flex-col md:flex-row items-center gap-8 mb-24 last:mb-0 ${isEven ? "md:flex-row" : "md:flex-row-reverse"}`,
-            children: [
-              /* @__PURE__ */ jsxDEV("div", { className: "absolute left-6 md:left-1/2 w-4 h-4 bg-[#020617] border-2 border-cyan-500 rounded-full -translate-x-1/2 z-10 flex items-center justify-center", children: /* @__PURE__ */ jsxDEV("div", { className: "w-1 h-1 bg-amber-400 rounded-full" }, void 0, false, {
-                fileName: "/app/applet/src/components/About.tsx",
-                lineNumber: 72,
-                columnNumber: 19
-              }, this) }, void 0, false, {
-                fileName: "/app/applet/src/components/About.tsx",
-                lineNumber: 71,
-                columnNumber: 17
-              }, this),
-              /* @__PURE__ */ jsxDEV("div", { className: `w-full pl-16 md:pl-0 md:w-1/2 ${isEven ? "md:pr-16 text-left md:text-right" : "md:pl-16 text-left"}`, children: [
-                /* @__PURE__ */ jsxDEV("div", { className: "inline-flex items-center gap-3 mb-3 text-cyan-400", children: [
-                  !isEven && /* @__PURE__ */ jsxDEV("span", { className: "hidden md:block", children: stage.icon }, void 0, false, {
-                    fileName: "/app/applet/src/components/About.tsx",
-                    lineNumber: 78,
-                    columnNumber: 33
-                  }, this),
-                  /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs tracking-widest", children: stage.id }, void 0, false, {
-                    fileName: "/app/applet/src/components/About.tsx",
-                    lineNumber: 79,
-                    columnNumber: 21
-                  }, this),
-                  isEven && /* @__PURE__ */ jsxDEV("span", { className: "hidden md:block", children: stage.icon }, void 0, false, {
-                    fileName: "/app/applet/src/components/About.tsx",
-                    lineNumber: 80,
-                    columnNumber: 32
-                  }, this),
-                  /* @__PURE__ */ jsxDEV("span", { className: "md:hidden block", children: stage.icon }, void 0, false, {
-                    fileName: "/app/applet/src/components/About.tsx",
-                    lineNumber: 81,
-                    columnNumber: 21
-                  }, this)
-                ] }, void 0, true, {
+    /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 lg:grid-cols-12 gap-12", children: [
+      /* @__PURE__ */ jsxDEV(
+        motion.div,
+        {
+          initial: { opacity: 0, x: -20 },
+          whileInView: { opacity: 1, x: 0 },
+          viewport: { once: true },
+          className: "lg:col-span-8",
+          children: /* @__PURE__ */ jsxDEV("div", { className: "bg-[#020617] border border-cyan-900/30 p-8 rounded-sm relative overflow-hidden", children: [
+            /* @__PURE__ */ jsxDEV("div", { className: "absolute top-0 right-0 p-4 opacity-10", children: /* @__PURE__ */ jsxDEV(Navigation, { className: "w-24 h-24 text-cyan-500" }, void 0, false, {
+              fileName: "/app/applet/src/components/About.tsx",
+              lineNumber: 34,
+              columnNumber: 17
+            }, this) }, void 0, false, {
+              fileName: "/app/applet/src/components/About.tsx",
+              lineNumber: 33,
+              columnNumber: 15
+            }, this),
+            /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-lg text-gray-300 leading-relaxed font-light mb-6 relative z-10", children: "Disciplined and driven Senior Secondary student (Science: Physics, Chemistry, Mathematics) with a clear aspiration toward a career as a Commercial Pilot. Demonstrates strong situational awareness, structured problem-solving, and composure under pressure, cultivated through active participation in Model United Nations conferences and independent research initiatives." }, void 0, false, {
+              fileName: "/app/applet/src/components/About.tsx",
+              lineNumber: 36,
+              columnNumber: 15
+            }, this),
+            /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-lg text-gray-300 leading-relaxed font-light relative z-10", children: "Combines an analytical, safety-conscious mindset with proven adaptability and a growth-oriented approach to learning. Recognized for clear communication, sound decision-making, and a genuine passion for aviation, innovation, and cross-cultural diplomacy." }, void 0, false, {
+              fileName: "/app/applet/src/components/About.tsx",
+              lineNumber: 40,
+              columnNumber: 15
+            }, this)
+          ] }, void 0, true, {
+            fileName: "/app/applet/src/components/About.tsx",
+            lineNumber: 32,
+            columnNumber: 13
+          }, this)
+        },
+        void 0,
+        false,
+        {
+          fileName: "/app/applet/src/components/About.tsx",
+          lineNumber: 26,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ jsxDEV(
+        motion.div,
+        {
+          initial: { opacity: 0, x: 20 },
+          whileInView: { opacity: 1, x: 0 },
+          viewport: { once: true },
+          className: "lg:col-span-4 flex flex-col gap-6",
+          children: [
+            /* @__PURE__ */ jsxDEV("div", { className: "bg-[#020617] border border-amber-900/30 p-6 rounded-sm", children: [
+              /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-3 mb-4", children: [
+                /* @__PURE__ */ jsxDEV(Crosshair, { className: "text-amber-500 w-5 h-5" }, void 0, false, {
                   fileName: "/app/applet/src/components/About.tsx",
-                  lineNumber: 77,
-                  columnNumber: 19
+                  lineNumber: 55,
+                  columnNumber: 17
                 }, this),
-                /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-2xl font-bold text-white mb-4", children: stage.title }, void 0, false, {
+                /* @__PURE__ */ jsxDEV("h3", { className: "font-mono text-sm uppercase tracking-widest text-amber-500", children: "Career Focus" }, void 0, false, {
                   fileName: "/app/applet/src/components/About.tsx",
-                  lineNumber: 83,
-                  columnNumber: 19
-                }, this),
-                /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-gray-400 leading-relaxed font-light", children: stage.content }, void 0, false, {
-                  fileName: "/app/applet/src/components/About.tsx",
-                  lineNumber: 84,
-                  columnNumber: 19
+                  lineNumber: 56,
+                  columnNumber: 17
                 }, this)
               ] }, void 0, true, {
                 fileName: "/app/applet/src/components/About.tsx",
-                lineNumber: 76,
-                columnNumber: 17
+                lineNumber: 54,
+                columnNumber: 15
               }, this),
-              /* @__PURE__ */ jsxDEV("div", { className: "hidden md:block md:w-1/2" }, void 0, false, {
+              /* @__PURE__ */ jsxDEV("p", { className: "font-space text-xl font-bold text-white tracking-widest uppercase", children: "Commercial Aviation" }, void 0, false, {
                 fileName: "/app/applet/src/components/About.tsx",
-                lineNumber: 90,
-                columnNumber: 17
+                lineNumber: 58,
+                columnNumber: 15
+              }, this),
+              /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-gray-500 mt-2 uppercase tracking-widest", children: "Trajectory Set" }, void 0, false, {
+                fileName: "/app/applet/src/components/About.tsx",
+                lineNumber: 61,
+                columnNumber: 15
               }, this)
-            ]
-          },
-          stage.id,
-          true,
-          {
-            fileName: "/app/applet/src/components/About.tsx",
-            lineNumber: 62,
-            columnNumber: 15
-          },
-          this
-        );
-      })
+            ] }, void 0, true, {
+              fileName: "/app/applet/src/components/About.tsx",
+              lineNumber: 53,
+              columnNumber: 13
+            }, this),
+            /* @__PURE__ */ jsxDEV("div", { className: "bg-[#020617] border border-cyan-900/30 p-6 rounded-sm flex-1 flex flex-col justify-center", children: [
+              /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[10px] text-cyan-600 mb-2 tracking-[0.2em] uppercase", children: "Current Coordinates" }, void 0, false, {
+                fileName: "/app/applet/src/components/About.tsx",
+                lineNumber: 67,
+                columnNumber: 15
+              }, this),
+              /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-gray-300 font-medium", children: "Udaipur, Rajasthan, India" }, void 0, false, {
+                fileName: "/app/applet/src/components/About.tsx",
+                lineNumber: 68,
+                columnNumber: 15
+              }, this)
+            ] }, void 0, true, {
+              fileName: "/app/applet/src/components/About.tsx",
+              lineNumber: 66,
+              columnNumber: 13
+            }, this)
+          ]
+        },
+        void 0,
+        true,
+        {
+          fileName: "/app/applet/src/components/About.tsx",
+          lineNumber: 47,
+          columnNumber: 11
+        },
+        this
+      )
     ] }, void 0, true, {
       fileName: "/app/applet/src/components/About.tsx",
-      lineNumber: 54,
+      lineNumber: 24,
       columnNumber: 9
     }, this)
   ] }, void 0, true, {
     fileName: "/app/applet/src/components/About.tsx",
-    lineNumber: 40,
+    lineNumber: 7,
     columnNumber: 7
   }, this) }, void 0, false, {
     fileName: "/app/applet/src/components/About.tsx",
-    lineNumber: 39,
+    lineNumber: 6,
     columnNumber: 5
   }, this);
 }
@@ -1207,7 +1271,7 @@ const skillCategories = [
 function Skills() {
   const [activeCategory, setActiveCategory] = useState(skillCategories[0].id);
   const activeData = skillCategories.find((c) => c.id === activeCategory);
-  return /* @__PURE__ */ jsxDEV("section", { id: "skills", className: "relative py-24 bg-[#0B1121] border-y border-cyan-900/20 overflow-hidden", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-7xl mx-auto px-6 lg:px-12", children: [
+  return /* @__PURE__ */ jsxDEV("section", { id: "skills", className: "relative py-16 md:py-24 bg-[#0B1121] border-y border-cyan-900/20 overflow-hidden", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-7xl mx-auto px-6 lg:px-12", children: [
     /* @__PURE__ */ jsxDEV(
       motion.div,
       {
@@ -1425,74 +1489,61 @@ function Skills() {
     columnNumber: 5
   }, this);
 }
-const experiences = [
+const experienceData = [
   {
-    role: "Independent Technology & Innovation Initiative",
-    type: "Self-Directed",
-    date: "April 2021 – Present",
+    role: "Model United Nations (MUN) Participant",
+    company: "Various MUN Conferences",
     location: "Udaipur, Rajasthan",
-    icon: /* @__PURE__ */ jsxDEV(Activity, { className: "w-5 h-5" }, void 0, false, {
-      fileName: "/app/applet/src/components/Experience.tsx",
-      lineNumber: 10,
-      columnNumber: 11
-    }, void 0),
+    date: "November 2022 – Present",
     bullets: [
-      "Spearheaded independent research into emerging technologies, digital tools, and innovation trends to build practical, real-world knowledge.",
-      "Managed self-directed learning projects end-to-end, applying structured problem-solving to translate concepts into working outcomes.",
-      "Analyzed startup ecosystems and “Make-in-India” innovation themes, developing a foundational understanding of entrepreneurial thinking.",
-      "Applied design tools (Figma, Canva) and video editing to independently plan and produce creative digital projects."
+      "Represented assigned nations in structured multilateral debates on global diplomacy and policy issues, sharpening critical thinking under time pressure",
+      "Cultivated advanced public speaking, negotiation, and persuasive communication skills across multiple conference settings",
+      "Practiced composed, rational decision-making while navigating high-pressure debate scenarios and shifting positions",
+      "Strengthened leadership presence and cross-cultural collaboration by engaging respectfully with diverse viewpoints"
     ]
   },
   {
-    role: "Campus Ambassador & Social Media Marketing Internship",
-    type: "IMUN",
-    date: "Timeline not specified",
-    location: "Remote / Campus",
-    icon: /* @__PURE__ */ jsxDEV(Share2, { className: "w-5 h-5" }, void 0, false, {
-      fileName: "/app/applet/src/components/Experience.tsx",
-      lineNumber: 23,
-      columnNumber: 11
-    }, void 0),
+    role: "Independent Technology & Innovation Initiative",
+    company: "Self-Directed",
+    location: "Udaipur, Rajasthan",
+    date: "April 2021 – Present",
     bullets: [
-      "Represented IMUN as a Campus Ambassador, promoting conferences and driving engagement.",
-      "Executed social media marketing campaigns and contributed to business development initiatives.",
-      "Developed leadership and networking skills within a dynamic, international student community."
+      "Spearheaded independent research into emerging technologies, digital tools, and innovation trends to build practical, real-world knowledge",
+      "Managed self-directed learning projects end-to-end, applying structured problem-solving to translate concepts into working outcomes",
+      "Analyzed startup ecosystems and “Make-in-India” innovation themes, developing a foundational understanding of entrepreneurial thinking",
+      "Applied design tools (Figma, Canva) and video editing to independently plan and produce creative digital projects"
     ]
   }
 ];
 function Experience() {
-  return /* @__PURE__ */ jsxDEV("section", { id: "experience", className: "relative py-24 bg-[#020617]", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-5xl mx-auto px-6 lg:px-12", children: [
+  return /* @__PURE__ */ jsxDEV("section", { id: "experience", className: "relative py-16 md:py-24 bg-[#0B1121] border-t border-cyan-900/20", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-7xl mx-auto px-6 lg:px-12", children: [
     /* @__PURE__ */ jsxDEV(
       motion.div,
       {
         initial: { opacity: 0, y: 20 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: true },
-        className: "mb-16 flex items-center gap-4",
+        className: "mb-16",
         children: [
-          /* @__PURE__ */ jsxDEV("div", { className: "p-3 bg-cyan-950/30 border border-cyan-900/50 rounded-sm text-cyan-400", children: /* @__PURE__ */ jsxDEV(Briefcase, { className: "w-6 h-6" }, void 0, false, {
-            fileName: "/app/applet/src/components/Experience.tsx",
-            lineNumber: 43,
-            columnNumber: 13
-          }, this) }, void 0, false, {
-            fileName: "/app/applet/src/components/Experience.tsx",
-            lineNumber: 42,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ jsxDEV("div", { children: [
-            /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl font-bold text-white uppercase tracking-wider", children: "Experience Log" }, void 0, false, {
+          /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-4 mb-4", children: [
+            /* @__PURE__ */ jsxDEV(Briefcase, { className: "text-cyan-500 w-6 h-6" }, void 0, false, {
               fileName: "/app/applet/src/components/Experience.tsx",
-              lineNumber: 46,
+              lineNumber: 42,
               columnNumber: 13
             }, this),
-            /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-gray-400 tracking-widest mt-1 uppercase", children: "Field Initiatives & Internships" }, void 0, false, {
+            /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider", children: "Experience & Leadership" }, void 0, false, {
               fileName: "/app/applet/src/components/Experience.tsx",
-              lineNumber: 49,
+              lineNumber: 43,
               columnNumber: 13
             }, this)
           ] }, void 0, true, {
             fileName: "/app/applet/src/components/Experience.tsx",
-            lineNumber: 45,
+            lineNumber: 41,
+            columnNumber: 11
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "w-12 h-1 bg-cyan-500 mb-8" }, void 0, false, {
+            fileName: "/app/applet/src/components/Experience.tsx",
+            lineNumber: 47,
             columnNumber: 11
           }, this)
         ]
@@ -1501,77 +1552,82 @@ function Experience() {
       true,
       {
         fileName: "/app/applet/src/components/Experience.tsx",
-        lineNumber: 36,
+        lineNumber: 35,
         columnNumber: 9
       },
       this
     ),
-    /* @__PURE__ */ jsxDEV("div", { className: "relative border-l border-cyan-900/40 ml-4 md:ml-8 pl-8 md:pl-12 space-y-16", children: experiences.map((exp, index) => /* @__PURE__ */ jsxDEV(
+    /* @__PURE__ */ jsxDEV("div", { className: "relative border-l border-cyan-900/30 pl-8 md:pl-12 space-y-16", children: experienceData.map((exp, index) => /* @__PURE__ */ jsxDEV(
       motion.div,
       {
         initial: { opacity: 0, x: -20 },
         whileInView: { opacity: 1, x: 0 },
         viewport: { once: true },
-        transition: { duration: 0.5, delay: index * 0.1 },
+        transition: { delay: index * 0.2 },
         className: "relative",
         children: [
-          /* @__PURE__ */ jsxDEV("div", { className: "absolute -left-[41px] md:-left-[57px] top-1 w-8 h-8 bg-[#020617] border border-cyan-500/50 rounded-full flex items-center justify-center z-10 text-cyan-400", children: exp.icon }, void 0, false, {
+          /* @__PURE__ */ jsxDEV("div", { className: "absolute -left-[37px] md:-left-[53px] top-1 w-3 h-3 bg-cyan-500 rounded-full shadow-[0_0_10px_rgba(6,182,212,0.5)]" }, void 0, false, {
             fileName: "/app/applet/src/components/Experience.tsx",
-            lineNumber: 64,
+            lineNumber: 61,
             columnNumber: 15
           }, this),
-          /* @__PURE__ */ jsxDEV("div", { className: "flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4", children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "absolute -left-[45px] md:-left-[61px] top-[1px] w-7 h-7 border border-cyan-500/30 rounded-full" }, void 0, false, {
+            fileName: "/app/applet/src/components/Experience.tsx",
+            lineNumber: 62,
+            columnNumber: 15
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6", children: [
             /* @__PURE__ */ jsxDEV("div", { children: [
-              /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-xl font-bold text-white", children: exp.role }, void 0, false, {
+              /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-xl font-bold text-white mb-2", children: exp.role }, void 0, false, {
+                fileName: "/app/applet/src/components/Experience.tsx",
+                lineNumber: 66,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-cyan-400 uppercase tracking-widest", children: exp.company }, void 0, false, {
+                fileName: "/app/applet/src/components/Experience.tsx",
+                lineNumber: 67,
+                columnNumber: 19
+              }, this)
+            ] }, void 0, true, {
+              fileName: "/app/applet/src/components/Experience.tsx",
+              lineNumber: 65,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV("div", { className: "flex flex-col items-start lg:items-end gap-2 shrink-0", children: [
+              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs text-cyan-400 bg-cyan-950/20 border border-cyan-900/30 px-3 py-1 rounded-sm w-max", children: exp.date }, void 0, false, {
                 fileName: "/app/applet/src/components/Experience.tsx",
                 lineNumber: 70,
                 columnNumber: 19
               }, this),
-              /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-cyan-400 font-medium", children: exp.type }, void 0, false, {
+              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest", children: exp.location }, void 0, false, {
                 fileName: "/app/applet/src/components/Experience.tsx",
-                lineNumber: 71,
+                lineNumber: 73,
                 columnNumber: 19
               }, this)
             ] }, void 0, true, {
               fileName: "/app/applet/src/components/Experience.tsx",
               lineNumber: 69,
               columnNumber: 17
-            }, this),
-            /* @__PURE__ */ jsxDEV("div", { className: "flex flex-col md:items-end text-left md:text-right", children: [
-              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs text-amber-500 bg-amber-950/20 border border-amber-900/30 px-2 py-1 rounded-sm w-max mb-1", children: exp.date }, void 0, false, {
-                fileName: "/app/applet/src/components/Experience.tsx",
-                lineNumber: 74,
-                columnNumber: 19
-              }, this),
-              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest", children: exp.location }, void 0, false, {
-                fileName: "/app/applet/src/components/Experience.tsx",
-                lineNumber: 77,
-                columnNumber: 19
-              }, this)
-            ] }, void 0, true, {
-              fileName: "/app/applet/src/components/Experience.tsx",
-              lineNumber: 73,
-              columnNumber: 17
             }, this)
           ] }, void 0, true, {
             fileName: "/app/applet/src/components/Experience.tsx",
-            lineNumber: 68,
+            lineNumber: 64,
             columnNumber: 15
           }, this),
-          /* @__PURE__ */ jsxDEV("ul", { className: "space-y-3", children: exp.bullets.map((bullet, idx) => /* @__PURE__ */ jsxDEV("li", { className: "flex items-start gap-3 text-gray-400 font-sans font-light leading-relaxed", children: [
-            /* @__PURE__ */ jsxDEV("span", { className: "mt-2 w-1.5 h-1.5 bg-cyan-900 rounded-full flex-shrink-0" }, void 0, false, {
+          /* @__PURE__ */ jsxDEV("ul", { className: "space-y-3 ml-2 lg:ml-6", children: exp.bullets.map((bullet, idx) => /* @__PURE__ */ jsxDEV("li", { className: "flex items-start gap-3 text-gray-400 font-sans font-light leading-relaxed", children: [
+            /* @__PURE__ */ jsxDEV("span", { className: "mt-2 w-1.5 h-1.5 bg-cyan-500 rounded-full flex-shrink-0" }, void 0, false, {
               fileName: "/app/applet/src/components/Experience.tsx",
-              lineNumber: 84,
+              lineNumber: 80,
               columnNumber: 21
             }, this),
             bullet
           ] }, idx, true, {
             fileName: "/app/applet/src/components/Experience.tsx",
-            lineNumber: 83,
+            lineNumber: 79,
             columnNumber: 19
           }, this)) }, void 0, false, {
             fileName: "/app/applet/src/components/Experience.tsx",
-            lineNumber: 81,
+            lineNumber: 77,
             columnNumber: 15
           }, this)
         ]
@@ -1580,83 +1636,759 @@ function Experience() {
       true,
       {
         fileName: "/app/applet/src/components/Experience.tsx",
-        lineNumber: 55,
+        lineNumber: 52,
         columnNumber: 13
       },
       this
     )) }, void 0, false, {
       fileName: "/app/applet/src/components/Experience.tsx",
-      lineNumber: 53,
+      lineNumber: 50,
       columnNumber: 9
     }, this)
   ] }, void 0, true, {
     fileName: "/app/applet/src/components/Experience.tsx",
-    lineNumber: 35,
+    lineNumber: 34,
     columnNumber: 7
   }, this) }, void 0, false, {
     fileName: "/app/applet/src/components/Experience.tsx",
-    lineNumber: 34,
+    lineNumber: 33,
     columnNumber: 5
   }, this);
 }
-const education = [
+const munData = [
   {
-    institution: "National Institute of Open Schooling (NIOS)",
-    location: "Udaipur, Rajasthan",
-    degree: "Senior Secondary Education — Physics, Chemistry, Mathematics (PCM)",
-    date: "Expected May 2027",
-    bullets: [
-      "Pursuing a rigorous PCM curriculum, building strong analytical and quantitative reasoning skills essential for flight training and technical decision-making.",
-      "Balances demanding academics with active extracurricular leadership through MUN participation.",
-      "Cultivates disciplined, self-directed study habits reflective of the structure required in aviation training environments."
-    ]
+    id: "sassy26",
+    role: "Executive Board Member / Rapporteur",
+    event: "SASSY'26",
+    mission: "St. Anthony's Students Summit by YUVA, Udaipur.",
+    committee: "Education Ministry of India (Senior)",
+    category: "EXECUTIVE BOARD",
+    icon: /* @__PURE__ */ jsxDEV(Shield, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 15,
+      columnNumber: 11
+    }, void 0)
   },
   {
-    institution: "Delhi Public School (DPS)",
-    location: "Udaipur, Rajasthan",
-    degree: "Secondary Education, PCM Stream",
-    date: "March 2020 – March 2026",
-    bullets: [
-      "Completed foundational schooling (Class 6–11) across Physics, Chemistry, Mathematics, and Computer Science.",
-      "Developed core analytical thinking and teamwork skills through collaborative academic projects.",
-      "Engaged consistently in extracurricular activities, including Model United Nations, alongside core studies."
-    ]
+    id: "idc26",
+    role: "Organizer",
+    event: "IDC MUN 2026 — Chapter 1",
+    mission: "Organised and coordinated Chapter 1 of IDC MUN in Jaipur.",
+    committee: "Core Organizing Committee",
+    category: "ORGANIZER",
+    icon: /* @__PURE__ */ jsxDEV(Flag, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 24,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    id: "sangam26",
+    role: "Participant",
+    event: "Sangam MUN 2026",
+    mission: "Active participation in parliamentary procedures.",
+    committee: "Lok Sabha",
+    category: "PARTICIPANT",
+    icon: /* @__PURE__ */ jsxDEV(Mic2, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 33,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    id: "iit25",
+    role: "Participant",
+    event: "IIT Bombay 2025",
+    mission: "Advanced level debate and structural discussions.",
+    committee: "AIIMP",
+    category: "PARTICIPANT",
+    icon: /* @__PURE__ */ jsxDEV(Globe, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 42,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    id: "ryc25",
+    role: "Participant",
+    event: "RYCMUN 2025",
+    mission: "National policy formulation and debate.",
+    committee: "Lok Sabha",
+    category: "PARTICIPANT",
+    icon: /* @__PURE__ */ jsxDEV(Mic2, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 51,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    id: "sangam25",
+    role: "Participant",
+    event: "Sangam MUN 2025",
+    mission: "Crisis committee navigation and strategy.",
+    committee: "CCC",
+    category: "PARTICIPANT",
+    icon: /* @__PURE__ */ jsxDEV(Mic2, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 60,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    id: "dps24",
+    role: "OC Member",
+    event: "DPS MUN 2024",
+    mission: "Facilitated logistics and core operations.",
+    committee: "Organizing Committee",
+    category: "OC",
+    icon: /* @__PURE__ */ jsxDEV(Users, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 69,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    id: "dps-ud",
+    role: "IP Member",
+    event: "DPS Udaipur MUN",
+    mission: "Journalism and reporting within the MUN framework.",
+    committee: "International Press",
+    category: "PARTICIPANT",
+    icon: /* @__PURE__ */ jsxDEV(FileText, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 78,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    id: "imun",
+    role: "Participant",
+    event: "IMUN, India",
+    mission: "International Model United Nations.",
+    committee: "General Assembly",
+    category: "PARTICIPANT",
+    icon: /* @__PURE__ */ jsxDEV(Globe, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 87,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    id: "mock",
+    role: "Participant",
+    event: "Mock Parliament, Jaipur",
+    mission: "Indian parliamentary simulation.",
+    committee: "Parliament",
+    category: "PARTICIPANT",
+    icon: /* @__PURE__ */ jsxDEV(Mic2, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 96,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    id: "mumbai",
+    role: "Delegate",
+    event: "Mumbai MUN Circuit",
+    mission: "Attended multiple competitive MUN conferences across the Mumbai circuit.",
+    committee: "Multiple Committees",
+    category: "PARTICIPANT",
+    icon: /* @__PURE__ */ jsxDEV(Globe, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 105,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    id: "online",
+    role: "Delegate",
+    event: "Online MUN Experiences",
+    mission: "Participated in diverse online committee simulations.",
+    committee: "UNGA, UNHRC, IPL",
+    category: "ONLINE",
+    icon: /* @__PURE__ */ jsxDEV(Monitor, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 114,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    id: "debate",
+    role: "Speaker",
+    event: "Debate & Parliamentary",
+    mission: "Extensive involvement in school debates and structured parliamentary formats.",
+    committee: "Tark Vitrak, IDC, Baithke, Charchaaar",
+    category: "PARTICIPANT",
+    icon: /* @__PURE__ */ jsxDEV(Mic2, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 123,
+      columnNumber: 11
+    }, void 0)
   }
 ];
-function Education() {
-  return /* @__PURE__ */ jsxDEV("section", { id: "education", className: "relative py-24 bg-[#0B1121] border-t border-cyan-900/20", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-5xl mx-auto px-6 lg:px-12", children: [
+const filters = ["ALL", "EXECUTIVE BOARD", "ORGANIZER", "OC", "PARTICIPANT", "ONLINE"];
+function MunDiplomacy() {
+  const [activeFilter, setActiveFilter] = useState("ALL");
+  const [selectedId, setSelectedId] = useState(munData[0].id);
+  const filteredData = useMemo(() => {
+    return munData.filter((item) => activeFilter === "ALL" || item.category === activeFilter);
+  }, [activeFilter]);
+  useMemo(() => {
+    if (filteredData.length > 0 && !filteredData.find((item) => item.id === selectedId)) {
+      setSelectedId(filteredData[0].id);
+    }
+  }, [filteredData, selectedId]);
+  const activeItem = useMemo(() => {
+    return munData.find((item) => item.id === selectedId) || filteredData[0];
+  }, [selectedId, filteredData]);
+  return /* @__PURE__ */ jsxDEV("section", { id: "mun", className: "relative py-16 md:py-24 bg-[#0B1121] border-y border-cyan-900/20 overflow-hidden", children: [
+    /* @__PURE__ */ jsxDEV("div", { className: "max-w-7xl mx-auto px-6 lg:px-12 relative z-10", children: [
+      /* @__PURE__ */ jsxDEV(
+        motion.div,
+        {
+          initial: { opacity: 0, y: 20 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true },
+          className: "mb-12",
+          children: [
+            /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-4 mb-4", children: [
+              /* @__PURE__ */ jsxDEV(Globe, { className: "text-cyan-500 w-6 h-6" }, void 0, false, {
+                fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                lineNumber: 158,
+                columnNumber: 13
+              }, this),
+              /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider", children: "MUN & Diplomacy" }, void 0, false, {
+                fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                lineNumber: 159,
+                columnNumber: 13
+              }, this)
+            ] }, void 0, true, {
+              fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+              lineNumber: 157,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ jsxDEV("div", { className: "w-12 h-1 bg-cyan-500 mb-8" }, void 0, false, {
+              fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+              lineNumber: 163,
+              columnNumber: 11
+            }, this)
+          ]
+        },
+        void 0,
+        true,
+        {
+          fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+          lineNumber: 151,
+          columnNumber: 9
+        },
+        this
+      ),
+      /* @__PURE__ */ jsxDEV("div", { className: "flex flex-wrap items-center gap-2 mb-8", children: [
+        /* @__PURE__ */ jsxDEV(Filter, { className: "w-4 h-4 text-cyan-500 mr-2" }, void 0, false, {
+          fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+          lineNumber: 168,
+          columnNumber: 11
+        }, this),
+        filters.map((filter) => /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            onClick: () => {
+              playClickSound();
+              setActiveFilter(filter);
+            },
+            onMouseEnter: playHoverSound,
+            className: cn(
+              "font-mono text-[10px] px-3 py-1.5 rounded-sm uppercase tracking-widest transition-colors border",
+              activeFilter === filter ? "bg-cyan-500 text-black border-cyan-500" : "bg-[#020617] text-gray-400 border-cyan-900/30 hover:border-cyan-500/50 hover:text-cyan-400"
+            ),
+            children: filter
+          },
+          filter,
+          false,
+          {
+            fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+            lineNumber: 170,
+            columnNumber: 13
+          },
+          this
+        ))
+      ] }, void 0, true, {
+        fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+        lineNumber: 167,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 min-h-[500px]", children: [
+        /* @__PURE__ */ jsxDEV("div", { className: "lg:col-span-5 flex flex-col gap-3 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar", children: [
+          /* @__PURE__ */ jsxDEV(AnimatePresence, { children: filteredData.map((item, idx) => /* @__PURE__ */ jsxDEV(
+            motion.button,
+            {
+              initial: { opacity: 0, x: -20 },
+              animate: { opacity: 1, x: 0 },
+              exit: { opacity: 0, scale: 0.95 },
+              transition: { delay: idx * 0.05 },
+              onClick: () => {
+                playClickSound();
+                setSelectedId(item.id);
+              },
+              onMouseEnter: playHoverSound,
+              className: cn(
+                "flex flex-col text-left p-4 border rounded-sm transition-all duration-300 relative group",
+                selectedId === item.id ? "bg-[#020617] border-cyan-400 shadow-[inset_0_0_15px_rgba(6,182,212,0.2)]" : "bg-[#020617]/50 border-cyan-900/30 hover:border-cyan-500/50"
+              ),
+              children: [
+                /* @__PURE__ */ jsxDEV("div", { className: "flex justify-between items-start mb-2", children: [
+                  /* @__PURE__ */ jsxDEV("h3", { className: cn(
+                    "font-space text-base font-bold transition-colors",
+                    selectedId === item.id ? "text-cyan-400" : "text-gray-300 group-hover:text-white"
+                  ), children: item.event }, void 0, false, {
+                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                    lineNumber: 208,
+                    columnNumber: 21
+                  }, this),
+                  /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[9px] text-amber-500 border border-amber-900/30 bg-amber-950/20 px-2 py-0.5 rounded-sm uppercase tracking-widest shrink-0 ml-2", children: item.category }, void 0, false, {
+                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                    lineNumber: 214,
+                    columnNumber: 21
+                  }, this)
+                ] }, void 0, true, {
+                  fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                  lineNumber: 207,
+                  columnNumber: 19
+                }, this),
+                /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest line-clamp-1", children: item.role }, void 0, false, {
+                  fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                  lineNumber: 218,
+                  columnNumber: 19
+                }, this)
+              ]
+            },
+            item.id,
+            true,
+            {
+              fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+              lineNumber: 192,
+              columnNumber: 17
+            },
+            this
+          )) }, void 0, false, {
+            fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+            lineNumber: 190,
+            columnNumber: 13
+          }, this),
+          filteredData.length === 0 && /* @__PURE__ */ jsxDEV("div", { className: "text-center p-8 border border-dashed border-cyan-900/30 rounded-sm", children: /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-gray-500 uppercase tracking-widest", children: "No records found for this filter." }, void 0, false, {
+            fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+            lineNumber: 224,
+            columnNumber: 17
+          }, this) }, void 0, false, {
+            fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+            lineNumber: 223,
+            columnNumber: 15
+          }, this)
+        ] }, void 0, true, {
+          fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+          lineNumber: 189,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("div", { className: "lg:col-span-7 bg-[#020617] border border-cyan-900/30 p-8 rounded-sm relative overflow-hidden flex flex-col", children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.02)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" }, void 0, false, {
+            fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+            lineNumber: 231,
+            columnNumber: 13
+          }, this),
+          /* @__PURE__ */ jsxDEV(AnimatePresence, { mode: "wait", children: activeItem && /* @__PURE__ */ jsxDEV(
+            motion.div,
+            {
+              initial: { opacity: 0, y: 10 },
+              animate: { opacity: 1, y: 0 },
+              exit: { opacity: 0, y: -10 },
+              transition: { duration: 0.3 },
+              className: "relative z-10 flex-1 flex flex-col",
+              children: [
+                /* @__PURE__ */ jsxDEV("div", { className: "flex items-start gap-4 mb-8 pb-6 border-b border-cyan-900/30", children: [
+                  /* @__PURE__ */ jsxDEV("div", { className: "p-4 bg-cyan-950/20 text-cyan-500 border border-cyan-900/30 rounded-sm shrink-0", children: activeItem.icon }, void 0, false, {
+                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                    lineNumber: 244,
+                    columnNumber: 21
+                  }, this),
+                  /* @__PURE__ */ jsxDEV("div", { children: [
+                    /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-2xl md:text-3xl font-bold text-white mb-2 leading-tight", children: activeItem.event }, void 0, false, {
+                      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                      lineNumber: 248,
+                      columnNumber: 23
+                    }, this),
+                    /* @__PURE__ */ jsxDEV("div", { className: "flex flex-wrap gap-2", children: /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs text-cyan-400 bg-cyan-950/30 border border-cyan-900/50 px-3 py-1 rounded-sm uppercase tracking-widest", children: activeItem.role }, void 0, false, {
+                      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                      lineNumber: 250,
+                      columnNumber: 25
+                    }, this) }, void 0, false, {
+                      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                      lineNumber: 249,
+                      columnNumber: 23
+                    }, this)
+                  ] }, void 0, true, {
+                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                    lineNumber: 247,
+                    columnNumber: 21
+                  }, this)
+                ] }, void 0, true, {
+                  fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                  lineNumber: 243,
+                  columnNumber: 19
+                }, this),
+                /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 flex-1", children: [
+                  /* @__PURE__ */ jsxDEV("div", { className: "bg-[#0B1121] p-6 rounded-sm border border-cyan-900/20", children: [
+                    /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-2 mb-3", children: [
+                      /* @__PURE__ */ jsxDEV(Users, { className: "w-4 h-4 text-gray-400" }, void 0, false, {
+                        fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                        lineNumber: 260,
+                        columnNumber: 25
+                      }, this),
+                      /* @__PURE__ */ jsxDEV("h4", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest", children: "Committee / Format" }, void 0, false, {
+                        fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                        lineNumber: 261,
+                        columnNumber: 25
+                      }, this)
+                    ] }, void 0, true, {
+                      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                      lineNumber: 259,
+                      columnNumber: 23
+                    }, this),
+                    /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-sm text-gray-200 leading-relaxed font-medium", children: activeItem.committee }, void 0, false, {
+                      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                      lineNumber: 263,
+                      columnNumber: 23
+                    }, this)
+                  ] }, void 0, true, {
+                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                    lineNumber: 258,
+                    columnNumber: 21
+                  }, this),
+                  /* @__PURE__ */ jsxDEV("div", { className: "bg-[#0B1121] p-6 rounded-sm border border-cyan-900/20", children: [
+                    /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-2 mb-3", children: [
+                      /* @__PURE__ */ jsxDEV(Play, { className: "w-4 h-4 text-gray-400" }, void 0, false, {
+                        fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                        lineNumber: 268,
+                        columnNumber: 25
+                      }, this),
+                      /* @__PURE__ */ jsxDEV("h4", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest", children: "Mission Log / Description" }, void 0, false, {
+                        fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                        lineNumber: 269,
+                        columnNumber: 25
+                      }, this)
+                    ] }, void 0, true, {
+                      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                      lineNumber: 267,
+                      columnNumber: 23
+                    }, this),
+                    /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-sm text-gray-300 leading-relaxed font-light", children: activeItem.mission }, void 0, false, {
+                      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                      lineNumber: 271,
+                      columnNumber: 23
+                    }, this)
+                  ] }, void 0, true, {
+                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                    lineNumber: 266,
+                    columnNumber: 21
+                  }, this)
+                ] }, void 0, true, {
+                  fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+                  lineNumber: 257,
+                  columnNumber: 19
+                }, this)
+              ]
+            },
+            activeItem.id,
+            true,
+            {
+              fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+              lineNumber: 235,
+              columnNumber: 17
+            },
+            this
+          ) }, void 0, false, {
+            fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+            lineNumber: 233,
+            columnNumber: 13
+          }, this)
+        ] }, void 0, true, {
+          fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+          lineNumber: 230,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+        lineNumber: 186,
+        columnNumber: 9
+      }, this)
+    ] }, void 0, true, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 150,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("style", { dangerouslySetInnerHTML: { __html: `
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(2, 6, 23, 0.5);
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(6, 182, 212, 0.3);
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(6, 182, 212, 0.6);
+        }
+      ` } }, void 0, false, {
+      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+      lineNumber: 283,
+      columnNumber: 7
+    }, this)
+  ] }, void 0, true, {
+    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
+    lineNumber: 149,
+    columnNumber: 5
+  }, this);
+}
+const leadershipData = [
+  {
+    role: "Executive Board Member / Rapporteur",
+    event: "SASSY'26",
+    organization: "St. Anthony's Students Summit by YUVA, Udaipur.",
+    committee: "Education Ministry of India (Senior)",
+    date: "August 2026",
+    icon: /* @__PURE__ */ jsxDEV(Shield, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/Leadership.tsx",
+      lineNumber: 11,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    role: "Organizer",
+    event: "IDC MUN 2026 — Chapter 1",
+    organization: "Core Organizing Committee",
+    committee: "Core Organizing Committee",
+    mission: "Organised and coordinated Chapter 1 of IDC MUN in Jaipur.",
+    date: "2026",
+    icon: /* @__PURE__ */ jsxDEV(Flag, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/Leadership.tsx",
+      lineNumber: 20,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    role: "OC Member",
+    event: "DPS MUN 2024",
+    organization: "Organizing Committee",
+    committee: "Organizing Committee",
+    mission: "Facilitated logistics and core operations.",
+    date: "2024",
+    icon: /* @__PURE__ */ jsxDEV(LayoutDashboard, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/Leadership.tsx",
+      lineNumber: 29,
+      columnNumber: 11
+    }, void 0)
+  },
+  {
+    role: "Campus Ambassador & Social Media Marketing Internship",
+    event: "IMUN",
+    organization: "International Model United Nations",
+    committee: "Campus Ambassador",
+    mission: "Executed social media marketing campaigns, contributed to business development, and represented IMUN as a Campus Ambassador.",
+    icon: /* @__PURE__ */ jsxDEV(Share2, { className: "w-5 h-5" }, void 0, false, {
+      fileName: "/app/applet/src/components/Leadership.tsx",
+      lineNumber: 37,
+      columnNumber: 11
+    }, void 0)
+  }
+];
+function Leadership() {
+  return /* @__PURE__ */ jsxDEV("section", { id: "leadership", className: "relative py-16 md:py-24 bg-[#0B1121] border-y border-cyan-900/20", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-7xl mx-auto px-6 lg:px-12 relative z-10", children: [
     /* @__PURE__ */ jsxDEV(
       motion.div,
       {
         initial: { opacity: 0, y: 20 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: true },
-        className: "mb-16 flex items-center justify-between",
+        className: "mb-16",
         children: [
-          /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-4", children: [
-            /* @__PURE__ */ jsxDEV("div", { className: "p-3 bg-cyan-950/30 border border-cyan-900/50 rounded-sm text-cyan-400", children: /* @__PURE__ */ jsxDEV(GraduationCap, { className: "w-6 h-6" }, void 0, false, {
-              fileName: "/app/applet/src/components/Education.tsx",
-              lineNumber: 41,
-              columnNumber: 15
+          /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-4 mb-4", children: [
+            /* @__PURE__ */ jsxDEV(Shield, { className: "text-amber-500 w-6 h-6" }, void 0, false, {
+              fileName: "/app/applet/src/components/Leadership.tsx",
+              lineNumber: 52,
+              columnNumber: 13
+            }, this),
+            /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider", children: "Leadership & Organizing" }, void 0, false, {
+              fileName: "/app/applet/src/components/Leadership.tsx",
+              lineNumber: 53,
+              columnNumber: 13
+            }, this)
+          ] }, void 0, true, {
+            fileName: "/app/applet/src/components/Leadership.tsx",
+            lineNumber: 51,
+            columnNumber: 11
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "w-12 h-1 bg-amber-500 mb-8" }, void 0, false, {
+            fileName: "/app/applet/src/components/Leadership.tsx",
+            lineNumber: 57,
+            columnNumber: 11
+          }, this)
+        ]
+      },
+      void 0,
+      true,
+      {
+        fileName: "/app/applet/src/components/Leadership.tsx",
+        lineNumber: 45,
+        columnNumber: 9
+      },
+      this
+    ),
+    /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8", children: leadershipData.map((item, index) => /* @__PURE__ */ jsxDEV(
+      motion.div,
+      {
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        transition: { delay: index * 0.1 },
+        className: "bg-[#020617] border border-cyan-900/30 p-8 rounded-sm hover:border-amber-500/50 transition-colors relative group flex flex-col h-full",
+        children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "flex justify-between items-start mb-6", children: [
+            /* @__PURE__ */ jsxDEV("div", { className: "text-amber-500 bg-amber-950/30 p-3 rounded-sm group-hover:bg-amber-500 group-hover:text-black transition-colors", children: item.icon }, void 0, false, {
+              fileName: "/app/applet/src/components/Leadership.tsx",
+              lineNumber: 71,
+              columnNumber: 17
+            }, this),
+            item.date && /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] text-gray-400 border border-gray-800 bg-gray-900/50 px-3 py-1 rounded-sm uppercase tracking-widest", children: item.date }, void 0, false, {
+              fileName: "/app/applet/src/components/Leadership.tsx",
+              lineNumber: 75,
+              columnNumber: 19
+            }, this)
+          ] }, void 0, true, {
+            fileName: "/app/applet/src/components/Leadership.tsx",
+            lineNumber: 70,
+            columnNumber: 15
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "flex-1", children: [
+            /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-xl font-bold text-white mb-2", children: item.event }, void 0, false, {
+              fileName: "/app/applet/src/components/Leadership.tsx",
+              lineNumber: 82,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-cyan-400 font-bold mb-4 uppercase tracking-wide", children: item.role }, void 0, false, {
+              fileName: "/app/applet/src/components/Leadership.tsx",
+              lineNumber: 83,
+              columnNumber: 17
+            }, this),
+            item.organization && /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-sm text-gray-400 font-light leading-relaxed mb-2", children: [
+              /* @__PURE__ */ jsxDEV("strong", { className: "text-gray-300", children: "Organization:" }, void 0, false, {
+                fileName: "/app/applet/src/components/Leadership.tsx",
+                lineNumber: 87,
+                columnNumber: 21
+              }, this),
+              " ",
+              item.organization
+            ] }, void 0, true, {
+              fileName: "/app/applet/src/components/Leadership.tsx",
+              lineNumber: 86,
+              columnNumber: 19
+            }, this),
+            item.committee && /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-sm text-gray-400 font-light leading-relaxed mb-4", children: [
+              /* @__PURE__ */ jsxDEV("strong", { className: "text-gray-300", children: "Role/Format:" }, void 0, false, {
+                fileName: "/app/applet/src/components/Leadership.tsx",
+                lineNumber: 92,
+                columnNumber: 21
+              }, this),
+              " ",
+              item.committee
+            ] }, void 0, true, {
+              fileName: "/app/applet/src/components/Leadership.tsx",
+              lineNumber: 91,
+              columnNumber: 19
+            }, this),
+            item.mission && /* @__PURE__ */ jsxDEV("div", { className: "mt-4 pt-4 border-t border-cyan-900/30", children: /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-sm text-gray-300 font-light leading-relaxed", children: item.mission }, void 0, false, {
+              fileName: "/app/applet/src/components/Leadership.tsx",
+              lineNumber: 97,
+              columnNumber: 21
             }, this) }, void 0, false, {
+              fileName: "/app/applet/src/components/Leadership.tsx",
+              lineNumber: 96,
+              columnNumber: 19
+            }, this)
+          ] }, void 0, true, {
+            fileName: "/app/applet/src/components/Leadership.tsx",
+            lineNumber: 81,
+            columnNumber: 15
+          }, this)
+        ]
+      },
+      index,
+      true,
+      {
+        fileName: "/app/applet/src/components/Leadership.tsx",
+        lineNumber: 62,
+        columnNumber: 13
+      },
+      this
+    )) }, void 0, false, {
+      fileName: "/app/applet/src/components/Leadership.tsx",
+      lineNumber: 60,
+      columnNumber: 9
+    }, this)
+  ] }, void 0, true, {
+    fileName: "/app/applet/src/components/Leadership.tsx",
+    lineNumber: 44,
+    columnNumber: 7
+  }, this) }, void 0, false, {
+    fileName: "/app/applet/src/components/Leadership.tsx",
+    lineNumber: 43,
+    columnNumber: 5
+  }, this);
+}
+const educationData = [
+  {
+    institution: "National Institute of Open Schooling (NIOS)",
+    location: "Udaipur, Rajasthan",
+    date: "Expected May 2027",
+    degree: "Senior Secondary Education — Physics, Chemistry, Mathematics (PCM)",
+    bullets: [
+      "Pursuing a rigorous PCM curriculum, building strong analytical and quantitative reasoning skills essential for flight training and technical decision-making",
+      "Balances demanding academics with active extracurricular leadership through MUN participation",
+      "Cultivates disciplined, self-directed study habits reflective of the structure required in aviation training environments"
+    ]
+  },
+  {
+    institution: "Delhi Public School (DPS)",
+    location: "Udaipur, Rajasthan",
+    date: "March 2020 – March 2026",
+    degree: "Secondary Education, PCM Stream",
+    bullets: [
+      "Completed foundational schooling (Class 6–11) across Physics, Chemistry, Mathematics, and Computer Science",
+      "Developed core analytical thinking and teamwork skills through collaborative academic projects",
+      "Engaged consistently in extracurricular activities, including Model United Nations, alongside core studies"
+    ]
+  }
+];
+function Education() {
+  return /* @__PURE__ */ jsxDEV("section", { id: "education", className: "relative py-16 md:py-24 bg-[#020617]", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-7xl mx-auto px-6 lg:px-12", children: [
+    /* @__PURE__ */ jsxDEV(
+      motion.div,
+      {
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        className: "mb-16",
+        children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-4 mb-4", children: [
+            /* @__PURE__ */ jsxDEV(BookOpen, { className: "text-cyan-500 w-6 h-6" }, void 0, false, {
               fileName: "/app/applet/src/components/Education.tsx",
               lineNumber: 40,
               columnNumber: 13
             }, this),
-            /* @__PURE__ */ jsxDEV("div", { children: [
-              /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl font-bold text-white uppercase tracking-wider", children: "Academic Flight Path" }, void 0, false, {
-                fileName: "/app/applet/src/components/Education.tsx",
-                lineNumber: 44,
-                columnNumber: 15
-              }, this),
-              /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-gray-400 tracking-widest mt-1 uppercase", children: "Foundation & Training" }, void 0, false, {
-                fileName: "/app/applet/src/components/Education.tsx",
-                lineNumber: 47,
-                columnNumber: 15
-              }, this)
-            ] }, void 0, true, {
+            /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider", children: "Education" }, void 0, false, {
               fileName: "/app/applet/src/components/Education.tsx",
-              lineNumber: 43,
+              lineNumber: 41,
               columnNumber: 13
             }, this)
           ] }, void 0, true, {
@@ -1664,9 +2396,9 @@ function Education() {
             lineNumber: 39,
             columnNumber: 11
           }, this),
-          /* @__PURE__ */ jsxDEV(PlaneTakeoff, { className: "w-8 h-8 text-cyan-900/50 hidden md:block" }, void 0, false, {
+          /* @__PURE__ */ jsxDEV("div", { className: "w-12 h-1 bg-cyan-500 mb-8" }, void 0, false, {
             fileName: "/app/applet/src/components/Education.tsx",
-            lineNumber: 50,
+            lineNumber: 45,
             columnNumber: 11
           }, this)
         ]
@@ -1680,83 +2412,77 @@ function Education() {
       },
       this
     ),
-    /* @__PURE__ */ jsxDEV("div", { className: "space-y-12", children: education.map((edu, index) => /* @__PURE__ */ jsxDEV(
+    /* @__PURE__ */ jsxDEV("div", { className: "relative border-l border-cyan-900/30 pl-8 md:pl-12 space-y-16", children: educationData.map((edu, index) => /* @__PURE__ */ jsxDEV(
       motion.div,
       {
-        initial: { opacity: 0, y: 20 },
-        whileInView: { opacity: 1, y: 0 },
+        initial: { opacity: 0, x: -20 },
+        whileInView: { opacity: 1, x: 0 },
         viewport: { once: true },
-        transition: { duration: 0.5, delay: index * 0.1 },
-        className: "group relative bg-[#020617] border border-cyan-900/30 p-8 rounded-sm hover:border-cyan-500/50 transition-colors",
+        transition: { delay: index * 0.2 },
+        className: "relative",
         children: [
-          /* @__PURE__ */ jsxDEV("div", { className: "absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-cyan-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" }, void 0, false, {
+          /* @__PURE__ */ jsxDEV("div", { className: "absolute -left-[37px] md:-left-[53px] top-1 w-3 h-3 bg-cyan-500 rounded-full shadow-[0_0_10px_rgba(6,182,212,0.5)]" }, void 0, false, {
             fileName: "/app/applet/src/components/Education.tsx",
-            lineNumber: 64,
+            lineNumber: 59,
             columnNumber: 15
           }, this),
-          /* @__PURE__ */ jsxDEV("div", { className: "flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6 relative z-10", children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "absolute -left-[45px] md:-left-[61px] top-[1px] w-7 h-7 border border-cyan-500/30 rounded-full" }, void 0, false, {
+            fileName: "/app/applet/src/components/Education.tsx",
+            lineNumber: 60,
+            columnNumber: 15
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6", children: [
             /* @__PURE__ */ jsxDEV("div", { children: [
-              /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-2 mb-2", children: [
-                /* @__PURE__ */ jsxDEV(Navigation, { className: "w-4 h-4 text-cyan-500" }, void 0, false, {
-                  fileName: "/app/applet/src/components/Education.tsx",
-                  lineNumber: 69,
-                  columnNumber: 21
-                }, this),
-                /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-xl font-bold text-white", children: edu.institution }, void 0, false, {
-                  fileName: "/app/applet/src/components/Education.tsx",
-                  lineNumber: 70,
-                  columnNumber: 21
-                }, this)
-              ] }, void 0, true, {
+              /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-xl font-bold text-white mb-2", children: edu.institution }, void 0, false, {
+                fileName: "/app/applet/src/components/Education.tsx",
+                lineNumber: 64,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-cyan-400 uppercase tracking-widest", children: edu.degree }, void 0, false, {
+                fileName: "/app/applet/src/components/Education.tsx",
+                lineNumber: 65,
+                columnNumber: 19
+              }, this)
+            ] }, void 0, true, {
+              fileName: "/app/applet/src/components/Education.tsx",
+              lineNumber: 63,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV("div", { className: "flex flex-col items-start lg:items-end gap-2 shrink-0", children: [
+              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs text-amber-500 bg-amber-950/20 border border-amber-900/30 px-3 py-1 rounded-sm w-max", children: edu.date }, void 0, false, {
                 fileName: "/app/applet/src/components/Education.tsx",
                 lineNumber: 68,
                 columnNumber: 19
               }, this),
-              /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-cyan-400 font-medium ml-6", children: edu.degree }, void 0, false, {
+              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest", children: edu.location }, void 0, false, {
                 fileName: "/app/applet/src/components/Education.tsx",
-                lineNumber: 72,
+                lineNumber: 71,
                 columnNumber: 19
               }, this)
             ] }, void 0, true, {
               fileName: "/app/applet/src/components/Education.tsx",
               lineNumber: 67,
               columnNumber: 17
-            }, this),
-            /* @__PURE__ */ jsxDEV("div", { className: "flex flex-col lg:items-end text-left lg:text-right ml-6 lg:ml-0", children: [
-              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs text-amber-500 bg-amber-950/20 border border-amber-900/30 px-3 py-1 rounded-sm w-max mb-1", children: edu.date }, void 0, false, {
-                fileName: "/app/applet/src/components/Education.tsx",
-                lineNumber: 75,
-                columnNumber: 19
-              }, this),
-              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest", children: edu.location }, void 0, false, {
-                fileName: "/app/applet/src/components/Education.tsx",
-                lineNumber: 78,
-                columnNumber: 19
-              }, this)
-            ] }, void 0, true, {
-              fileName: "/app/applet/src/components/Education.tsx",
-              lineNumber: 74,
-              columnNumber: 17
             }, this)
           ] }, void 0, true, {
             fileName: "/app/applet/src/components/Education.tsx",
-            lineNumber: 66,
+            lineNumber: 62,
             columnNumber: 15
           }, this),
-          /* @__PURE__ */ jsxDEV("ul", { className: "space-y-3 ml-6", children: edu.bullets.map((bullet, idx) => /* @__PURE__ */ jsxDEV("li", { className: "flex items-start gap-3 text-gray-400 font-sans font-light leading-relaxed", children: [
+          /* @__PURE__ */ jsxDEV("ul", { className: "space-y-3 ml-2 lg:ml-6", children: edu.bullets.map((bullet, idx) => /* @__PURE__ */ jsxDEV("li", { className: "flex items-start gap-3 text-gray-400 font-sans font-light leading-relaxed", children: [
             /* @__PURE__ */ jsxDEV("span", { className: "mt-2 w-1.5 h-1.5 bg-amber-500 rounded-full flex-shrink-0" }, void 0, false, {
               fileName: "/app/applet/src/components/Education.tsx",
-              lineNumber: 85,
+              lineNumber: 78,
               columnNumber: 21
             }, this),
             bullet
           ] }, idx, true, {
             fileName: "/app/applet/src/components/Education.tsx",
-            lineNumber: 84,
+            lineNumber: 77,
             columnNumber: 19
           }, this)) }, void 0, false, {
             fileName: "/app/applet/src/components/Education.tsx",
-            lineNumber: 82,
+            lineNumber: 75,
             columnNumber: 15
           }, this)
         ]
@@ -1765,13 +2491,13 @@ function Education() {
       true,
       {
         fileName: "/app/applet/src/components/Education.tsx",
-        lineNumber: 55,
+        lineNumber: 50,
         columnNumber: 13
       },
       this
     )) }, void 0, false, {
       fileName: "/app/applet/src/components/Education.tsx",
-      lineNumber: 53,
+      lineNumber: 48,
       columnNumber: 9
     }, this)
   ] }, void 0, true, {
@@ -1784,968 +2510,297 @@ function Education() {
     columnNumber: 5
   }, this);
 }
-const munExperiences = [
-  { id: 1, name: "SASSY'26", role: "Executive Board Member / Rapporteur", committee: "Education Ministry of India (Senior)", category: "EXECUTIVE BOARD", year: "2026", details: "St. Anthony's Students Summit by YUVA, Udaipur." },
-  { id: 2, name: "IDC MUN 2026 — Chapter 1", role: "Organizer", committee: "Core Organizing Committee", category: "ORGANIZER", year: "2026", details: "Organised and coordinated Chapter 1 of IDC MUN in Jaipur." },
-  { id: 3, name: "Sangam MUN 2026", role: "Participant", committee: "Lok Sabha", category: "PARTICIPANT", year: "2026", details: "Active participation in parliamentary procedures." },
-  { id: 4, name: "IIT Bombay 2025", role: "Participant", committee: "AIIMP", category: "PARTICIPANT", year: "2025", details: "Advanced level debate and structural discussions." },
-  { id: 5, name: "RYCMUN 2025", role: "Participant", committee: "Lok Sabha", category: "PARTICIPANT", year: "2025", details: "National policy formulation and debate." },
-  { id: 6, name: "Sangam MUN 2025", role: "Participant", committee: "CCC", category: "PARTICIPANT", year: "2025", details: "Crisis committee navigation and strategy." },
-  { id: 7, name: "DPS MUN 2024", role: "OC Member", committee: "Organizing Committee", category: "OC", year: "2024", details: "Facilitated logistics and core operations." },
-  { id: 8, name: "DPS Udaipur MUN", role: "IP Member", committee: "International Press", category: "PARTICIPANT", year: "Previous", details: "Journalism and reporting within the MUN framework." },
-  { id: 9, name: "IMUN, India", role: "Participant", committee: "General Assembly", category: "PARTICIPANT", year: "Previous", details: "International Model United Nations." },
-  { id: 10, name: "Mock Parliament, Jaipur", role: "Participant", committee: "Parliament", category: "PARTICIPANT", year: "Previous", details: "Indian parliamentary simulation." },
-  { id: 11, name: "Delhi Mock Parliament", role: "Participant", committee: "Parliament", category: "PARTICIPANT", year: "Previous", details: "National level mock parliament." },
-  { id: 12, name: "Mumbai MUN Circuit", role: "Delegate", committee: "Multiple Committees", category: "PARTICIPANT", year: "Various", details: "Attended multiple competitive MUN conferences across the Mumbai circuit." },
-  { id: 13, name: "Online MUN Experiences", role: "Delegate", committee: "UNGA, UNHRC, IPL", category: "ONLINE", year: "Various", details: "Participated in diverse online committee simulations." },
-  { id: 14, name: "Debate & Parliamentary", role: "Speaker", committee: "Tark Vitrak, IDC, Baithke, Charchaar", category: "PARTICIPANT", year: "Various", details: "Extensive involvement in school debates and structured parliamentary formats." }
+const hobbies = [
+  { name: "Aviation Tracking & Flight Mechanics Analysis", icon: /* @__PURE__ */ jsxDEV(Compass, { className: "w-5 h-5" }, void 0, false, {
+    fileName: "/app/applet/src/components/Hobbies.tsx",
+    lineNumber: 5,
+    columnNumber: 66
+  }, void 0) },
+  { name: "Basic Coding & Web Development (Self-Learning Phase)", icon: /* @__PURE__ */ jsxDEV(Code, { className: "w-5 h-5" }, void 0, false, {
+    fileName: "/app/applet/src/components/Hobbies.tsx",
+    lineNumber: 6,
+    columnNumber: 73
+  }, void 0) },
+  { name: "Strategic Gaming Mechanics Analysis", icon: /* @__PURE__ */ jsxDEV(Gamepad2, { className: "w-5 h-5" }, void 0, false, {
+    fileName: "/app/applet/src/components/Hobbies.tsx",
+    lineNumber: 7,
+    columnNumber: 56
+  }, void 0) },
+  { name: "Public Speaking & Debates", icon: /* @__PURE__ */ jsxDEV(Mic2, { className: "w-5 h-5" }, void 0, false, {
+    fileName: "/app/applet/src/components/Hobbies.tsx",
+    lineNumber: 8,
+    columnNumber: 46
+  }, void 0) },
+  { name: "Traveling & Exploring New Places", icon: /* @__PURE__ */ jsxDEV(Map, { className: "w-5 h-5" }, void 0, false, {
+    fileName: "/app/applet/src/components/Hobbies.tsx",
+    lineNumber: 9,
+    columnNumber: 53
+  }, void 0) }
 ];
-const categories = ["ALL", "EXECUTIVE BOARD", "ORGANIZER", "OC", "PARTICIPANT", "ONLINE"];
-function MunDiplomacy() {
-  const [activeFilter, setActiveFilter] = useState("ALL");
-  const [selectedExp, setSelectedExp] = useState(munExperiences[0]);
-  const filtered = activeFilter === "ALL" ? munExperiences : munExperiences.filter((exp) => exp.category === activeFilter);
-  return /* @__PURE__ */ jsxDEV("section", { id: "mun", className: "relative py-24 bg-[#020617]", children: [
-    /* @__PURE__ */ jsxDEV("div", { className: "max-w-7xl mx-auto px-6 lg:px-12", children: [
+function Hobbies() {
+  return /* @__PURE__ */ jsxDEV("section", { id: "interests", className: "relative py-16 md:py-24 bg-[#020617] overflow-hidden", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-7xl mx-auto px-6 lg:px-12 relative z-10", children: [
+    /* @__PURE__ */ jsxDEV(
+      motion.div,
+      {
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        className: "mb-16",
+        children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-4 mb-4", children: [
+            /* @__PURE__ */ jsxDEV(Globe2, { className: "text-cyan-500 w-6 h-6" }, void 0, false, {
+              fileName: "/app/applet/src/components/Hobbies.tsx",
+              lineNumber: 23,
+              columnNumber: 13
+            }, this),
+            /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider", children: "Hobbies & Interests" }, void 0, false, {
+              fileName: "/app/applet/src/components/Hobbies.tsx",
+              lineNumber: 24,
+              columnNumber: 13
+            }, this)
+          ] }, void 0, true, {
+            fileName: "/app/applet/src/components/Hobbies.tsx",
+            lineNumber: 22,
+            columnNumber: 11
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "w-12 h-1 bg-cyan-500 mb-8" }, void 0, false, {
+            fileName: "/app/applet/src/components/Hobbies.tsx",
+            lineNumber: 28,
+            columnNumber: 11
+          }, this)
+        ]
+      },
+      void 0,
+      true,
+      {
+        fileName: "/app/applet/src/components/Hobbies.tsx",
+        lineNumber: 16,
+        columnNumber: 9
+      },
+      this
+    ),
+    /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6", children: [
+      hobbies.map((hobby, index) => /* @__PURE__ */ jsxDEV(
+        motion.div,
+        {
+          initial: { opacity: 0, y: 20 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true },
+          transition: { delay: index * 0.1 },
+          className: "flex items-start gap-4 p-6 bg-[#0B1121] border border-cyan-900/30 rounded-sm hover:border-cyan-500/50 transition-colors group",
+          children: [
+            /* @__PURE__ */ jsxDEV("div", { className: "text-cyan-500 bg-cyan-950/30 p-3 rounded-sm group-hover:bg-cyan-500 group-hover:text-black transition-colors", children: hobby.icon }, void 0, false, {
+              fileName: "/app/applet/src/components/Hobbies.tsx",
+              lineNumber: 41,
+              columnNumber: 15
+            }, this),
+            /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-gray-300 leading-relaxed font-light mt-1", children: hobby.name }, void 0, false, {
+              fileName: "/app/applet/src/components/Hobbies.tsx",
+              lineNumber: 44,
+              columnNumber: 15
+            }, this)
+          ]
+        },
+        index,
+        true,
+        {
+          fileName: "/app/applet/src/components/Hobbies.tsx",
+          lineNumber: 33,
+          columnNumber: 13
+        },
+        this
+      )),
       /* @__PURE__ */ jsxDEV(
         motion.div,
         {
           initial: { opacity: 0, y: 20 },
           whileInView: { opacity: 1, y: 0 },
           viewport: { once: true },
-          className: "mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6",
+          transition: { delay: hobbies.length * 0.1 },
+          className: "flex items-start gap-4 p-6 bg-[#0B1121] border border-amber-900/30 rounded-sm hover:border-amber-500/50 transition-colors group",
           children: [
-            /* @__PURE__ */ jsxDEV("div", { children: [
-              /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-4 mb-4", children: [
-                /* @__PURE__ */ jsxDEV(Globe, { className: "text-cyan-500 w-8 h-8" }, void 0, false, {
-                  fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                  lineNumber: 46,
-                  columnNumber: 15
-                }, this),
-                /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-4xl font-bold text-white uppercase tracking-wider", children: "MUN & Diplomacy" }, void 0, false, {
-                  fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                  lineNumber: 47,
-                  columnNumber: 15
-                }, this)
-              ] }, void 0, true, {
-                fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                lineNumber: 45,
-                columnNumber: 13
-              }, this),
-              /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-gray-400 max-w-2xl text-lg", children: "Representing nations, structuring policy, and navigating high-pressure diplomacy." }, void 0, false, {
-                fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                lineNumber: 51,
-                columnNumber: 13
-              }, this)
-            ] }, void 0, true, {
-              fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-              lineNumber: 44,
-              columnNumber: 11
+            /* @__PURE__ */ jsxDEV("div", { className: "text-amber-500 bg-amber-950/30 p-3 rounded-sm group-hover:bg-amber-500 group-hover:text-black transition-colors flex items-center justify-center font-bold font-mono", children: "A/A" }, void 0, false, {
+              fileName: "/app/applet/src/components/Hobbies.tsx",
+              lineNumber: 56,
+              columnNumber: 14
             }, this),
-            /* @__PURE__ */ jsxDEV("div", { className: "bg-cyan-950/20 border border-cyan-900/50 px-6 py-4 rounded-sm text-center", children: [
-              /* @__PURE__ */ jsxDEV("span", { className: "block font-space text-3xl font-bold text-amber-500", children: "15+" }, void 0, false, {
-                fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                lineNumber: 56,
-                columnNumber: 13
+            /* @__PURE__ */ jsxDEV("div", { children: [
+              /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[10px] text-amber-500 uppercase tracking-widest mb-1", children: "Languages" }, void 0, false, {
+                fileName: "/app/applet/src/components/Hobbies.tsx",
+                lineNumber: 60,
+                columnNumber: 17
               }, this),
-              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] uppercase tracking-widest text-cyan-400", children: "Experiences" }, void 0, false, {
-                fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                lineNumber: 57,
-                columnNumber: 13
+              /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-gray-300 leading-relaxed font-light mt-1", children: "English, Hindi" }, void 0, false, {
+                fileName: "/app/applet/src/components/Hobbies.tsx",
+                lineNumber: 61,
+                columnNumber: 17
               }, this)
             ] }, void 0, true, {
-              fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-              lineNumber: 55,
-              columnNumber: 11
+              fileName: "/app/applet/src/components/Hobbies.tsx",
+              lineNumber: 59,
+              columnNumber: 14
             }, this)
           ]
         },
         void 0,
         true,
         {
-          fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-          lineNumber: 38,
-          columnNumber: 9
+          fileName: "/app/applet/src/components/Hobbies.tsx",
+          lineNumber: 49,
+          columnNumber: 11
         },
         this
-      ),
-      /* @__PURE__ */ jsxDEV("div", { className: "flex flex-wrap gap-2 mb-8", children: categories.map((cat) => /* @__PURE__ */ jsxDEV(
-        "button",
-        {
-          onClick: () => {
-            playClickSound();
-            setActiveFilter(cat);
-          },
-          onMouseEnter: playHoverSound,
-          className: cn(
-            "px-4 py-2 font-mono text-xs uppercase tracking-widest rounded-sm transition-all",
-            activeFilter === cat ? "bg-cyan-500 text-black font-bold" : "bg-[#0B1121] text-gray-400 border border-cyan-900/30 hover:border-cyan-500/50 hover:text-white"
-          ),
-          children: cat
-        },
-        cat,
-        false,
-        {
-          fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-          lineNumber: 64,
-          columnNumber: 13
-        },
-        this
-      )) }, void 0, false, {
-        fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-        lineNumber: 62,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-8", children: [
-        /* @__PURE__ */ jsxDEV("div", { className: "lg:col-span-1 h-[500px] overflow-y-auto pr-2 space-y-3 custom-scrollbar", children: /* @__PURE__ */ jsxDEV(AnimatePresence, { children: filtered.map((exp, idx) => /* @__PURE__ */ jsxDEV(
-          motion.div,
-          {
-            initial: { opacity: 0, x: -10 },
-            animate: { opacity: 1, x: 0 },
-            exit: { opacity: 0, scale: 0.95 },
-            transition: { duration: 0.2, delay: idx * 0.05 },
-            onClick: () => {
-              playClickSound();
-              setSelectedExp(exp);
-            },
-            onMouseEnter: playHoverSound,
-            className: cn(
-              "p-4 border rounded-sm cursor-pointer transition-all",
-              selectedExp.id === exp.id ? "bg-cyan-950/30 border-cyan-500 shadow-[inset_4px_0_0_#06b6d4]" : "bg-[#0B1121] border-cyan-900/30 hover:border-cyan-500/50"
-            ),
-            children: [
-              /* @__PURE__ */ jsxDEV("h4", { className: "font-space font-bold text-white mb-1", children: exp.name }, void 0, false, {
-                fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                lineNumber: 100,
-                columnNumber: 19
-              }, this),
-              /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[10px] text-cyan-400 uppercase tracking-widest", children: exp.role }, void 0, false, {
-                fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                lineNumber: 101,
-                columnNumber: 19
-              }, this)
-            ]
-          },
-          exp.id,
-          true,
-          {
-            fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-            lineNumber: 85,
-            columnNumber: 17
-          },
-          this
-        )) }, void 0, false, {
-          fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-          lineNumber: 83,
-          columnNumber: 13
-        }, this) }, void 0, false, {
-          fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-          lineNumber: 82,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ jsxDEV("div", { className: "lg:col-span-2 bg-[#0B1121] border border-cyan-900/30 p-8 rounded-sm relative overflow-hidden flex flex-col justify-center min-h-[400px]", children: [
-          /* @__PURE__ */ jsxDEV("div", { className: "absolute -right-20 -bottom-20 opacity-5 pointer-events-none", children: /* @__PURE__ */ jsxDEV(Globe, { className: "w-96 h-96" }, void 0, false, {
-            fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-            lineNumber: 111,
-            columnNumber: 15
-          }, this) }, void 0, false, {
-            fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-            lineNumber: 110,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxDEV(
-            motion.div,
-            {
-              initial: { opacity: 0, y: 10 },
-              animate: { opacity: 1, y: 0 },
-              exit: { opacity: 0, y: -10 },
-              transition: { duration: 0.3 },
-              className: "relative z-10",
-              children: [
-                /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-3 mb-6", children: [
-                  /* @__PURE__ */ jsxDEV("span", { className: cn(
-                    "px-3 py-1 font-mono text-[10px] tracking-widest uppercase rounded-sm border",
-                    selectedExp.category === "EXECUTIVE BOARD" || selectedExp.category === "ORGANIZER" ? "bg-amber-950/30 text-amber-500 border-amber-900/50" : "bg-cyan-950/30 text-cyan-400 border-cyan-900/50"
-                  ), children: selectedExp.category }, void 0, false, {
-                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                    lineNumber: 124,
-                    columnNumber: 19
-                  }, this),
-                  /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] text-gray-500 tracking-widest", children: [
-                    "SESSION ",
-                    selectedExp.year
-                  ] }, void 0, true, {
-                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                    lineNumber: 132,
-                    columnNumber: 19
-                  }, this)
-                ] }, void 0, true, {
-                  fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                  lineNumber: 123,
-                  columnNumber: 17
-                }, this),
-                /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-3xl md:text-4xl font-bold text-white mb-2", children: selectedExp.name }, void 0, false, {
-                  fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                  lineNumber: 137,
-                  columnNumber: 17
-                }, this),
-                /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-xl text-cyan-400 mb-8", children: selectedExp.role }, void 0, false, {
-                  fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                  lineNumber: 138,
-                  columnNumber: 17
-                }, this),
-                /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8 mb-8", children: [
-                  /* @__PURE__ */ jsxDEV("div", { children: [
-                    /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1", children: "Committee / Format" }, void 0, false, {
-                      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                      lineNumber: 142,
-                      columnNumber: 21
-                    }, this),
-                    /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-gray-200 font-medium", children: selectedExp.committee }, void 0, false, {
-                      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                      lineNumber: 143,
-                      columnNumber: 21
-                    }, this)
-                  ] }, void 0, true, {
-                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                    lineNumber: 141,
-                    columnNumber: 19
-                  }, this),
-                  /* @__PURE__ */ jsxDEV("div", { children: [
-                    /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1", children: "Mission Log" }, void 0, false, {
-                      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                      lineNumber: 146,
-                      columnNumber: 21
-                    }, this),
-                    /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-gray-400 font-light leading-relaxed", children: selectedExp.details }, void 0, false, {
-                      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                      lineNumber: 147,
-                      columnNumber: 21
-                    }, this)
-                  ] }, void 0, true, {
-                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                    lineNumber: 145,
-                    columnNumber: 19
-                  }, this)
-                ] }, void 0, true, {
-                  fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                  lineNumber: 140,
-                  columnNumber: 17
-                }, this),
-                (selectedExp.category === "EXECUTIVE BOARD" || selectedExp.category === "ORGANIZER") && /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-3 mt-8 p-4 bg-amber-950/10 border border-amber-900/30 rounded-sm inline-flex", children: [
-                  /* @__PURE__ */ jsxDEV(Award, { className: "text-amber-500 w-5 h-5" }, void 0, false, {
-                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                    lineNumber: 153,
-                    columnNumber: 21
-                  }, this),
-                  /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs text-amber-400 uppercase tracking-widest", children: "Verified Leadership Role" }, void 0, false, {
-                    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                    lineNumber: 154,
-                    columnNumber: 21
-                  }, this)
-                ] }, void 0, true, {
-                  fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-                  lineNumber: 152,
-                  columnNumber: 19
-                }, this)
-              ]
-            },
-            selectedExp.id,
-            true,
-            {
-              fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-              lineNumber: 115,
-              columnNumber: 15
-            },
-            this
-          ) }, void 0, false, {
-            fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-            lineNumber: 114,
-            columnNumber: 13
-          }, this)
-        ] }, void 0, true, {
-          fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-          lineNumber: 108,
-          columnNumber: 11
-        }, this)
-      ] }, void 0, true, {
-        fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-        lineNumber: 80,
-        columnNumber: 9
-      }, this)
+      )
     ] }, void 0, true, {
-      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-      lineNumber: 36,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ jsxDEV("style", { children: `
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(6, 182, 212, 0.05);
-          border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(6, 182, 212, 0.3);
-          border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(6, 182, 212, 0.6);
-        }
-      ` }, void 0, false, {
-      fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-      lineNumber: 164,
-      columnNumber: 7
-    }, this)
-  ] }, void 0, true, {
-    fileName: "/app/applet/src/components/MunDiplomacy.tsx",
-    lineNumber: 35,
-    columnNumber: 5
-  }, this);
-}
-const leadershipRoles = [
-  {
-    title: "Executive Board Member / Rapporteur",
-    organization: "SASSY'26",
-    committee: "Education Ministry of India (Senior)",
-    description: "St. Anthony's Students Summit by YUVA, Udaipur.",
-    date: "August 2026"
-  },
-  {
-    title: "Organizer",
-    organization: "IDC MUN 2026 — Chapter 1",
-    committee: "Core Organizing Committee",
-    description: "Organised and coordinated Chapter 1 of IDC MUN in Jaipur.",
-    date: "2026"
-  },
-  {
-    title: "OC Member",
-    organization: "DPS MUN 2024",
-    committee: "Organizing Committee",
-    description: "Facilitated logistics and core operations.",
-    date: "2024"
-  },
-  {
-    title: "Campus Ambassador & Social Media Marketing Internship",
-    organization: "IMUN",
-    committee: "International Model United Nations",
-    description: "Executed social media marketing campaigns, contributed to business development, and represented IMUN as a Campus Ambassador.",
-    date: "Timeline not specified"
-  }
-];
-function Leadership() {
-  return /* @__PURE__ */ jsxDEV("section", { id: "leadership", className: "relative py-24 bg-[#0B1121] border-t border-cyan-900/20", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-6xl mx-auto px-6 lg:px-12", children: [
-    /* @__PURE__ */ jsxDEV(
-      motion.div,
-      {
-        initial: { opacity: 0, y: 20 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true },
-        className: "mb-16 flex items-center justify-center text-center gap-4",
-        children: /* @__PURE__ */ jsxDEV("div", { children: [
-          /* @__PURE__ */ jsxDEV("div", { className: "w-12 h-12 bg-cyan-950/30 text-cyan-400 rounded-full flex items-center justify-center mx-auto mb-4 border border-cyan-900/50", children: /* @__PURE__ */ jsxDEV(Flag, { className: "w-5 h-5" }, void 0, false, {
-            fileName: "/app/applet/src/components/Leadership.tsx",
-            lineNumber: 47,
-            columnNumber: 15
-          }, this) }, void 0, false, {
-            fileName: "/app/applet/src/components/Leadership.tsx",
-            lineNumber: 46,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider", children: "Leadership & Organizing" }, void 0, false, {
-            fileName: "/app/applet/src/components/Leadership.tsx",
-            lineNumber: 49,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-gray-400 tracking-widest mt-3 uppercase", children: "Coordination / Management / Execution" }, void 0, false, {
-            fileName: "/app/applet/src/components/Leadership.tsx",
-            lineNumber: 52,
-            columnNumber: 13
-          }, this)
-        ] }, void 0, true, {
-          fileName: "/app/applet/src/components/Leadership.tsx",
-          lineNumber: 45,
-          columnNumber: 11
-        }, this)
-      },
-      void 0,
-      false,
-      {
-        fileName: "/app/applet/src/components/Leadership.tsx",
-        lineNumber: 39,
-        columnNumber: 9
-      },
-      this
-    ),
-    /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: leadershipRoles.map((role, index) => /* @__PURE__ */ jsxDEV(
-      motion.div,
-      {
-        initial: { opacity: 0, y: 20 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true },
-        transition: { duration: 0.4, delay: index * 0.1 },
-        className: "bg-[#020617] p-8 border border-cyan-900/30 rounded-sm hover:border-cyan-500/50 transition-colors relative group overflow-hidden",
-        children: [
-          /* @__PURE__ */ jsxDEV("div", { className: "absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-500 to-cyan-900/20 opacity-50 group-hover:opacity-100 transition-opacity" }, void 0, false, {
-            fileName: "/app/applet/src/components/Leadership.tsx",
-            lineNumber: 67,
-            columnNumber: 15
-          }, this),
-          /* @__PURE__ */ jsxDEV("div", { className: "flex flex-col h-full", children: [
-            /* @__PURE__ */ jsxDEV("div", { className: "flex justify-between items-start mb-4", children: [
-              /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-xl font-bold text-white pr-4", children: role.title }, void 0, false, {
-                fileName: "/app/applet/src/components/Leadership.tsx",
-                lineNumber: 71,
-                columnNumber: 19
-              }, this),
-              /* @__PURE__ */ jsxDEV(Award, { className: "w-5 h-5 text-amber-500 flex-shrink-0" }, void 0, false, {
-                fileName: "/app/applet/src/components/Leadership.tsx",
-                lineNumber: 72,
-                columnNumber: 19
-              }, this)
-            ] }, void 0, true, {
-              fileName: "/app/applet/src/components/Leadership.tsx",
-              lineNumber: 70,
-              columnNumber: 17
-            }, this),
-            /* @__PURE__ */ jsxDEV("h4", { className: "font-sans text-cyan-400 font-medium mb-1", children: role.organization }, void 0, false, {
-              fileName: "/app/applet/src/components/Leadership.tsx",
-              lineNumber: 75,
-              columnNumber: 17
-            }, this),
-            /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-4", children: role.committee }, void 0, false, {
-              fileName: "/app/applet/src/components/Leadership.tsx",
-              lineNumber: 76,
-              columnNumber: 17
-            }, this),
-            /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-gray-400 font-light text-sm mb-6 flex-1", children: role.description }, void 0, false, {
-              fileName: "/app/applet/src/components/Leadership.tsx",
-              lineNumber: 78,
-              columnNumber: 17
-            }, this),
-            /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-2 text-amber-500 bg-amber-950/20 border border-amber-900/30 px-3 py-1.5 rounded-sm w-max", children: [
-              /* @__PURE__ */ jsxDEV(Calendar, { className: "w-3.5 h-3.5" }, void 0, false, {
-                fileName: "/app/applet/src/components/Leadership.tsx",
-                lineNumber: 83,
-                columnNumber: 19
-              }, this),
-              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] uppercase tracking-widest", children: role.date }, void 0, false, {
-                fileName: "/app/applet/src/components/Leadership.tsx",
-                lineNumber: 84,
-                columnNumber: 19
-              }, this)
-            ] }, void 0, true, {
-              fileName: "/app/applet/src/components/Leadership.tsx",
-              lineNumber: 82,
-              columnNumber: 17
-            }, this)
-          ] }, void 0, true, {
-            fileName: "/app/applet/src/components/Leadership.tsx",
-            lineNumber: 69,
-            columnNumber: 15
-          }, this)
-        ]
-      },
-      index,
-      true,
-      {
-        fileName: "/app/applet/src/components/Leadership.tsx",
-        lineNumber: 58,
-        columnNumber: 13
-      },
-      this
-    )) }, void 0, false, {
-      fileName: "/app/applet/src/components/Leadership.tsx",
-      lineNumber: 56,
+      fileName: "/app/applet/src/components/Hobbies.tsx",
+      lineNumber: 31,
       columnNumber: 9
     }, this)
   ] }, void 0, true, {
-    fileName: "/app/applet/src/components/Leadership.tsx",
-    lineNumber: 38,
+    fileName: "/app/applet/src/components/Hobbies.tsx",
+    lineNumber: 15,
     columnNumber: 7
   }, this) }, void 0, false, {
-    fileName: "/app/applet/src/components/Leadership.tsx",
-    lineNumber: 37,
+    fileName: "/app/applet/src/components/Hobbies.tsx",
+    lineNumber: 14,
     columnNumber: 5
   }, this);
 }
-const hobbies = [
+const certifications = [
   {
-    icon: /* @__PURE__ */ jsxDEV(Plane, { className: "w-6 h-6" }, void 0, false, {
-      fileName: "/app/applet/src/components/Hobbies.tsx",
-      lineNumber: 7,
-      columnNumber: 11
-    }, void 0),
-    title: "Aviation Tracking",
-    desc: "Flight mechanics analysis & aerospace monitoring."
-  },
-  {
-    icon: /* @__PURE__ */ jsxDEV(Terminal, { className: "w-6 h-6" }, void 0, false, {
-      fileName: "/app/applet/src/components/Hobbies.tsx",
-      lineNumber: 12,
-      columnNumber: 11
-    }, void 0),
-    title: "Web Development",
-    desc: "Self-learning coding fundamentals and digital architecture."
-  },
-  {
-    icon: /* @__PURE__ */ jsxDEV(Gamepad2, { className: "w-6 h-6" }, void 0, false, {
-      fileName: "/app/applet/src/components/Hobbies.tsx",
-      lineNumber: 17,
-      columnNumber: 11
-    }, void 0),
-    title: "Strategic Gaming",
-    desc: "Analyzing game mechanics and complex strategy systems."
-  },
-  {
-    icon: /* @__PURE__ */ jsxDEV(Mic, { className: "w-6 h-6" }, void 0, false, {
-      fileName: "/app/applet/src/components/Hobbies.tsx",
-      lineNumber: 22,
-      columnNumber: 11
-    }, void 0),
-    title: "Public Speaking",
-    desc: "Debates, discourse, and structured arguments."
-  },
-  {
-    icon: /* @__PURE__ */ jsxDEV(Map, { className: "w-6 h-6" }, void 0, false, {
-      fileName: "/app/applet/src/components/Hobbies.tsx",
-      lineNumber: 27,
-      columnNumber: 11
-    }, void 0),
-    title: "Exploration",
-    desc: "Traveling and exploring new places and cultures."
+    title: "Eureka! Junior 2025 — Entrepreneurship Program",
+    issuer: "E-Cell, IIT Bombay",
+    date: "December 2025",
+    bullets: [
+      "Selected as a participant in a national-level entrepreneurship program among a competitive applicant pool",
+      "Cultivated problem-solving, idea validation, and entrepreneurial thinking through exposure to real startup ecosystems",
+      "Analyzed business fundamentals and innovation frameworks, strengthening structured decision-making abilities"
+    ]
   }
 ];
-function Hobbies() {
-  return /* @__PURE__ */ jsxDEV("section", { id: "hobbies", className: "relative py-24 bg-[#0B1121] border-t border-cyan-900/20", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-7xl mx-auto px-6 lg:px-12", children: [
-    /* @__PURE__ */ jsxDEV(
-      motion.div,
-      {
-        initial: { opacity: 0, y: 20 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true },
-        className: "mb-16 text-center",
-        children: [
-          /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs tracking-[0.2em] text-cyan-500 mb-4 block", children: "BEYOND THE RESUME" }, void 0, false, {
-            fileName: "/app/applet/src/components/Hobbies.tsx",
-            lineNumber: 43,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider", children: "Interests & Exploration" }, void 0, false, {
-            fileName: "/app/applet/src/components/Hobbies.tsx",
-            lineNumber: 44,
-            columnNumber: 11
-          }, this)
-        ]
-      },
-      void 0,
-      true,
-      {
-        fileName: "/app/applet/src/components/Hobbies.tsx",
-        lineNumber: 37,
-        columnNumber: 9
-      },
-      this
-    ),
-    /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16", children: hobbies.map((hobby, index) => /* @__PURE__ */ jsxDEV(
-      motion.div,
-      {
-        initial: { opacity: 0, scale: 0.95 },
-        whileInView: { opacity: 1, scale: 1 },
-        viewport: { once: true },
-        transition: { duration: 0.4, delay: index * 0.1 },
-        className: "bg-[#020617] p-8 border border-cyan-900/30 rounded-sm hover:border-cyan-500/50 hover:bg-cyan-950/10 transition-all group",
-        children: [
-          /* @__PURE__ */ jsxDEV("div", { className: "w-12 h-12 bg-cyan-950/30 text-cyan-400 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform", children: hobby.icon }, void 0, false, {
-            fileName: "/app/applet/src/components/Hobbies.tsx",
-            lineNumber: 59,
-            columnNumber: 15
-          }, this),
-          /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-xl font-bold text-white mb-2", children: hobby.title }, void 0, false, {
-            fileName: "/app/applet/src/components/Hobbies.tsx",
-            lineNumber: 62,
-            columnNumber: 15
-          }, this),
-          /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-gray-400 font-light text-sm", children: hobby.desc }, void 0, false, {
-            fileName: "/app/applet/src/components/Hobbies.tsx",
-            lineNumber: 63,
-            columnNumber: 15
-          }, this)
-        ]
-      },
-      index,
-      true,
-      {
-        fileName: "/app/applet/src/components/Hobbies.tsx",
-        lineNumber: 51,
-        columnNumber: 13
-      },
-      this
-    )) }, void 0, false, {
-      fileName: "/app/applet/src/components/Hobbies.tsx",
-      lineNumber: 49,
-      columnNumber: 9
-    }, this),
-    /* @__PURE__ */ jsxDEV(
-      motion.div,
-      {
-        initial: { opacity: 0, y: 20 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true },
-        className: "flex items-center justify-center gap-4 bg-cyan-950/20 border border-cyan-900/40 p-6 rounded-sm max-w-lg mx-auto",
-        children: [
-          /* @__PURE__ */ jsxDEV(Languages, { className: "w-6 h-6 text-amber-500" }, void 0, false, {
-            fileName: "/app/applet/src/components/Hobbies.tsx",
-            lineNumber: 74,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ jsxDEV("div", { className: "flex gap-6", children: [
-            /* @__PURE__ */ jsxDEV("div", { children: [
-              /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1", children: "Language 01" }, void 0, false, {
-                fileName: "/app/applet/src/components/Hobbies.tsx",
-                lineNumber: 77,
-                columnNumber: 15
-              }, this),
-              /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-white font-medium", children: "English" }, void 0, false, {
-                fileName: "/app/applet/src/components/Hobbies.tsx",
-                lineNumber: 78,
-                columnNumber: 15
-              }, this)
-            ] }, void 0, true, {
-              fileName: "/app/applet/src/components/Hobbies.tsx",
-              lineNumber: 76,
-              columnNumber: 13
-            }, this),
-            /* @__PURE__ */ jsxDEV("div", { children: [
-              /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1", children: "Language 02" }, void 0, false, {
-                fileName: "/app/applet/src/components/Hobbies.tsx",
-                lineNumber: 81,
-                columnNumber: 15
-              }, this),
-              /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-white font-medium", children: "Hindi" }, void 0, false, {
-                fileName: "/app/applet/src/components/Hobbies.tsx",
-                lineNumber: 82,
-                columnNumber: 15
-              }, this)
-            ] }, void 0, true, {
-              fileName: "/app/applet/src/components/Hobbies.tsx",
-              lineNumber: 80,
-              columnNumber: 13
-            }, this)
-          ] }, void 0, true, {
-            fileName: "/app/applet/src/components/Hobbies.tsx",
-            lineNumber: 75,
-            columnNumber: 11
-          }, this)
-        ]
-      },
-      void 0,
-      true,
-      {
-        fileName: "/app/applet/src/components/Hobbies.tsx",
-        lineNumber: 68,
-        columnNumber: 9
-      },
-      this
-    )
-  ] }, void 0, true, {
-    fileName: "/app/applet/src/components/Hobbies.tsx",
-    lineNumber: 36,
-    columnNumber: 7
-  }, this) }, void 0, false, {
-    fileName: "/app/applet/src/components/Hobbies.tsx",
-    lineNumber: 35,
-    columnNumber: 5
-  }, this);
-}
 function Certifications() {
-  return /* @__PURE__ */ jsxDEV("section", { id: "certifications", className: "relative py-24 bg-[#0B1121] border-t border-cyan-900/20", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-5xl mx-auto px-6 lg:px-12", children: [
+  return /* @__PURE__ */ jsxDEV("section", { id: "certifications", className: "relative py-16 md:py-24 bg-[#0B1121] border-y border-cyan-900/20", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-7xl mx-auto px-6 lg:px-12", children: [
     /* @__PURE__ */ jsxDEV(
       motion.div,
       {
         initial: { opacity: 0, y: 20 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: true },
-        className: "mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6",
-        children: /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-4", children: [
-          /* @__PURE__ */ jsxDEV("div", { className: "p-3 bg-amber-950/30 border border-amber-900/50 rounded-sm text-amber-500", children: /* @__PURE__ */ jsxDEV(ShieldCheck, { className: "w-6 h-6" }, void 0, false, {
-            fileName: "/app/applet/src/components/Certifications.tsx",
-            lineNumber: 16,
-            columnNumber: 15
-          }, this) }, void 0, false, {
-            fileName: "/app/applet/src/components/Certifications.tsx",
-            lineNumber: 15,
-            columnNumber: 13
-          }, this),
-          /* @__PURE__ */ jsxDEV("div", { children: [
-            /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl font-bold text-white uppercase tracking-wider", children: "Certifications" }, void 0, false, {
+        className: "mb-16",
+        children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-4 mb-4", children: [
+            /* @__PURE__ */ jsxDEV(Award, { className: "text-cyan-500 w-6 h-6" }, void 0, false, {
               fileName: "/app/applet/src/components/Certifications.tsx",
-              lineNumber: 19,
-              columnNumber: 15
+              lineNumber: 28,
+              columnNumber: 13
             }, this),
-            /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-gray-400 tracking-widest mt-1 uppercase", children: "Official Recognition" }, void 0, false, {
+            /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider", children: "Certification" }, void 0, false, {
               fileName: "/app/applet/src/components/Certifications.tsx",
-              lineNumber: 22,
-              columnNumber: 15
+              lineNumber: 29,
+              columnNumber: 13
             }, this)
           ] }, void 0, true, {
             fileName: "/app/applet/src/components/Certifications.tsx",
-            lineNumber: 18,
-            columnNumber: 13
+            lineNumber: 27,
+            columnNumber: 11
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "w-12 h-1 bg-cyan-500 mb-8" }, void 0, false, {
+            fileName: "/app/applet/src/components/Certifications.tsx",
+            lineNumber: 33,
+            columnNumber: 11
           }, this)
-        ] }, void 0, true, {
-          fileName: "/app/applet/src/components/Certifications.tsx",
-          lineNumber: 14,
-          columnNumber: 11
-        }, this)
+        ]
       },
       void 0,
-      false,
+      true,
       {
         fileName: "/app/applet/src/components/Certifications.tsx",
-        lineNumber: 8,
+        lineNumber: 21,
         columnNumber: 9
       },
       this
     ),
-    /* @__PURE__ */ jsxDEV(
+    /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 gap-8", children: certifications.map((cert, index) => /* @__PURE__ */ jsxDEV(
       motion.div,
       {
-        initial: { opacity: 0, scale: 0.98 },
-        whileInView: { opacity: 1, scale: 1 },
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
         viewport: { once: true },
-        className: "bg-[#020617] border border-amber-900/30 p-8 rounded-sm relative overflow-hidden",
+        transition: { delay: index * 0.1 },
+        className: "bg-[#020617] border border-cyan-900/30 p-8 rounded-sm hover:border-cyan-500/50 transition-colors",
         children: [
-          /* @__PURE__ */ jsxDEV("div", { className: "absolute top-0 right-0 w-64 h-64 bg-amber-500/5 blur-[100px] pointer-events-none" }, void 0, false, {
-            fileName: "/app/applet/src/components/Certifications.tsx",
-            lineNumber: 34,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ jsxDEV("div", { className: "relative z-10 flex flex-col lg:flex-row lg:items-start justify-between gap-6", children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6", children: [
             /* @__PURE__ */ jsxDEV("div", { children: [
-              /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-2xl font-bold text-white mb-2", children: "Eureka! Junior 2025" }, void 0, false, {
+              /* @__PURE__ */ jsxDEV("h3", { className: "font-space text-xl font-bold text-white mb-2", children: cert.title }, void 0, false, {
                 fileName: "/app/applet/src/components/Certifications.tsx",
-                lineNumber: 38,
-                columnNumber: 15
+                lineNumber: 48,
+                columnNumber: 19
               }, this),
-              /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-amber-500 font-medium mb-4", children: "Entrepreneurship Program" }, void 0, false, {
-                fileName: "/app/applet/src/components/Certifications.tsx",
-                lineNumber: 39,
-                columnNumber: 15
-              }, this),
-              /* @__PURE__ */ jsxDEV("ul", { className: "space-y-3 lg:max-w-2xl", children: [
-                /* @__PURE__ */ jsxDEV("li", { className: "flex items-start gap-3 text-gray-400 font-sans font-light leading-relaxed", children: [
-                  /* @__PURE__ */ jsxDEV("span", { className: "mt-2 w-1.5 h-1.5 bg-cyan-500 rounded-full flex-shrink-0" }, void 0, false, {
-                    fileName: "/app/applet/src/components/Certifications.tsx",
-                    lineNumber: 43,
-                    columnNumber: 19
-                  }, this),
-                  "Selected as a participant in a national-level entrepreneurship program among a competitive applicant pool."
-                ] }, void 0, true, {
-                  fileName: "/app/applet/src/components/Certifications.tsx",
-                  lineNumber: 42,
-                  columnNumber: 17
-                }, this),
-                /* @__PURE__ */ jsxDEV("li", { className: "flex items-start gap-3 text-gray-400 font-sans font-light leading-relaxed", children: [
-                  /* @__PURE__ */ jsxDEV("span", { className: "mt-2 w-1.5 h-1.5 bg-cyan-500 rounded-full flex-shrink-0" }, void 0, false, {
-                    fileName: "/app/applet/src/components/Certifications.tsx",
-                    lineNumber: 47,
-                    columnNumber: 19
-                  }, this),
-                  "Cultivated problem-solving, idea validation, and entrepreneurial thinking through exposure to real startup ecosystems."
-                ] }, void 0, true, {
-                  fileName: "/app/applet/src/components/Certifications.tsx",
-                  lineNumber: 46,
-                  columnNumber: 17
-                }, this),
-                /* @__PURE__ */ jsxDEV("li", { className: "flex items-start gap-3 text-gray-400 font-sans font-light leading-relaxed", children: [
-                  /* @__PURE__ */ jsxDEV("span", { className: "mt-2 w-1.5 h-1.5 bg-cyan-500 rounded-full flex-shrink-0" }, void 0, false, {
-                    fileName: "/app/applet/src/components/Certifications.tsx",
-                    lineNumber: 51,
-                    columnNumber: 19
-                  }, this),
-                  "Analyzed business fundamentals and innovation frameworks, strengthening structured decision-making abilities."
-                ] }, void 0, true, {
-                  fileName: "/app/applet/src/components/Certifications.tsx",
-                  lineNumber: 50,
-                  columnNumber: 17
-                }, this)
+              /* @__PURE__ */ jsxDEV("p", { className: "font-mono text-xs text-amber-500 uppercase tracking-widest", children: [
+                "Issued by: ",
+                cert.issuer
               ] }, void 0, true, {
                 fileName: "/app/applet/src/components/Certifications.tsx",
-                lineNumber: 41,
-                columnNumber: 15
+                lineNumber: 49,
+                columnNumber: 19
               }, this)
             ] }, void 0, true, {
               fileName: "/app/applet/src/components/Certifications.tsx",
-              lineNumber: 37,
-              columnNumber: 13
+              lineNumber: 47,
+              columnNumber: 17
             }, this),
-            /* @__PURE__ */ jsxDEV("div", { className: "flex flex-col text-left lg:text-right mt-4 lg:mt-0", children: [
-              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1", children: "Issued by" }, void 0, false, {
-                fileName: "/app/applet/src/components/Certifications.tsx",
-                lineNumber: 57,
-                columnNumber: 15
-              }, this),
-              /* @__PURE__ */ jsxDEV("span", { className: "font-sans text-white font-medium mb-4", children: "E-Cell, IIT Bombay" }, void 0, false, {
-                fileName: "/app/applet/src/components/Certifications.tsx",
-                lineNumber: 58,
-                columnNumber: 15
-              }, this),
-              /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs text-amber-500 bg-amber-950/20 border border-amber-900/30 px-3 py-1 rounded-sm w-max", children: "December 2025" }, void 0, false, {
-                fileName: "/app/applet/src/components/Certifications.tsx",
-                lineNumber: 59,
-                columnNumber: 15
-              }, this)
-            ] }, void 0, true, {
+            /* @__PURE__ */ jsxDEV("div", { className: "shrink-0", children: /* @__PURE__ */ jsxDEV("span", { className: "font-mono text-xs text-gray-400 border border-gray-800 bg-gray-900/50 px-3 py-1 rounded-sm uppercase tracking-widest block text-center", children: cert.date }, void 0, false, {
               fileName: "/app/applet/src/components/Certifications.tsx",
-              lineNumber: 56,
-              columnNumber: 13
+              lineNumber: 52,
+              columnNumber: 19
+            }, this) }, void 0, false, {
+              fileName: "/app/applet/src/components/Certifications.tsx",
+              lineNumber: 51,
+              columnNumber: 17
             }, this)
           ] }, void 0, true, {
             fileName: "/app/applet/src/components/Certifications.tsx",
-            lineNumber: 36,
-            columnNumber: 11
+            lineNumber: 46,
+            columnNumber: 15
+          }, this),
+          /* @__PURE__ */ jsxDEV("ul", { className: "space-y-3", children: cert.bullets.map((bullet, idx) => /* @__PURE__ */ jsxDEV("li", { className: "flex items-start gap-3 text-gray-400 font-sans font-light leading-relaxed", children: [
+            /* @__PURE__ */ jsxDEV("span", { className: "mt-2 w-1.5 h-1.5 bg-cyan-500 rounded-full flex-shrink-0" }, void 0, false, {
+              fileName: "/app/applet/src/components/Certifications.tsx",
+              lineNumber: 60,
+              columnNumber: 21
+            }, this),
+            bullet
+          ] }, idx, true, {
+            fileName: "/app/applet/src/components/Certifications.tsx",
+            lineNumber: 59,
+            columnNumber: 19
+          }, this)) }, void 0, false, {
+            fileName: "/app/applet/src/components/Certifications.tsx",
+            lineNumber: 57,
+            columnNumber: 15
           }, this)
         ]
       },
-      void 0,
+      index,
       true,
       {
         fileName: "/app/applet/src/components/Certifications.tsx",
-        lineNumber: 27,
-        columnNumber: 9
+        lineNumber: 38,
+        columnNumber: 13
       },
       this
-    )
+    )) }, void 0, false, {
+      fileName: "/app/applet/src/components/Certifications.tsx",
+      lineNumber: 36,
+      columnNumber: 9
+    }, this)
   ] }, void 0, true, {
     fileName: "/app/applet/src/components/Certifications.tsx",
-    lineNumber: 7,
+    lineNumber: 20,
     columnNumber: 7
   }, this) }, void 0, false, {
     fileName: "/app/applet/src/components/Certifications.tsx",
-    lineNumber: 6,
-    columnNumber: 5
-  }, this);
-}
-function ResumeSection() {
-  return /* @__PURE__ */ jsxDEV("section", { id: "resume", className: "relative py-24 bg-[#020617] border-t border-cyan-900/20", children: /* @__PURE__ */ jsxDEV("div", { className: "max-w-4xl mx-auto px-6 lg:px-12 text-center", children: [
-    /* @__PURE__ */ jsxDEV(
-      motion.div,
-      {
-        initial: { opacity: 0, y: 20 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true },
-        className: "mb-8",
-        children: [
-          /* @__PURE__ */ jsxDEV("div", { className: "w-16 h-16 bg-cyan-950/30 text-cyan-400 rounded-full flex items-center justify-center mx-auto mb-6", children: /* @__PURE__ */ jsxDEV(FileText, { className: "w-8 h-8" }, void 0, false, {
-            fileName: "/app/applet/src/components/ResumeSection.tsx",
-            lineNumber: 16,
-            columnNumber: 13
-          }, this) }, void 0, false, {
-            fileName: "/app/applet/src/components/ResumeSection.tsx",
-            lineNumber: 15,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ jsxDEV("h2", { className: "font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider mb-4", children: "Curriculum Vitae" }, void 0, false, {
-            fileName: "/app/applet/src/components/ResumeSection.tsx",
-            lineNumber: 18,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ jsxDEV("p", { className: "font-sans text-gray-400 font-light max-w-lg mx-auto", children: "Review the complete and verified record of my academic, leadership, and technical journey." }, void 0, false, {
-            fileName: "/app/applet/src/components/ResumeSection.tsx",
-            lineNumber: 21,
-            columnNumber: 11
-          }, this)
-        ]
-      },
-      void 0,
-      true,
-      {
-        fileName: "/app/applet/src/components/ResumeSection.tsx",
-        lineNumber: 9,
-        columnNumber: 9
-      },
-      this
-    ),
-    /* @__PURE__ */ jsxDEV(
-      motion.div,
-      {
-        initial: { opacity: 0, y: 20 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true },
-        transition: { delay: 0.2 },
-        className: "flex flex-col sm:flex-row items-center justify-center gap-6",
-        children: [
-          /* @__PURE__ */ jsxDEV(
-            "a",
-            {
-              href: "/Abbas_Dawood_Resume.pdf",
-              target: "_blank",
-              rel: "noopener noreferrer",
-              onClick: playClickSound,
-              className: "group relative px-8 py-4 bg-cyan-500 text-black font-bold tracking-widest uppercase text-xs hover:bg-white transition-all rounded-sm flex items-center gap-3 w-full sm:w-auto justify-center",
-              children: [
-                /* @__PURE__ */ jsxDEV(FileText, { className: "w-4 h-4" }, void 0, false, {
-                  fileName: "/app/applet/src/components/ResumeSection.tsx",
-                  lineNumber: 40,
-                  columnNumber: 13
-                }, this),
-                "View CV"
-              ]
-            },
-            void 0,
-            true,
-            {
-              fileName: "/app/applet/src/components/ResumeSection.tsx",
-              lineNumber: 33,
-              columnNumber: 11
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDEV(
-            "a",
-            {
-              href: "/Abbas_Dawood_Resume.pdf",
-              download: "Abbas_Dawood_Resume.pdf",
-              onClick: playClickSound,
-              className: "group relative px-8 py-4 border border-cyan-500 text-cyan-500 font-bold tracking-widest uppercase text-xs hover:bg-cyan-500/10 transition-all rounded-sm flex items-center gap-3 w-full sm:w-auto justify-center",
-              children: [
-                /* @__PURE__ */ jsxDEV(Download, { className: "w-4 h-4 group-hover:-translate-y-1 transition-transform" }, void 0, false, {
-                  fileName: "/app/applet/src/components/ResumeSection.tsx",
-                  lineNumber: 50,
-                  columnNumber: 13
-                }, this),
-                "Download CV"
-              ]
-            },
-            void 0,
-            true,
-            {
-              fileName: "/app/applet/src/components/ResumeSection.tsx",
-              lineNumber: 44,
-              columnNumber: 11
-            },
-            this
-          )
-        ]
-      },
-      void 0,
-      true,
-      {
-        fileName: "/app/applet/src/components/ResumeSection.tsx",
-        lineNumber: 26,
-        columnNumber: 9
-      },
-      this
-    )
-  ] }, void 0, true, {
-    fileName: "/app/applet/src/components/ResumeSection.tsx",
-    lineNumber: 8,
-    columnNumber: 7
-  }, this) }, void 0, false, {
-    fileName: "/app/applet/src/components/ResumeSection.tsx",
-    lineNumber: 7,
+    lineNumber: 19,
     columnNumber: 5
   }, this);
 }
@@ -3835,39 +3890,34 @@ function Portfolio() {
               lineNumber: 57,
               columnNumber: 11
             }, this),
-            /* @__PURE__ */ jsxDEV(Education, {}, void 0, false, {
+            /* @__PURE__ */ jsxDEV(MunDiplomacy, {}, void 0, false, {
               fileName: "/app/applet/src/components/Portfolio.tsx",
               lineNumber: 58,
               columnNumber: 11
             }, this),
-            /* @__PURE__ */ jsxDEV(MunDiplomacy, {}, void 0, false, {
+            /* @__PURE__ */ jsxDEV(Leadership, {}, void 0, false, {
               fileName: "/app/applet/src/components/Portfolio.tsx",
               lineNumber: 59,
               columnNumber: 11
             }, this),
-            /* @__PURE__ */ jsxDEV(Leadership, {}, void 0, false, {
+            /* @__PURE__ */ jsxDEV(Education, {}, void 0, false, {
               fileName: "/app/applet/src/components/Portfolio.tsx",
               lineNumber: 60,
               columnNumber: 11
             }, this),
-            /* @__PURE__ */ jsxDEV(Hobbies, {}, void 0, false, {
+            /* @__PURE__ */ jsxDEV(Certifications, {}, void 0, false, {
               fileName: "/app/applet/src/components/Portfolio.tsx",
               lineNumber: 61,
               columnNumber: 11
             }, this),
-            /* @__PURE__ */ jsxDEV(Certifications, {}, void 0, false, {
+            /* @__PURE__ */ jsxDEV(Hobbies, {}, void 0, false, {
               fileName: "/app/applet/src/components/Portfolio.tsx",
               lineNumber: 62,
               columnNumber: 11
             }, this),
-            /* @__PURE__ */ jsxDEV(ResumeSection, {}, void 0, false, {
-              fileName: "/app/applet/src/components/Portfolio.tsx",
-              lineNumber: 63,
-              columnNumber: 11
-            }, this),
             /* @__PURE__ */ jsxDEV(Contact, {}, void 0, false, {
               fileName: "/app/applet/src/components/Portfolio.tsx",
-              lineNumber: 64,
+              lineNumber: 63,
               columnNumber: 11
             }, this)
           ] }, void 0, true, {
@@ -3877,7 +3927,7 @@ function Portfolio() {
           }, this),
           /* @__PURE__ */ jsxDEV(Footer, {}, void 0, false, {
             fileName: "/app/applet/src/components/Portfolio.tsx",
-            lineNumber: 66,
+            lineNumber: 65,
             columnNumber: 9
           }, this)
         ]

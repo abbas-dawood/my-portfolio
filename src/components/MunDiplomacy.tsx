@@ -1,172 +1,291 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Globe, Users, Award, Play } from 'lucide-react';
+import { Globe, Filter, Mic2, Shield, Calendar, Users, Flag, Play, FileText, Monitor } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { playClickSound, playHoverSound } from '../utils/sound';
 
-const munExperiences = [
-  { id: 1, name: "SASSY'26", role: "Executive Board Member / Rapporteur", committee: "Education Ministry of India (Senior)", category: "EXECUTIVE BOARD", year: "2026", details: "St. Anthony's Students Summit by YUVA, Udaipur." },
-  { id: 2, name: "IDC MUN 2026 — Chapter 1", role: "Organizer", committee: "Core Organizing Committee", category: "ORGANIZER", year: "2026", details: "Organised and coordinated Chapter 1 of IDC MUN in Jaipur." },
-  { id: 3, name: "Sangam MUN 2026", role: "Participant", committee: "Lok Sabha", category: "PARTICIPANT", year: "2026", details: "Active participation in parliamentary procedures." },
-  { id: 4, name: "IIT Bombay 2025", role: "Participant", committee: "AIIMP", category: "PARTICIPANT", year: "2025", details: "Advanced level debate and structural discussions." },
-  { id: 5, name: "RYCMUN 2025", role: "Participant", committee: "Lok Sabha", category: "PARTICIPANT", year: "2025", details: "National policy formulation and debate." },
-  { id: 6, name: "Sangam MUN 2025", role: "Participant", committee: "CCC", category: "PARTICIPANT", year: "2025", details: "Crisis committee navigation and strategy." },
-  { id: 7, name: "DPS MUN 2024", role: "OC Member", committee: "Organizing Committee", category: "OC", year: "2024", details: "Facilitated logistics and core operations." },
-  { id: 8, name: "DPS Udaipur MUN", role: "IP Member", committee: "International Press", category: "PARTICIPANT", year: "Previous", details: "Journalism and reporting within the MUN framework." },
-  { id: 9, name: "IMUN, India", role: "Participant", committee: "General Assembly", category: "PARTICIPANT", year: "Previous", details: "International Model United Nations." },
-  { id: 10, name: "Mock Parliament, Jaipur", role: "Participant", committee: "Parliament", category: "PARTICIPANT", year: "Previous", details: "Indian parliamentary simulation." },
-  { id: 11, name: "Delhi Mock Parliament", role: "Participant", committee: "Parliament", category: "PARTICIPANT", year: "Previous", details: "National level mock parliament." },
-  { id: 12, name: "Mumbai MUN Circuit", role: "Delegate", committee: "Multiple Committees", category: "PARTICIPANT", year: "Various", details: "Attended multiple competitive MUN conferences across the Mumbai circuit." },
-  { id: 13, name: "Online MUN Experiences", role: "Delegate", committee: "UNGA, UNHRC, IPL", category: "ONLINE", year: "Various", details: "Participated in diverse online committee simulations." },
-  { id: 14, name: "Debate & Parliamentary", role: "Speaker", committee: "Tark Vitrak, IDC, Baithke, Charchaar", category: "PARTICIPANT", year: "Various", details: "Extensive involvement in school debates and structured parliamentary formats." }
+const munData = [
+  {
+    id: 'sassy26',
+    role: "Executive Board Member / Rapporteur",
+    event: "SASSY'26",
+    mission: "St. Anthony's Students Summit by YUVA, Udaipur.",
+    committee: "Education Ministry of India (Senior)",
+    category: "EXECUTIVE BOARD",
+    icon: <Shield className="w-5 h-5" />
+  },
+  {
+    id: 'idc26',
+    role: "Organizer",
+    event: "IDC MUN 2026 — Chapter 1",
+    mission: "Organised and coordinated Chapter 1 of IDC MUN in Jaipur.",
+    committee: "Core Organizing Committee",
+    category: "ORGANIZER",
+    icon: <Flag className="w-5 h-5" />
+  },
+  {
+    id: 'sangam26',
+    role: "Participant",
+    event: "Sangam MUN 2026",
+    mission: "Active participation in parliamentary procedures.",
+    committee: "Lok Sabha",
+    category: "PARTICIPANT",
+    icon: <Mic2 className="w-5 h-5" />
+  },
+  {
+    id: 'iit25',
+    role: "Participant",
+    event: "IIT Bombay 2025",
+    mission: "Advanced level debate and structural discussions.",
+    committee: "AIIMP",
+    category: "PARTICIPANT",
+    icon: <Globe className="w-5 h-5" />
+  },
+  {
+    id: 'ryc25',
+    role: "Participant",
+    event: "RYCMUN 2025",
+    mission: "National policy formulation and debate.",
+    committee: "Lok Sabha",
+    category: "PARTICIPANT",
+    icon: <Mic2 className="w-5 h-5" />
+  },
+  {
+    id: 'sangam25',
+    role: "Participant",
+    event: "Sangam MUN 2025",
+    mission: "Crisis committee navigation and strategy.",
+    committee: "CCC",
+    category: "PARTICIPANT",
+    icon: <Mic2 className="w-5 h-5" />
+  },
+  {
+    id: 'dps24',
+    role: "OC Member",
+    event: "DPS MUN 2024",
+    mission: "Facilitated logistics and core operations.",
+    committee: "Organizing Committee",
+    category: "OC",
+    icon: <Users className="w-5 h-5" />
+  },
+  {
+    id: 'dps-ud',
+    role: "IP Member",
+    event: "DPS Udaipur MUN",
+    mission: "Journalism and reporting within the MUN framework.",
+    committee: "International Press",
+    category: "PARTICIPANT",
+    icon: <FileText className="w-5 h-5" />
+  },
+  {
+    id: 'imun',
+    role: "Participant",
+    event: "IMUN, India",
+    mission: "International Model United Nations.",
+    committee: "General Assembly",
+    category: "PARTICIPANT",
+    icon: <Globe className="w-5 h-5" />
+  },
+  {
+    id: 'mock',
+    role: "Participant",
+    event: "Mock Parliament, Jaipur",
+    mission: "Indian parliamentary simulation.",
+    committee: "Parliament",
+    category: "PARTICIPANT",
+    icon: <Mic2 className="w-5 h-5" />
+  },
+  {
+    id: 'mumbai',
+    role: "Delegate",
+    event: "Mumbai MUN Circuit",
+    mission: "Attended multiple competitive MUN conferences across the Mumbai circuit.",
+    committee: "Multiple Committees",
+    category: "PARTICIPANT",
+    icon: <Globe className="w-5 h-5" />
+  },
+  {
+    id: 'online',
+    role: "Delegate",
+    event: "Online MUN Experiences",
+    mission: "Participated in diverse online committee simulations.",
+    committee: "UNGA, UNHRC, IPL",
+    category: "ONLINE",
+    icon: <Monitor className="w-5 h-5" />
+  },
+  {
+    id: 'debate',
+    role: "Speaker",
+    event: "Debate & Parliamentary",
+    mission: "Extensive involvement in school debates and structured parliamentary formats.",
+    committee: "Tark Vitrak, IDC, Baithke, Charchaaar",
+    category: "PARTICIPANT",
+    icon: <Mic2 className="w-5 h-5" />
+  }
 ];
 
-const categories = ["ALL", "EXECUTIVE BOARD", "ORGANIZER", "OC", "PARTICIPANT", "ONLINE"];
+const filters = ["ALL", "EXECUTIVE BOARD", "ORGANIZER", "OC", "PARTICIPANT", "ONLINE"];
 
 export default function MunDiplomacy() {
   const [activeFilter, setActiveFilter] = useState("ALL");
-  const [selectedExp, setSelectedExp] = useState(munExperiences[0]);
+  const [selectedId, setSelectedId] = useState(munData[0].id);
 
-  const filtered = activeFilter === "ALL" 
-    ? munExperiences 
-    : munExperiences.filter(exp => exp.category === activeFilter);
+  const filteredData = useMemo(() => {
+    return munData.filter(item => activeFilter === "ALL" || item.category === activeFilter);
+  }, [activeFilter]);
+
+  // Ensure selected item is always valid when filter changes
+  useMemo(() => {
+    if (filteredData.length > 0 && !filteredData.find(item => item.id === selectedId)) {
+      setSelectedId(filteredData[0].id);
+    }
+  }, [filteredData, selectedId]);
+
+  const activeItem = useMemo(() => {
+    return munData.find(item => item.id === selectedId) || filteredData[0];
+  }, [selectedId, filteredData]);
 
   return (
-    <section id="mun" className="relative py-24 bg-[#020617]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        
+    <section id="mun" className="relative py-16 md:py-24 bg-[#0B1121] border-y border-cyan-900/20 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6"
+          className="mb-12"
         >
-          <div>
-            <div className="flex items-center gap-4 mb-4">
-              <Globe className="text-cyan-500 w-8 h-8" />
-              <h2 className="font-space text-4xl font-bold text-white uppercase tracking-wider">
-                MUN & Diplomacy
-              </h2>
-            </div>
-            <p className="font-sans text-gray-400 max-w-2xl text-lg">
-              Representing nations, structuring policy, and navigating high-pressure diplomacy.
-            </p>
+          <div className="flex items-center gap-4 mb-4">
+            <Globe className="text-cyan-500 w-6 h-6" />
+            <h2 className="font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider">
+              MUN & Diplomacy
+            </h2>
           </div>
-          <div className="bg-cyan-950/20 border border-cyan-900/50 px-6 py-4 rounded-sm text-center">
-            <span className="block font-space text-3xl font-bold text-amber-500">15+</span>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-cyan-400">Experiences</span>
-          </div>
+          <div className="w-12 h-1 bg-cyan-500 mb-8" />
         </motion.div>
 
         {/* Filters */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {categories.map(cat => (
+        <div className="flex flex-wrap items-center gap-2 mb-8">
+          <Filter className="w-4 h-4 text-cyan-500 mr-2" />
+          {filters.map(filter => (
             <button
-              key={cat}
-              onClick={() => { playClickSound(); setActiveFilter(cat); }}
+              key={filter}
+              onClick={() => { playClickSound(); setActiveFilter(filter); }}
               onMouseEnter={playHoverSound}
               className={cn(
-                "px-4 py-2 font-mono text-xs uppercase tracking-widest rounded-sm transition-all",
-                activeFilter === cat 
-                  ? "bg-cyan-500 text-black font-bold" 
-                  : "bg-[#0B1121] text-gray-400 border border-cyan-900/30 hover:border-cyan-500/50 hover:text-white"
+                "font-mono text-[10px] px-3 py-1.5 rounded-sm uppercase tracking-widest transition-colors border",
+                activeFilter === filter
+                  ? "bg-cyan-500 text-black border-cyan-500"
+                  : "bg-[#020617] text-gray-400 border-cyan-900/30 hover:border-cyan-500/50 hover:text-cyan-400"
               )}
             >
-              {cat}
+              {filter}
             </button>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* List/Grid */}
-          <div className="lg:col-span-1 h-[500px] overflow-y-auto pr-2 space-y-3 custom-scrollbar">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 min-h-[500px]">
+          
+          {/* Left Side: Scrollable List */}
+          <div className="lg:col-span-5 flex flex-col gap-3 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
             <AnimatePresence>
-              {filtered.map((exp, idx) => (
-                <motion.div
-                  key={exp.id}
-                  initial={{ opacity: 0, x: -10 }}
+              {filteredData.map((item, idx) => (
+                <motion.button
+                  key={item.id}
+                  initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.2, delay: idx * 0.05 }}
-                  onClick={() => { playClickSound(); setSelectedExp(exp); }}
+                  transition={{ delay: idx * 0.05 }}
+                  onClick={() => { playClickSound(); setSelectedId(item.id); }}
                   onMouseEnter={playHoverSound}
                   className={cn(
-                    "p-4 border rounded-sm cursor-pointer transition-all",
-                    selectedExp.id === exp.id 
-                      ? "bg-cyan-950/30 border-cyan-500 shadow-[inset_4px_0_0_#06b6d4]" 
-                      : "bg-[#0B1121] border-cyan-900/30 hover:border-cyan-500/50"
+                    "flex flex-col text-left p-4 border rounded-sm transition-all duration-300 relative group",
+                    selectedId === item.id
+                      ? "bg-[#020617] border-cyan-400 shadow-[inset_0_0_15px_rgba(6,182,212,0.2)]"
+                      : "bg-[#020617]/50 border-cyan-900/30 hover:border-cyan-500/50"
                   )}
                 >
-                  <h4 className="font-space font-bold text-white mb-1">{exp.name}</h4>
-                  <p className="font-mono text-[10px] text-cyan-400 uppercase tracking-widest">{exp.role}</p>
-                </motion.div>
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className={cn(
+                      "font-space text-base font-bold transition-colors",
+                      selectedId === item.id ? "text-cyan-400" : "text-gray-300 group-hover:text-white"
+                    )}>
+                      {item.event}
+                    </h3>
+                    <span className="font-mono text-[9px] text-amber-500 border border-amber-900/30 bg-amber-950/20 px-2 py-0.5 rounded-sm uppercase tracking-widest shrink-0 ml-2">
+                      {item.category}
+                    </span>
+                  </div>
+                  <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest line-clamp-1">{item.role}</p>
+                </motion.button>
               ))}
             </AnimatePresence>
+            {filteredData.length === 0 && (
+              <div className="text-center p-8 border border-dashed border-cyan-900/30 rounded-sm">
+                <p className="font-mono text-xs text-gray-500 uppercase tracking-widest">No records found for this filter.</p>
+              </div>
+            )}
           </div>
 
-          {/* Detail Panel */}
-          <div className="lg:col-span-2 bg-[#0B1121] border border-cyan-900/30 p-8 rounded-sm relative overflow-hidden flex flex-col justify-center min-h-[400px]">
-            {/* World Map / Radar overlay */}
-            <div className="absolute -right-20 -bottom-20 opacity-5 pointer-events-none">
-              <Globe className="w-96 h-96" />
-            </div>
-
+          {/* Right Side: Detail Panel */}
+          <div className="lg:col-span-7 bg-[#020617] border border-cyan-900/30 p-8 rounded-sm relative overflow-hidden flex flex-col">
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.02)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
+            
             <AnimatePresence mode="wait">
-              <motion.div
-                key={selectedExp.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="relative z-10"
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <span className={cn(
-                    "px-3 py-1 font-mono text-[10px] tracking-widest uppercase rounded-sm border",
-                    selectedExp.category === 'EXECUTIVE BOARD' || selectedExp.category === 'ORGANIZER'
-                      ? "bg-amber-950/30 text-amber-500 border-amber-900/50"
-                      : "bg-cyan-950/30 text-cyan-400 border-cyan-900/50"
-                  )}>
-                    {selectedExp.category}
-                  </span>
-                  <span className="font-mono text-[10px] text-gray-500 tracking-widest">
-                    SESSION {selectedExp.year}
-                  </span>
-                </div>
-
-                <h3 className="font-space text-3xl md:text-4xl font-bold text-white mb-2">{selectedExp.name}</h3>
-                <p className="font-sans text-xl text-cyan-400 mb-8">{selectedExp.role}</p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                  <div>
-                    <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1">Committee / Format</p>
-                    <p className="font-sans text-gray-200 font-medium">{selectedExp.committee}</p>
+              {activeItem && (
+                <motion.div
+                  key={activeItem.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative z-10 flex-1 flex flex-col"
+                >
+                  <div className="flex items-start gap-4 mb-8 pb-6 border-b border-cyan-900/30">
+                    <div className="p-4 bg-cyan-950/20 text-cyan-500 border border-cyan-900/30 rounded-sm shrink-0">
+                      {activeItem.icon}
+                    </div>
+                    <div>
+                      <h3 className="font-space text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">{activeItem.event}</h3>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="font-mono text-xs text-cyan-400 bg-cyan-950/30 border border-cyan-900/50 px-3 py-1 rounded-sm uppercase tracking-widest">
+                          {activeItem.role}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1">Mission Log</p>
-                    <p className="font-sans text-gray-400 font-light leading-relaxed">{selectedExp.details}</p>
-                  </div>
-                </div>
 
-                {(selectedExp.category === 'EXECUTIVE BOARD' || selectedExp.category === 'ORGANIZER') && (
-                  <div className="flex items-center gap-3 mt-8 p-4 bg-amber-950/10 border border-amber-900/30 rounded-sm inline-flex">
-                    <Award className="text-amber-500 w-5 h-5" />
-                    <span className="font-mono text-xs text-amber-400 uppercase tracking-widest">Verified Leadership Role</span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 flex-1">
+                    <div className="bg-[#0B1121] p-6 rounded-sm border border-cyan-900/20">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Users className="w-4 h-4 text-gray-400" />
+                        <h4 className="font-mono text-[10px] text-gray-500 uppercase tracking-widest">Committee / Format</h4>
+                      </div>
+                      <p className="font-sans text-sm text-gray-200 leading-relaxed font-medium">{activeItem.committee}</p>
+                    </div>
+
+                    <div className="bg-[#0B1121] p-6 rounded-sm border border-cyan-900/20">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Play className="w-4 h-4 text-gray-400" />
+                        <h4 className="font-mono text-[10px] text-gray-500 uppercase tracking-widest">Mission Log / Description</h4>
+                      </div>
+                      <p className="font-sans text-sm text-gray-300 leading-relaxed font-light">{activeItem.mission}</p>
+                    </div>
                   </div>
-                )}
-              </motion.div>
+                </motion.div>
+              )}
             </AnimatePresence>
           </div>
-        </div>
 
+        </div>
       </div>
       
-      <style>{`
+      {/* Scrollbar styles for the left panel */}
+      <style dangerouslySetInnerHTML={{__html: `
         .custom-scrollbar::-webkit-scrollbar {
           width: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(6, 182, 212, 0.05);
+          background: rgba(2, 6, 23, 0.5);
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -176,7 +295,7 @@ export default function MunDiplomacy() {
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: rgba(6, 182, 212, 0.6);
         }
-      `}</style>
+      `}} />
     </section>
   );
 }

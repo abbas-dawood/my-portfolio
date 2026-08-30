@@ -65,13 +65,15 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-wrap items-center gap-4 md:gap-6"
           >
-            <button 
-              onClick={() => handleScroll('about')}
+            <a 
+              href="/Abbas_Dawood_Resume.pdf"
+              target="_blank" rel="noopener noreferrer"
+              onClick={playClickSound}
               className="group relative px-6 py-3 bg-cyan-500 text-black font-bold tracking-widest uppercase text-xs hover:bg-white transition-all rounded-sm flex items-center gap-2"
             >
-              Explore My Journey
+              View CV
               <Compass className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
-            </button>
+            </a>
             
             <button 
               onClick={() => handleScroll('contact')}

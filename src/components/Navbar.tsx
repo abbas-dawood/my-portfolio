@@ -8,10 +8,10 @@ const navLinks = [
   { name: 'ABOUT', href: '#about' },
   { name: 'SKILLS', href: '#skills' },
   { name: 'EXPERIENCE', href: '#experience' },
+  { name: 'MUN & DIPLOMACY', href: '#mun' },
   { name: 'EDUCATION', href: '#education' },
-  { name: 'MUN', href: '#mun' },
-  { name: 'LEADERSHIP', href: '#leadership' },
-  { name: 'CV', href: '#resume' },
+  { name: 'CERTIFICATION', href: '#certifications' },
+  { name: 'INTERESTS', href: '#interests' },
   { name: 'CONTACT', href: '#contact' },
 ];
 
@@ -39,14 +39,12 @@ export default function Navbar() {
       },
       { rootMargin: '-20% 0px -70% 0px' }
     );
-
     navLinks.forEach((link) => {
       if (link.href.startsWith('#')) {
         const el = document.querySelector(link.href);
         if (el) observer.observe(el);
       }
     });
-
     return () => observer.disconnect();
   }, []);
 
@@ -105,12 +103,33 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
+          
+          <a
+            href="/Abbas_Dawood_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={playClickSound}
+            onMouseEnter={playHoverSound}
+            className="font-mono text-[10px] uppercase tracking-[0.2em] text-black bg-cyan-500 hover:bg-white px-4 py-2 rounded-sm transition-colors ml-2"
+          >
+            VIEW CV
+          </a>
+          <a
+            href="/Abbas_Dawood_Resume.pdf"
+            download
+            onClick={playClickSound}
+            onMouseEnter={playHoverSound}
+            className="font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-500 border border-cyan-500 hover:bg-cyan-500/10 px-4 py-2 rounded-sm transition-colors ml-2"
+          >
+            DOWNLOAD
+          </a>
         </div>
 
         {/* Mobile Toggle */}
         <button
           onClick={() => { playClickSound(); setMobileMenuOpen(!mobileMenuOpen); }}
           className="lg:hidden text-cyan-500"
+          aria-label="Toggle navigation menu"
         >
           {mobileMenuOpen ? <X /> : <Menu />}
         </button>
@@ -140,6 +159,23 @@ export default function Navbar() {
                   {link.name}
                 </a>
               ))}
+              <a
+                href="/Abbas_Dawood_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => { playClickSound(); setMobileMenuOpen(false); }}
+                className="font-mono text-xs uppercase tracking-[0.2em] text-black bg-cyan-500 hover:bg-white text-center py-3 rounded-sm transition-colors mt-2"
+              >
+                VIEW CV
+              </a>
+              <a
+                href="/Abbas_Dawood_Resume.pdf"
+                download
+                onClick={() => { playClickSound(); setMobileMenuOpen(false); }}
+                className="font-mono text-xs uppercase tracking-[0.2em] text-cyan-500 border border-cyan-500 hover:bg-cyan-500/10 text-center py-3 rounded-sm transition-colors mt-2"
+              >
+                DOWNLOAD CV
+              </a>
             </div>
           </motion.div>
         )}

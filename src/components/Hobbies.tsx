@@ -1,88 +1,69 @@
 import { motion } from 'motion/react';
-import { Plane, Terminal, Gamepad2, Mic, Map, Languages } from 'lucide-react';
-import { cn } from '../utils/cn';
+import { Compass, Code, Gamepad2, Mic2, Map, Globe2 } from 'lucide-react';
 
 const hobbies = [
-  {
-    icon: <Plane className="w-6 h-6" />,
-    title: "Aviation Tracking",
-    desc: "Flight mechanics analysis & aerospace monitoring."
-  },
-  {
-    icon: <Terminal className="w-6 h-6" />,
-    title: "Web Development",
-    desc: "Self-learning coding fundamentals and digital architecture."
-  },
-  {
-    icon: <Gamepad2 className="w-6 h-6" />,
-    title: "Strategic Gaming",
-    desc: "Analyzing game mechanics and complex strategy systems."
-  },
-  {
-    icon: <Mic className="w-6 h-6" />,
-    title: "Public Speaking",
-    desc: "Debates, discourse, and structured arguments."
-  },
-  {
-    icon: <Map className="w-6 h-6" />,
-    title: "Exploration",
-    desc: "Traveling and exploring new places and cultures."
-  }
+  { name: 'Aviation Tracking & Flight Mechanics Analysis', icon: <Compass className="w-5 h-5" /> },
+  { name: 'Basic Coding & Web Development (Self-Learning Phase)', icon: <Code className="w-5 h-5" /> },
+  { name: 'Strategic Gaming Mechanics Analysis', icon: <Gamepad2 className="w-5 h-5" /> },
+  { name: 'Public Speaking & Debates', icon: <Mic2 className="w-5 h-5" /> },
+  { name: 'Traveling & Exploring New Places', icon: <Map className="w-5 h-5" /> }
 ];
 
 export default function Hobbies() {
   return (
-    <section id="hobbies" className="relative py-24 bg-[#0B1121] border-t border-cyan-900/20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <section id="interests" className="relative py-16 md:py-24 bg-[#020617] overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16 text-center"
+          className="mb-16"
         >
-          <span className="font-mono text-xs tracking-[0.2em] text-cyan-500 mb-4 block">BEYOND THE RESUME</span>
-          <h2 className="font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider">
-            Interests & Exploration
-          </h2>
+          <div className="flex items-center gap-4 mb-4">
+            <Globe2 className="text-cyan-500 w-6 h-6" />
+            <h2 className="font-space text-3xl md:text-4xl font-bold text-white uppercase tracking-wider">
+              Hobbies & Interests
+            </h2>
+          </div>
+          <div className="w-12 h-1 bg-cyan-500 mb-8" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {hobbies.map((hobby, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-[#020617] p-8 border border-cyan-900/30 rounded-sm hover:border-cyan-500/50 hover:bg-cyan-950/10 transition-all group"
+              transition={{ delay: index * 0.1 }}
+              className="flex items-start gap-4 p-6 bg-[#0B1121] border border-cyan-900/30 rounded-sm hover:border-cyan-500/50 transition-colors group"
             >
-              <div className="w-12 h-12 bg-cyan-950/30 text-cyan-400 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <div className="text-cyan-500 bg-cyan-950/30 p-3 rounded-sm group-hover:bg-cyan-500 group-hover:text-black transition-colors">
                 {hobby.icon}
               </div>
-              <h3 className="font-space text-xl font-bold text-white mb-2">{hobby.title}</h3>
-              <p className="font-sans text-gray-400 font-light text-sm">{hobby.desc}</p>
+              <p className="font-sans text-gray-300 leading-relaxed font-light mt-1">
+                {hobby.name}
+              </p>
             </motion.div>
           ))}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: hobbies.length * 0.1 }}
+            className="flex items-start gap-4 p-6 bg-[#0B1121] border border-amber-900/30 rounded-sm hover:border-amber-500/50 transition-colors group"
+          >
+             <div className="text-amber-500 bg-amber-950/30 p-3 rounded-sm group-hover:bg-amber-500 group-hover:text-black transition-colors flex items-center justify-center font-bold font-mono">
+                A/A
+             </div>
+             <div>
+                <p className="font-mono text-[10px] text-amber-500 uppercase tracking-widest mb-1">Languages</p>
+                <p className="font-sans text-gray-300 leading-relaxed font-light mt-1">
+                  English, Hindi
+                </p>
+             </div>
+          </motion.div>
         </div>
-
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex items-center justify-center gap-4 bg-cyan-950/20 border border-cyan-900/40 p-6 rounded-sm max-w-lg mx-auto"
-        >
-          <Languages className="w-6 h-6 text-amber-500" />
-          <div className="flex gap-6">
-            <div>
-              <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1">Language 01</p>
-              <p className="font-sans text-white font-medium">English</p>
-            </div>
-            <div>
-              <p className="font-mono text-[10px] text-gray-500 uppercase tracking-widest mb-1">Language 02</p>
-              <p className="font-sans text-white font-medium">Hindi</p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
