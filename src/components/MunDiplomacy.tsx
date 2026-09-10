@@ -152,7 +152,7 @@ export default function MunDiplomacy() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12"
+          className="mb-10"
         >
           <div className="flex items-center gap-4 mb-4">
             <Globe className="text-cyan-500 w-6 h-6" />
@@ -160,7 +160,22 @@ export default function MunDiplomacy() {
               MUN & Diplomacy
             </h2>
           </div>
-          <div className="w-12 h-1 bg-cyan-500 mb-8" />
+          <div className="w-12 h-1 bg-cyan-500 mb-6" />
+          
+          <div className="bg-[#020617]/70 border border-cyan-900/40 p-4 md:p-5 rounded-sm max-w-3xl backdrop-blur-xs relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500" />
+            <p className="font-sans text-sm md:text-base text-gray-300 leading-relaxed font-light pl-2">
+              <span className="text-cyan-400 font-mono text-xs uppercase tracking-wider font-semibold mr-2">[Notice]</span>
+              I have attended 18+ MUN conferences, but have attached a selected list of key conferences here. As an active MUN delegate and debater, if you would like to contact me regarding Executive Board (EB) or Secretariat opportunities, please reach out in the{' '}
+              <a 
+                href="#contact" 
+                onClick={playClickSound}
+                className="text-cyan-400 hover:text-white underline underline-offset-4 decoration-cyan-500/60 transition-colors font-medium"
+              >
+                contact section below
+              </a>.
+            </p>
+          </div>
         </motion.div>
 
         {/* Filters */}
