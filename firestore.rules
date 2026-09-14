@@ -18,9 +18,11 @@ service cloud.firestore {
       return data.keys().hasAll(['name', 'email', 'body', 'createdAt']) && 
              data.name is string && data.name.size() <= 100 &&
              data.email is string && data.email.size() <= 100 &&
-             data.body is string && data.body.size() <= 2000 &&
+             data.body is string && data.body.size() <= 5000 &&
              data.createdAt is timestamp &&
              (data.keys().hasAny(['subject']) ? data.subject is string && data.subject.size() <= 200 : true) &&
+             (data.keys().hasAny(['purpose']) ? data.purpose is string && data.purpose.size() <= 200 : true) &&
+             (data.keys().hasAny(['transmissionId']) ? data.transmissionId is string && data.transmissionId.size() <= 100 : true) &&
              (data.keys().hasAny(['read']) ? data.read is bool : true);
     }
 

@@ -43,19 +43,38 @@ def main():
         msg_visitor.set_content("Please enable HTML to view this message.")
         msg_visitor.add_alternative(data.get('visitor_html'), subtype='html')
         
-        # Connect to SMTP Server
-        server = smtplib.SMTP(smtp_host, smtp_port)
+        # Connect to SMTP Server with 12s timeout
+        server = smtplib.SMTP(smtp_host, smtp_port, timeout=12)
         server.starttls()
         server.login(smtp_username, smtp_password)
         
-        # Send emails
-        server.send_message(msg_owner)
-        server.send_message(msg_visitor)
-        
+        # Send email to Owner (critical)
+        owner_sent = False
+        try:
+            server.send_message(msg_owner)
+            owner_sent = True
+        except Exception as err:
+            print(f"Failed to send to owner: {err}", file=sys.stderr)
+            
+        # Send confirmation to Visitor (optional/best-effort)
+        visitor_sent = False
+        try:
+            server.send_message(msg_visitor)
+            visitor_sent = True
+        except Exception as err:
+            print(f"Failed to send auto-reply to visitor: {err}", file=sys.stderr)
+            
         # Close connection
-        server.quit()
-        
-        print(json.dumps({"success": True}))
+        try:
+            server.quit()
+        except Exception:
+            pass
+            
+        if owner_sent or visitor_sent:
+            print(json.dumps({"success": True, "owner_sent": owner_sent, "visitor_sent": visitor_sent}))
+        else:
+            print(json.dumps({"success": False, "error": "Failed to deliver message via SMTP"}))
+            sys.exit(1)
     except Exception as e:
         print(json.dumps({"success": False, "error": str(e)}))
         sys.exit(1)

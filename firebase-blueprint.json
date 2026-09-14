@@ -9,6 +9,8 @@
         "email": { "type": "string" },
         "subject": { "type": "string" },
         "body": { "type": "string" },
+        "purpose": { "type": "string" },
+        "transmissionId": { "type": "string" },
         "read": { "type": "boolean" },
         "createdAt": { "type": "string", "format": "date-time" }
       },

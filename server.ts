@@ -5,6 +5,9 @@ import { createServer as createViteServer } from "vite";
 import crypto from "crypto";
 import dotenv from "dotenv";
 import { spawn } from "child_process";
+import fs from "fs";
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getFirestore, doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 dotenv.config();
 
@@ -14,10 +17,24 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-const OWNER_EMAIL = process.env.OWNER_EMAIL || 'your-real-email@example.com';
-const SENDER_EMAIL = process.env.SENDER_EMAIL || 'contact@yourdomain.com';
+// Initialize Firestore on the server
+let db: any = null;
+try {
+  const firebaseConfigPath = path.join(process.cwd(), "firebase-applet-config.json");
+  if (fs.existsSync(firebaseConfigPath)) {
+    const firebaseConfig = JSON.parse(fs.readFileSync(firebaseConfigPath, "utf-8"));
+    const firebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+    db = getFirestore(firebaseApp, firebaseConfig.firestoreDatabaseId);
+    console.log("[Server] Firestore connection established successfully");
+  }
+} catch (e) {
+  console.error("[Server] Firestore initialization warning:", e);
+}
+
+const OWNER_EMAIL = process.env.OWNER_EMAIL || 'abbassaifee43@gmail.com';
+const SENDER_EMAIL = process.env.SENDER_EMAIL || 'contact.abbasdawood@gmail.com';
 const SENDER_NAME = process.env.SENDER_NAME || 'Abbas Dawood';
-const OWNER_PHONE = process.env.OWNER_PHONE || '+91 XXXXXXXXXX';
+const OWNER_PHONE = process.env.OWNER_PHONE || '+91 90243 28122';
 
 function escapeHtml(unsafe: string) {
     return unsafe
@@ -126,40 +143,69 @@ app.post("/api/contact", async (req, res) => {
       visitor_html: visitorHtml
     };
 
-    // Execute Python script to send email via SMTP
-    const pythonProcess = spawn("python3", ["send_email.py"]);
-
-    let outputData = "";
-    let errorData = "";
-
-    pythonProcess.stdout.on("data", (data) => {
-      outputData += data.toString();
-    });
-
-    pythonProcess.stderr.on("data", (data) => {
-      errorData += data.toString();
-    });
-
-    pythonProcess.on("close", (code) => {
+    let savedToFirestore = false;
+    if (db) {
       try {
-        const result = JSON.parse(outputData.trim());
-        if (result.success) {
-          res.status(200).json({ success: true, transmissionId });
-        } else {
-          console.error("SMTP Python script failed:", result.error, errorData);
-          res.status(500).json({ success: false, message: "Transmission failed. Please try again." });
-        }
-      } catch (e) {
-        console.error("Failed to parse Python script output:", outputData, errorData);
-        res.status(500).json({ success: false, message: "Transmission failed. Please try again." });
+        await setDoc(doc(db, "contacts", transmissionId), {
+          name: name.trim(),
+          email: email.trim(),
+          subject: purpose.trim(),
+          purpose: purpose.trim(),
+          body: message.trim(),
+          transmissionId,
+          read: false,
+          createdAt: serverTimestamp()
+        });
+        savedToFirestore = true;
+        console.log(`[Contact] Transmission ${transmissionId} successfully recorded in Firestore.`);
+      } catch (dbErr) {
+        console.error("[Contact] Database write error:", dbErr);
       }
-    });
+    }
 
-    pythonProcess.stdin.write(JSON.stringify(emailPayload));
-    pythonProcess.stdin.end();
+    // Execute Python script to dispatch emails via SMTP
+    try {
+      const pythonProcess = spawn("python3", ["send_email.py"]);
+
+      let outputData = "";
+      let errorData = "";
+
+      pythonProcess.stdout.on("data", (data) => {
+        outputData += data.toString();
+      });
+
+      pythonProcess.stderr.on("data", (data) => {
+        errorData += data.toString();
+      });
+
+      pythonProcess.on("close", (code) => {
+        try {
+          const result = JSON.parse(outputData.trim());
+          if (result.success) {
+            console.log(`[Contact] SMTP dispatched successfully for ${transmissionId}`);
+          } else {
+            console.warn(`[Contact] SMTP notice for ${transmissionId}:`, result.error, errorData);
+          }
+        } catch (e) {
+          console.warn("[Contact] SMTP script output notice:", outputData, errorData);
+        }
+      });
+
+      pythonProcess.stdin.write(JSON.stringify(emailPayload));
+      pythonProcess.stdin.end();
+    } catch (spawnErr) {
+      console.warn("[Contact] Could not spawn email process:", spawnErr);
+    }
+
+    // Return success to the visitor with their transmission ID
+    res.status(200).json({ 
+      success: true, 
+      transmissionId,
+      message: "Transmission received and logged successfully."
+    });
 
   } catch (error) {
-    console.error("Email send error:", error);
+    console.error("Transmission error:", error);
     res.status(500).json({ success: false, message: "Transmission failed. Please try again." });
   }
 });

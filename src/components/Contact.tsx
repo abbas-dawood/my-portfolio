@@ -1,10 +1,11 @@
-import React from "react";
-import { useState } from 'react';
+import React, { useState } from "react";
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, CheckCircle, ShieldAlert, Cpu } from 'lucide-react';
 import { playClickSound, playHoverSound } from '../utils/sound';
 import { cn } from '../utils/cn';
 import SocialLinks from './SocialLinks';
+import { db } from '../firebase';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 type TransmissionState = 'IDLE' | 'VALIDATING' | 'AUTHENTICATING' | 'ENCRYPTING' | 'TRANSMITTING' | 'RECEIVED' | 'FAILED';
 
@@ -12,6 +13,8 @@ export default function Contact() {
   const [step, setStep] = useState<TransmissionState>('IDLE');
   const [transmissionId, setTransmissionId] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isOtherPurpose, setIsOtherPurpose] = useState(false);
+  const [customPurpose, setCustomPurpose] = useState('');
   
   // Start empty
   const [formData, setFormData] = useState({
@@ -28,37 +31,71 @@ export default function Contact() {
     
     playClickSound();
 
+    const finalPurpose = isOtherPurpose ? (customPurpose.trim() || 'Other') : formData.purpose;
+    const finalPayload = {
+      ...formData,
+      purpose: finalPurpose
+    };
+
     // Sequence stages for cinematic effect
     const sequence = async () => {
       setStep('VALIDATING');
-      await new Promise(r => setTimeout(r, 600));
+      await new Promise(r => setTimeout(r, 300));
       setStep('AUTHENTICATING');
-      await new Promise(r => setTimeout(r, 600));
+      await new Promise(r => setTimeout(r, 300));
       setStep('ENCRYPTING');
-      await new Promise(r => setTimeout(r, 600));
+      await new Promise(r => setTimeout(r, 300));
       setStep('TRANSMITTING');
+
+      let transmissionRecorded = false;
+      const generatedId = `AD-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
 
       try {
         const response = await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(finalPayload),
         });
 
         const data = await response.json();
 
         if (response.ok && data.success) {
-          setTransmissionId(data.transmissionId || `AD-${Math.floor(Math.random()*10000)}`);
+          transmissionRecorded = true;
+          setTransmissionId(data.transmissionId || generatedId);
           setStep('RECEIVED');
-          // Clear form on success
           setFormData({ name: '', email: '', purpose: '', message: '', hidden: '' });
-        } else {
-          setErrorMessage(data.message || 'Transmission blocked by firewall.');
+          setIsOtherPurpose(false);
+          setCustomPurpose('');
+          return;
+        }
+      } catch (networkError) {
+        console.warn("API route inaccessible, falling back to direct Firestore link...", networkError);
+      }
+
+      // Resilient fallback: Save directly to Firestore database
+      if (!transmissionRecorded) {
+        try {
+          await setDoc(doc(db, 'contacts', generatedId), {
+            name: finalPayload.name.trim(),
+            email: finalPayload.email.trim(),
+            subject: finalPurpose,
+            purpose: finalPurpose,
+            body: finalPayload.message.trim(),
+            transmissionId: generatedId,
+            read: false,
+            createdAt: serverTimestamp()
+          });
+
+          setTransmissionId(generatedId);
+          setStep('RECEIVED');
+          setFormData({ name: '', email: '', purpose: '', message: '', hidden: '' });
+          setIsOtherPurpose(false);
+          setCustomPurpose('');
+        } catch (dbError) {
+          console.error("Direct database transmission error:", dbError);
+          setErrorMessage('Signal lost. Please reach out directly via email.');
           setStep('FAILED');
         }
-      } catch (error) {
-        setErrorMessage('Signal lost. Connection timed out.');
-        setStep('FAILED');
       }
     };
 
@@ -70,6 +107,23 @@ export default function Contact() {
       ...prev,
       [e.target.name]: e.target.value
     }));
+  };
+
+  const handlePurposeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value;
+    if (val === 'Other') {
+      setIsOtherPurpose(true);
+      setFormData(prev => ({ ...prev, purpose: customPurpose.trim() || 'Other' }));
+    } else {
+      setIsOtherPurpose(false);
+      setFormData(prev => ({ ...prev, purpose: val }));
+    }
+  };
+
+  const handleCustomPurpose = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setCustomPurpose(val);
+    setFormData(prev => ({ ...prev, purpose: val.trim() || 'Other' }));
   };
 
   const renderSubmitText = () => {
@@ -193,9 +247,9 @@ export default function Contact() {
               <label htmlFor="purpose" className="font-mono text-[10px] text-cyan-500 tracking-widest uppercase">Transmission Purpose</label>
               <select
                 id="purpose"
-                name="purpose"
-                value={formData.purpose}
-                onChange={handleChange as any}
+                name="purposeSelect"
+                value={isOtherPurpose ? 'Other' : formData.purpose}
+                onChange={handlePurposeSelect}
                 required
                 className="bg-black/40 border-b border-cyan-900/50 text-white font-sans px-4 py-3 outline-none focus:border-cyan-500 focus:bg-cyan-950/20 transition-all rounded-sm appearance-none cursor-pointer"
               >
@@ -210,12 +264,13 @@ export default function Contact() {
                 <option value="General Inquiry" className="bg-[#020617] text-white">General Inquiry</option>
                 <option value="Other" className="bg-[#020617] text-white">Other</option>
               </select>
-              {formData.purpose === 'Other' && (
+              {isOtherPurpose && (
                 <input
                   type="text"
-                  name="purpose"
-                  placeholder="Please specify..."
-                  onChange={handleChange}
+                  name="customPurpose"
+                  placeholder="Please specify purpose..."
+                  value={customPurpose}
+                  onChange={handleCustomPurpose}
                   required
                   className="mt-2 bg-black/40 border-b border-cyan-900/50 text-white font-sans px-4 py-3 outline-none focus:border-cyan-500 focus:bg-cyan-950/20 transition-all rounded-sm"
                 />
