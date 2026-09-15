@@ -68,7 +68,12 @@ export default function Hero() {
             <a 
               href="/Abbas_Dawood_Resume.pdf"
               target="_blank" rel="noopener noreferrer"
-              onClick={playClickSound}
+              onClick={() => {
+                playClickSound();
+                if (typeof window !== 'undefined' && (window as any).gtag) {
+                  (window as any).gtag('event', 'view_cv', { 'event_category': 'Engagement', 'event_label': 'View Resume' });
+                }
+              }}
               className="group relative px-6 py-3 bg-cyan-500 text-black font-bold tracking-widest uppercase text-xs hover:bg-white transition-all rounded-sm flex items-center gap-2"
             >
               View CV
@@ -86,7 +91,12 @@ export default function Hero() {
             <a 
               href="/Abbas_Dawood_Resume.pdf"
               download="Abbas_Dawood_Resume.pdf"
-              onClick={playClickSound}
+              onClick={() => {
+                playClickSound();
+                if (typeof window !== 'undefined' && (window as any).gtag) {
+                  (window as any).gtag('event', 'download_cv', { 'event_category': 'Engagement', 'event_label': 'Download Resume' });
+                }
+              }}
               className="group flex items-center gap-2 px-6 py-3 border border-transparent text-gray-400 font-bold tracking-widest uppercase text-xs hover:text-white transition-colors cursor-pointer"
             > 
               <Download className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
