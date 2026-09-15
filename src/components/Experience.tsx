@@ -1,5 +1,6 @@
-import { motion } from 'motion/react';
-import { Briefcase } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { Briefcase, Plane } from 'lucide-react';
+import { useRef } from 'react';
 
 const experienceData = [
   {
@@ -29,6 +30,16 @@ const experienceData = [
 ];
 
 export default function Experience() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"]
+  });
+
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const planeY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
   return (
     <section id="experience" className="relative py-16 md:py-24 bg-[#0B1121] border-t border-cyan-900/20">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -47,7 +58,24 @@ export default function Experience() {
           <div className="w-12 h-1 bg-cyan-500 mb-8" />
         </motion.div>
 
-        <div className="relative border-l border-cyan-900/30 pl-8 md:pl-12 space-y-16">
+        <div ref={containerRef} className="relative pl-8 md:pl-12 space-y-16">
+          {/* Static Background Path */}
+          <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-cyan-900/30" />
+          
+          {/* Glowing Animated Path */}
+          <motion.div 
+            style={{ height: lineHeight }} 
+            className="absolute left-[0px] -translate-x-[0.5px] top-0 w-[2px] bg-cyan-400 shadow-[0_0_10px_#22d3ee] origin-top" 
+          />
+
+          {/* Animated Airplane */}
+          <motion.div 
+            style={{ top: planeY }} 
+            className="absolute left-[-11px] w-6 h-6 bg-[#0B1121] flex items-center justify-center z-10 -translate-y-1/2 rounded-full border border-cyan-900/50"
+          >
+            <Plane className="w-3.5 h-3.5 text-cyan-400 rotate-180" />
+          </motion.div>
+
           {experienceData.map((exp, index) => (
             <motion.div
               key={index}
@@ -55,11 +83,11 @@ export default function Experience() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
-              className="relative"
+              className="relative z-0"
             >
-              {/* Timeline Dot */}
-              <div className="absolute -left-[37px] md:-left-[53px] top-1 w-3 h-3 bg-cyan-500 rounded-full shadow-[0_0_10px_rgba(6,182,212,0.5)]" />
-              <div className="absolute -left-[45px] md:-left-[61px] top-[1px] w-7 h-7 border border-cyan-500/30 rounded-full" />
+              {/* Timeline Dot (Pulse effect) */}
+              <div className="absolute -left-[37px] md:-left-[53px] top-1 w-3 h-3 bg-cyan-900 rounded-full" />
+              <div className="absolute -left-[45px] md:-left-[61px] top-[1px] w-7 h-7 border border-cyan-900/50 rounded-full" />
               
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
                 <div>
