@@ -1,6 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
+import { GoogleGenAI } from '@google/genai';
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import fs from 'fs';
@@ -121,6 +122,36 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           </div>
         `;
 
+        let visitorBodyText = "Your transmission has successfully reached Abbas.<br/><br/>I'll review your inquiry and get back to you as soon as possible.";
+        
+        if (process.env.GEMINI_API_KEY) {
+          try {
+            const ai = new GoogleGenAI({
+              apiKey: process.env.GEMINI_API_KEY,
+              httpOptions: { headers: { 'User-Agent': 'aistudio-build' } }
+            });
+            
+            const prompt = `You are an AI assistant helping to draft an auto-reply for Abbas Dawood. 
+A visitor named "${safeName}" submitted an inquiry via the portfolio contact form. 
+Purpose: ${cleanPurpose}
+Message: ${safeMessage}
+
+Generate a short, warm, and professional confirmation email body acknowledging their specific purpose and message. Mention that Abbas has received the message and will get back to them soon.
+Keep it under 3-4 sentences. Do NOT include greetings (like "Hi Name") or sign-offs (like "Best regards") - just generate the core message paragraph. Do not use placeholders.`;
+
+            const response = await ai.models.generateContent({
+              model: "gemini-3.8-flash",
+              contents: prompt,
+            });
+            
+            if (response.text) {
+              visitorBodyText = response.text.trim().replace(/\n/g, '<br/>');
+            }
+          } catch (e) {
+            console.error("Gemini text generation failed, falling back to static text.", e);
+          }
+        }
+
         const visitorHtml = `
           <div style="background-color: #020617; color: #cbd5e1; font-family: 'Courier New', Courier, monospace; padding: 40px;">
             <div style="max-w-2xl mx-auto border: 1px solid #06b6d4; padding: 30px;">
@@ -128,7 +159,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
               <hr style="border: 0; border-bottom: 1px solid #0f172a; margin: 20px 0;" />
               
               <p style="font-family: sans-serif; font-size: 16px;">Hello ${safeName},</p>
-              <p style="font-family: sans-serif; font-size: 16px;">Your transmission has successfully reached Abbas.</p>
+              <p style="font-family: sans-serif; font-size: 16px;">${visitorBodyText}</p>
               
               <div style="background-color: #0f172a; padding: 15px; margin: 20px 0; border-left: 2px solid #38bdf8;">
                 <p style="margin: 0; font-size: 12px; color: #64748b; margin-bottom: 8px;">MESSAGE RECEIVED:</p>

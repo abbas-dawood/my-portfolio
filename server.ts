@@ -6,6 +6,7 @@ import crypto from "crypto";
 import dotenv from "dotenv";
 import { spawn } from "child_process";
 import fs from "fs";
+import { GoogleGenAI } from "@google/genai";
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, doc, setDoc, serverTimestamp } from "firebase/firestore";
 
@@ -94,15 +95,35 @@ app.post("/api/contact", async (req, res) => {
       </div>
     `;
 
-    // Personalized auto-reply text
-    let personalizedLine = "Thanks for reaching out through my portfolio.";
-    if (purpose === "Collaboration") personalizedLine = "Thanks for reaching out regarding a potential collaboration.";
-    else if (purpose === "Business Inquiry") personalizedLine = "Thanks for getting in touch regarding a business inquiry.";
-    else if (purpose === "MUN / Diplomacy") personalizedLine = "Thanks for reaching out regarding MUN and diplomacy.";
-    else if (purpose === "Speaking / Event") personalizedLine = "Thanks for your interest in connecting regarding a speaking or event opportunity.";
-    else if (purpose === "Technical Inquiry") personalizedLine = "Thanks for reaching out regarding your technical inquiry.";
-    else if (purpose === "Project Inquiry") personalizedLine = "Thanks for reaching out regarding your project inquiry.";
-    else if (purpose === "Internship / Opportunity") personalizedLine = "Thanks for getting in touch regarding an opportunity.";
+    let visitorBodyText = "Thanks for reaching out through my portfolio.<br/><br/>Your message has been successfully received.<br/>I will review your inquiry and respond through the email address you provided.";
+    
+    if (process.env.GEMINI_API_KEY) {
+      try {
+        const ai = new GoogleGenAI({
+          apiKey: process.env.GEMINI_API_KEY,
+          httpOptions: { headers: { 'User-Agent': 'aistudio-build' } }
+        });
+        
+        const prompt = `You are an AI assistant helping to draft an auto-reply for Abbas Dawood. 
+A visitor named "${safeName}" submitted an inquiry via the portfolio contact form. 
+Purpose: ${safePurpose}
+Message: ${safeMessage}
+
+Generate a short, warm, and professional confirmation email body acknowledging their specific purpose and message. Mention that Abbas has received the message and will get back to them soon.
+Keep it under 3-4 sentences. Do NOT include greetings (like "Hi Name") or sign-offs (like "Best regards") - just generate the core message paragraph. Do not use placeholders.`;
+
+        const response = await ai.models.generateContent({
+          model: "gemini-3.8-flash",
+          contents: prompt,
+        });
+        
+        if (response.text) {
+          visitorBodyText = response.text.trim().replace(/\n/g, '<br/>');
+        }
+      } catch (e) {
+        console.error("Gemini text generation failed, falling back to static text.", e);
+      }
+    }
 
     const visitorHtml = `
       <div style="background-color: #020617; color: #cbd5e1; font-family: 'Courier New', Courier, monospace; padding: 40px;">
@@ -111,9 +132,7 @@ app.post("/api/contact", async (req, res) => {
           <hr style="border: 0; border-bottom: 1px solid #0f172a; margin: 20px 0;" />
           
           <p style="font-family: sans-serif; font-size: 16px;">Hi ${safeName},</p>
-          <p style="font-family: sans-serif; font-size: 16px;">${personalizedLine}</p>
-          <p style="font-family: sans-serif; font-size: 16px;">Your message has been successfully received.</p>
-          <p style="font-family: sans-serif; font-size: 16px;">I will review your inquiry and respond through the email address you provided.</p>
+          <p style="font-family: sans-serif; font-size: 16px;">${visitorBodyText}</p>
           
           <table style="width: 100%; border-collapse: collapse; margin-top: 30px;">
             <tr>
