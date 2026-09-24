@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "description": "",
+  "name": "Abbas Dawood Portfolio",
+  "description": "Portfolio of Abbas Dawood - Aspiring Commercial Pilot, Student Leader & Diplomacy Enthusiast.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Shield, Flag, LayoutDashboard, Share2 } from 'lucide-react';
+import { Shield, LayoutDashboard, Share2 } from 'lucide-react';
 
 const leadershipData = [
   {
@@ -9,15 +9,6 @@ const leadershipData = [
     committee: "Education Ministry of India (Senior)",
     date: "August 2026",
     icon: <Shield className="w-5 h-5" />
-  },
-  {
-    role: "Organizer",
-    event: "IDC MUN 2026 — Chapter 1",
-    organization: "Core Organizing Committee",
-    committee: "Core Organizing Committee",
-    mission: "Organised and coordinated Chapter 1 of IDC MUN in Jaipur.",
-    date: "2026",
-    icon: <Flag className="w-5 h-5" />
   },
   {
     role: "OC Member",

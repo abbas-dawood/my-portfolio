@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Globe, Filter, Mic2, Shield, Calendar, Users, Flag, Play, FileText, Monitor } from 'lucide-react';
+import { Globe, Filter, Mic2, Shield, Calendar, Users, Play, FileText, Monitor } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { playClickSound, playHoverSound } from '../utils/sound';
 
@@ -13,15 +13,6 @@ const munData = [
     committee: "Education Ministry of India (Senior)",
     category: "EXECUTIVE BOARD",
     icon: <Shield className="w-5 h-5" />
-  },
-  {
-    id: 'idc26',
-    role: "Organizer",
-    event: "IDC MUN 2026 — Chapter 1",
-    mission: "Organised and coordinated Chapter 1 of IDC MUN in Jaipur.",
-    committee: "Core Organizing Committee",
-    category: "ORGANIZER",
-    icon: <Flag className="w-5 h-5" />
   },
   {
     id: 'sangam26',
@@ -118,13 +109,13 @@ const munData = [
     role: "Speaker",
     event: "Debate & Parliamentary",
     mission: "Extensive involvement in school debates and structured parliamentary formats.",
-    committee: "Tark Vitrak, IDC, Baithke, Charchaaar",
+    committee: "Tark Vitrak, Baithke, Charchaaar",
     category: "PARTICIPANT",
     icon: <Mic2 className="w-5 h-5" />
   }
 ];
 
-const filters = ["ALL", "EXECUTIVE BOARD", "ORGANIZER", "OC", "PARTICIPANT", "ONLINE"];
+const filters = ["ALL", "EXECUTIVE BOARD", "OC", "PARTICIPANT", "ONLINE"];
 
 export default function MunDiplomacy() {
   const [activeFilter, setActiveFilter] = useState("ALL");
